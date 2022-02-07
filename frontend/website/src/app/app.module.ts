@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { FaqComponent } from './faq/faq.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { CameraComponent } from './camera/camera.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     NavigationBarComponent,
     HomeComponent,
     FaqComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    CameraComponent
   ],
   imports: [
     BrowserModule,
