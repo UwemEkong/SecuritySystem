@@ -12,6 +12,7 @@ import { FaqComponent } from './faq/faq.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./services/http-interceptor.service";
+import { CameraComponent } from './camera/camera.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {HttpErrorInterceptor} from "./services/http-interceptor.service";
     NavigationBarComponent,
     HomeComponent,
     FaqComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    CameraComponent
   ],
   imports: [
     BrowserModule,
