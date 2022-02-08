@@ -10,14 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { CameraComponent } from './components/camera/camera.component';
-import { HttpClientModule } from '@angular/common/http';
+
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./services/http-interceptor.service";
-import { CameraComponent } from './camera/camera.component';
+import { CameraComponent} from "./components/camera/camera.component";
 
 
 @NgModule({
