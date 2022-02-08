@@ -17,18 +17,18 @@ USE `BigBroSecurity` ;
 -- -----------------------------------------------------
 -- Table `BigBroSecurity`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`User` (
-  `userID` INT NOT NULL,
-  `userName` VARCHAR(45) NOT NULL,
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`user` (
+  `id` INT NOT NULL auto_increment,
+  `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `phoneNumber` VARCHAR(45) NOT NULL,
-  `firstName` VARCHAR(45) NOT NULL,
-  `lastName` VARCHAR(45) NOT NULL,
-  `role` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`userID`),
-  UNIQUE INDEX `userID_UNIQUE` (`userID` ASC) VISIBLE,
-  UNIQUE INDEX `userName_UNIQUE` (`userName` ASC) VISIBLE,
-  UNIQUE INDEX `phoneNumber_UNIQUE` (`phoneNumber` ASC) VISIBLE)
+  `email` VARCHAR(45) NULL,
+  `firstname` VARCHAR(45) NULL,
+  `lastname` VARCHAR(45) NULL,
+  `Type` VARCHAR(45) NOT NULL DEFAULT 'user',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 

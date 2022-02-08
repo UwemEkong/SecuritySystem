@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
-import {FaqComponent} from "./faq/faq.component";
-import {AboutUsComponent} from "./about-us/about-us.component";
-import {CameraComponent} from "./camera/camera.component";
+import { HomeComponent } from './components/home/home.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { CameraComponent } from './components/camera/camera.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
 
@@ -11,6 +13,8 @@ const routes: Routes = [
   {path: 'camera', component: CameraComponent},
   {path: 'faq', component: FaqComponent},
   {path: 'about-us', component: AboutUsComponent},
+  {path: 'login', component:  LoginComponent},
+  {path:'register', component: RegisterComponent},
   {path: '**', component: HomeComponent},
 
 ];
