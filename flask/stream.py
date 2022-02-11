@@ -13,17 +13,17 @@ def gen_frames():
         success, frame = camera.read()
         if success:
        
-            font = cv2.FONT_HERSHEY_PLAIN
+            font = cv2.FONT_HERSHEY_DUPLEX
  
             #date and time as variable
             dt = str(datetime.datetime.now())
- 
+            color = (0, 0, 0)
         
             #lay date and time video frame
             frame = cv2.putText(frame, dt,
                             (10, 100),
                             font, 1,
-                            (210, 155, 155),
+                            color,
                             4, cv2.LINE_8)
         if not success:
             break
