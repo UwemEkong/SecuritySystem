@@ -16,6 +16,10 @@ export class CameraComponent implements OnInit {
     // this.setupCamera();
   }
 
+  saveImageToCloud(){
+
+  }
+
   setupCamera(){
     //navigator.mediaDevices.getUserMedia({
       //video:{width:500, height:500},
