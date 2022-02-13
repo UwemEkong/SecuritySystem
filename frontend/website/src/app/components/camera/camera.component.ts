@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-camera',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CameraComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   videoRef:any;
   ngOnInit(): void {
@@ -17,7 +18,7 @@ export class CameraComponent implements OnInit {
   }
 
   saveImageToCloud(){
-
+    this.http.get(`http://127.0.0.1:5000/save_snap_to_cloud`);
   }
 
   setupCamera(){

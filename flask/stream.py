@@ -80,7 +80,7 @@ def index():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/save_snap_to_cloud')
+@app.route('/save_snap_to_cloud', methods=['GET'])
 def save_snap_to_cloud():
     if camera.isOpened():
         success, frame = camera.read()
