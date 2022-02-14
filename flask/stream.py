@@ -87,7 +87,7 @@ def save_snap_to_cloud():
         if success:
 
             frame = apply_timestamp(frame)
-
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
             PIL_image.name = "theimg"
 
@@ -95,6 +95,19 @@ def save_snap_to_cloud():
 
             print(uploaded)
 
+    return '', 200
+
+@app.route('/save_snap_to_pc', methods=['GET'])
+def save_snap_to_pc():
+    if camera.isOpened():
+        success, frame = camera.read()
+        if success:
+
+            frame = apply_timestamp(frame)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
+            PIL_image.name = "theimg"
+            PIL_image.save("snapshot.png")
     return '', 200
 
 

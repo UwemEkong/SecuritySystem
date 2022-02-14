@@ -21,6 +21,13 @@ export class CameraComponent implements OnInit {
     this.http.get(`http://127.0.0.1:5000/save_snap_to_cloud`);
   }
 
+  saveImage() {
+    console.log("hello")
+    this.http.get(`http://127.0.0.1:5000/save_snap_to_pc`).subscribe((data: any) =>  {
+      console.log(data)
+  });
+  }
+
   setupCamera(){
     //navigator.mediaDevices.getUserMedia({
       //video:{width:500, height:500},
