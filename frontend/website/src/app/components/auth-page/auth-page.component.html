@@ -1,0 +1,6 @@
+<div class="container-fluid auth-background">
+    <div class="container auth-container">
+        <app-login *ngIf="showLoginComponent" (registerEmitter)="showSignUp($event)"></app-login>
+        <app-register *ngIf="showRegisterComponent" (loginEmitter)="showLogin($event)"></app-register>
+    </div>
+</div>

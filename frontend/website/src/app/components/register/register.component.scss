@@ -1,135 +1,94 @@
-chicago {
-    position: absolute;
-    width: 1440px;
-    height: 414.72px;
-    left: 0px;
-    top: 609px;
-  }
-  
-  baseball {
-    vertical-align: middle;
-    floatLeft { float: left; }
-  }
-  
-  flag {
-    vertical-align: middle;
-  }
-  
-  cubs {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    left: 571px;
-    top: 138px;
-    display:flex;
-  }
-  
-  h2 {
-    vertical-align: middle;
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 48px;
-    line-height: 56px;
-    color: #EC0000;
-  }
-  
-  h3 {
-    text-align: center;
-    display: inline-block;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 48px;
-    line-height: 56px;
-    color: #003764;
-  }
-  
-  h4 {
-    position: absolute;
-    left: 3.35%;
-    right: 3.35%;
-    top: 14.04%;
-    bottom: 12.28%;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 37.0706px;
-    line-height: 43px;
-    color: #FFFFFF;
-  }
-  
-  
-  
-  bears {
-    vertical-align: middle;
-  }
-  
-  
-  
-  
-  
-  .center {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  
-  
-  .register-lbl {
-    text-align:left;
-  }
-  
-  .register-btn {
-    width:50%;
-    margin-bottom:10%;
-    background-color: #1877F2;
-    color:white;
-    font-family: "Helvetica", sans-serif;
-    font-size:20px;
-    font-weight:bold;
-    border: none;
-    border-radius:5px;
-    height:50px;
-  }
-  
-  .login-btn {
-    width:25%;
-    background-color: #42B72A;
-    color:white;
-    font-family: "Helvetica", sans-serif;
-    font-size:20px;
-    font-weight:bold;
-    border: none;
-    border-radius:5px;
-    height:50px;
-    margin-left: 37.5%;
-  }
-  
-  form {
-    margin-left: 25%;
-    width: 50%;
-    text-align: center;
-    display: block;
-  }
-  
-  
-  .footer-img {
-    height:50%;
-    text-align:center;
-  }
-  
-  .chicago {
-    left: 0px;
-    bottom: 0;
-  }
-  
-  .footer-img img {
-    width:100%;;
-    height:auto;
-  }
+.register-lbl {
+  text-align:left;
+}
 
-  .form-cont {
-      text-align: center;
+.register-btn {
+  width:100%;
+  margin-bottom:10%;
+  background-color: #1877F2;
+  color:white;
+  font-family: "Helvetica", sans-serif;
+  font-size:20px;
+  font-weight:bold;
+  border: none;
+  border-radius:5px;
+  height:50px;
+}
+
+.login-btn {
+  width:80%;
+  background-color: #42B72A;
+  color:white;
+  font-family: "Helvetica", sans-serif;
+  font-size:20px;
+  font-weight:bold;
+  border: none;
+  border-radius:5px;
+  height:50px;
+}
+
+//700px
+@media (min-width: 43.75em) {
+  .register-btn {
+      width:100%;
+      margin-bottom:12%;
+      margin-top:2%;
+      background-color: #1877F2;
+      color:white;
+      font-family: "Helvetica", sans-serif;
+      font-size:20px;
+      font-weight:bold;
+      border: none;
+      border-radius:5px;
+      height:50px;
   }
+}
+
+/* 992px */
+@media (min-width: 62em) {
+  .register-btn {
+      width:100%;
+      margin-bottom:10%;
+      margin-top:10%;
+      background-color: #1877F2;
+      color:white;
+      font-family: "Helvetica", sans-serif;
+      font-size:20px;
+      font-weight:bold;
+      border: none;
+      border-radius:5px;
+      height:50px;
+  }
+  
+}
+
+  /* 1392px */
+  @media (min-width: 87em) {
+      .register-btn {
+          width:100%;
+          background-color: #1877F2;
+          color:white;
+          font-family: "Helvetica", sans-serif;
+          font-size:20px;
+          font-weight:bold;
+          border: none;
+          border-radius:5px;
+          height:3rem;
+          margin-top:8%;
+          margin-bottom:5%;
+      } 
+
+      
+      .login-btn {
+          width:80%;
+          background-color: #42B72A;
+          color:white;
+          font-family: "Helvetica", sans-serif;
+          font-size:20px;
+          font-weight:bold;
+          border: none;
+          border-radius:5px;
+          height:2rem;
+      }
+    }
+

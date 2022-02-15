@@ -1,0 +1,90 @@
+.auth-container {
+    border: solid white;
+    height:45%;
+    width:60%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius:10px;
+    background-color:white;
+    text-align:center;
+}
+
+.auth-background{
+    background-color: #f0f2f5;
+    height:100%;
+    padding-top:20%;
+}
+
+img {
+    width:30%;
+    margin-left:35%;
+    margin-right:35%;
+    margin-bottom:20px;
+    height:auto;
+}
+
+//700px
+@media (min-width: 43.75em) {
+    .auth-container {
+        height:70%;
+        width:60%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius:10px;
+        background-color:white;
+        text-align:center;
+    }
+
+    .auth-background{
+        background-color: #f0f2f5;
+        height:100%;
+        padding-top:20%;
+    }
+  }
+  
+  /* 992px */
+  @media (min-width: 62em) {
+    .auth-container {
+        height:80%;
+        width:40%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius:10px;
+        background-color:white;
+        text-align:center;
+    }
+
+    .auth-background{
+        background-color: #f0f2f5;
+        height:100%;
+        padding-top:10%;
+    }
+  }
+  
+  /* 1392px */
+  @media (min-width: 87em) {
+    .auth-container {
+        height:60%;
+        width:30%;
+        margin-left:auto;
+        margin-right: auto;
+        border-radius:10px;
+        background-color:white;
+        text-align:center;
+    }
+
+    .auth-background{
+        background-color: #f0f2f5;
+        height:100%;
+        padding-top:10%;
+    }
+
+    img {
+        width:20%;
+        margin-left:40%;
+        margin-right:40%;
+        margin-bottom:20px;
+        height:auto;
+    }
+ 
+  }

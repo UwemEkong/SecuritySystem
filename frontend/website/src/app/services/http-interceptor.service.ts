@@ -2,7 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+
+@Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+
+  constructor(public authService: AuthService) {
+
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
@@ -15,6 +23,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           else {
             console.log('Server side error');
             errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
+            this.authService.error = error.error
           }
           console.log(errorMsg);
           return throwError(errorMsg);
