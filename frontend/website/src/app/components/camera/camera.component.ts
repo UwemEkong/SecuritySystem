@@ -18,7 +18,10 @@ export class CameraComponent implements OnInit {
   }
 
   saveImageToCloud(){
-    this.http.get(`http://127.0.0.1:5000/save_snap_to_cloud`);
+    console.log("hi")
+    this.http.get(`http://127.0.0.1:5000/save_snap_to_cloud`).subscribe((data:any) => {
+      console.log(data);
+    });
   }
 
   saveImage() {

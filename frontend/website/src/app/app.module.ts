@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./services/http-interceptor.service";
 import { CameraComponent} from "./components/camera/camera.component";
+import { RecordsComponent } from './components/records/records.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CameraComponent} from "./components/camera/camera.component";
     AboutUsComponent,
     CameraComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RecordsComponent
   ],
   imports: [
     FormsModule,

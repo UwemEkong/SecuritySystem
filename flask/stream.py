@@ -1,6 +1,6 @@
 #https://towardsdatascience.com/video-streaming-in-web-browsers-with-opencv-flask-93a38846fe00
 #Import necessary libraries
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, send_file
 import cv2
 import datetime
 import boto3
@@ -24,7 +24,7 @@ def upload_to_aws(pil_image, bucket, s3_file_name):
 
     try:
         # Upload image to s3
-        s3.upload_fileobj(in_mem_file, 'mainmediabucket', s3_file_name)
+        s3.upload_fileobj(in_mem_file, 'mainmediabucket', s3_file_name, ExtraArgs={'ContentType': "image/jpeg"})
         print("Upload Successful")
         return True
     except FileNotFoundError:
@@ -91,11 +91,14 @@ def save_snap_to_cloud():
             PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
             PIL_image.name = "theimg"
 
-            uploaded = upload_to_aws(PIL_image, 'mainmediabucket', str('image_1' + time.ctime()))
+            timetaken = time.ctime().replace(r':','_')
+            namekey = str('image_1' + timetaken)
+
+            uploaded = upload_to_aws(PIL_image, 'mainmediabucket', namekey)
 
             print(uploaded)
 
-    return '', 200
+    return namekey, 200
 
 @app.route('/save_snap_to_pc', methods=['GET'])
 def save_snap_to_pc():
@@ -107,7 +110,10 @@ def save_snap_to_pc():
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
             PIL_image.name = "theimg"
-            PIL_image.save("snapshot.png")
+            
+            timetaken = time.ctime().replace(r':','_')
+            #print(timetaken)
+            PIL_image.save("snapshot_" + timetaken + ".png")
     return '', 200
 
 
