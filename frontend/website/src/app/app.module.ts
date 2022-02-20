@@ -18,7 +18,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./services/http-interceptor.service";
 import { CameraComponent} from "./components/camera/camera.component";
 import { RecordsComponent } from './components/records/records.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthPageComponent } from './components/auth-page/auth-page.component';
@@ -33,8 +32,7 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
     CameraComponent,
     LoginComponent,
     RegisterComponent,
-    RecordsComponent
-    ProfileComponent,
+    RecordsComponent,
     PasswordResetComponent,
     ChangePasswordComponent,
     AuthPageComponent
@@ -51,7 +49,7 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
- 
+
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
