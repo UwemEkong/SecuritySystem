@@ -1,129 +1,108 @@
-.baseball {
-    vertical-align: middle;
-    floatLeft { float: left; }
+.login-input {
+  margin-top:2%;
+}
+
+.error-msg {
+  color:red;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.login-btn {
+  width:100%;
+  margin-bottom:10%;
+  background-color: #1877F2;
+  color:white;
+  font-family: "Helvetica", sans-serif;
+  font-size:20px;
+  font-weight:bold;
+  border: none;
+  border-radius:5px;
+  height:50px;
+}
+
+.register-btn {
+  width:80%;
+  background-color: #42B72A;
+  color:white;
+  font-family: "Helvetica", sans-serif;
+  font-size:20px;
+  font-weight:bold;
+  border: none;
+  border-radius:5px;
+  height:50px;
+}
+
+//700px
+@media (min-width: 43.75em) {
+  .login-btn {
+      width:100%;
+      margin-bottom:12%;
+      margin-top:2%;
+      background-color: #1877F2;
+      color:white;
+      font-family: "Helvetica", sans-serif;
+      font-size:20px;
+      font-weight:bold;
+      border: none;
+      border-radius:5px;
+      height:50px;
+  }
+}
+
+/* 992px */
+@media (min-width: 62em) {
+  .login-input {
+      margin-top:5%;
+  }
+
+  .login-btn {
+      width:100%;
+      margin-bottom:10%;
+      margin-top:10%;
+      background-color: #1877F2;
+      color:white;
+      font-family: "Helvetica", sans-serif;
+      font-size:20px;
+      font-weight:bold;
+      border: none;
+      border-radius:5px;
+      height:50px;
   }
   
-  .flag {
-    vertical-align: middle;
-  }
+}
+
+  /* 1392px */
+  @media (min-width: 87em) {
+      .login-input {
+          margin-top:5%;
+      }
   
-  .cubs {
-    vertical-align: middle;
-  }
-  
-  h2 {
-    vertical-align: middle;
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 48px;
-    line-height: 56px;
-    color: #EC0000;
-  }
-  
-  h3 {
-    text-align: center;
-    display: inline-block;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 48px;
-    line-height: 56px;
-    color: #003764;
-  }
-  
-  h4 {
-    position: absolute;
-    left: 3.35%;
-    right: 3.35%;
-    top: 14.04%;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 37.0706px;
-    line-height: 43px;
-    color: #FFFFFF;
-  }
-  
-  .createaccount {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-    background: #003764;
-    border-radius: 20.5948px;
-  }
-  
-  body {
-    text-align: center;
-  }
-  
-  form {
-    display: inline-block;
-  }
-  
-  .center {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  button {
-    background-color: orangered;
-    border: none;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 1rem;
-    line-height: 16px;
-    cursor: pointer;
-    border-radius: 20px;
-  }
-  
-  .button3 {border-radius: 8px;}
-  
-  .chicago {
-    left: 0px;
-    bottom: 0;
-  }
-  
-  
-  
-  .footer-img img {
-    width:100%;;
-    height:auto;
-  
-  }
-  
-  .header-cont {
-    height:20%;
-  
-  }
-  
-  .login-cont {
-    text-align:center;
-    height:30%;
-  }
-  
-  .footer-img {
-  
-    height:50%;
-    text-align:center;
-  }
-  
-  .login-cont {
-  
-    position:relative;
-  }
-  
-  .wrapper {
-   text-align: center;
-  }
-  
-  .button {
-    background-color: #62A3E5;
-  }
+      .login-btn {
+          width:100%;
+          margin-top:5%;
+          background-color: #1877F2;
+          color:white;
+          font-family: "Helvetica", sans-serif;
+          font-size:20px;
+          font-weight:bold;
+          border: none;
+          border-radius:5px;
+          height:50px;
+      } 
+
+      
+      .register-btn {
+          width:80%;
+          background-color: #42B72A;
+          color:white;
+          font-family: "Helvetica", sans-serif;
+          font-size:20px;
+          font-weight:bold;
+          border: none;
+          border-radius:5px;
+          height:50px;
+          margin-top:2%;
+      }
+    }
+

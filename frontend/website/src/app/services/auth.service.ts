@@ -30,6 +30,7 @@ export class AuthService {
         this.router.navigateByUrl('/home');
       } else {
         this.authenticated = false;
+        console.log("User data " + JSON.stringify(data))
       }
     })
   }
