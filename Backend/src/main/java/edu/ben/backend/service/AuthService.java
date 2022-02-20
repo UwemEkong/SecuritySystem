@@ -14,6 +14,7 @@ public class AuthService {
 
     UserRepository userRepository;
     userDTO loggedInUser;
+    userDTO resetUser;
 
     public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -71,9 +72,26 @@ public class AuthService {
     }
 
     public void editUser(userDTO userDTO) {
-        user user = userRepository.findByUsername(userDTO.getUsername());
-        user edited = new user(userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getFirstname(), userDTO.getLastname());
-        loggedInUser = new userDTO(edited.getId(), edited.getUsername(), edited.getPassword(), edited.getEmail(), edited.getFirstname(), edited.getLastname());
-        userRepository.save(edited);
+        user User = userRepository.findByUsername(userDTO.getUsername());
+        System.out.println(User);
+        User.setPassword(userDTO.getPassword());
+        System.out.println(User);
+        userRepository.save(User);
     }
+
+    public userDTO passWordReset(String username, Long userId) {
+        user user = userRepository.findByUsername(username);
+        System.out.println(user);
+        if (user == null) {
+            throw new UserNotFoundException();
+        } else if (!user.getId().equals(userId)) {
+            throw new IncorrectPasswordException();
+        } else {
+            resetUser = new userDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getReset_token());
+            System.out.println("Get reset = " + resetUser);
+            return new userDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getReset_token());
+        }
+    }
+
+
 }

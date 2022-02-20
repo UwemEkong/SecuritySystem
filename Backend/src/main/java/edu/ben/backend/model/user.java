@@ -27,6 +27,18 @@ public class user {
     String firstname;
     @Column(name = "lastname")
     String lastname;
+   @Column(name = "reset_token")
+    String reset_token;
+
+    public user(String username, String password, String email, String firstname, String lastname, String resetToken) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.reset_token = resetToken;
+    }
+
 
     public user(String username, String password, String email, String firstname, String lastname) {
         this.username = username;
@@ -34,5 +46,15 @@ public class user {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public user(String username, String resetToken) {
+        this.username = username;
+        this.reset_token = resetToken;
+    }
+
+
+    public user(String password) {
+        this.password = password;
     }
 }

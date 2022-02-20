@@ -7,6 +7,11 @@ import { CameraComponent } from './components/camera/camera.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {RecordsComponent} from "./components/records/records.component";
+import { ProfileComponent } from "./components/profile/profile.component";
+import {PasswordResetComponent} from "./components/password-reset/password-reset.component";
+import {ChangePasswordComponent} from "./components/change-password/change-password.component";
+import { AuthPageComponent } from './components/auth-page/auth-page.component';
+
 
 const routes: Routes = [
 
@@ -17,7 +22,12 @@ const routes: Routes = [
   {path: 'login', component:  LoginComponent},
   {path:'register', component: RegisterComponent},
   {path:'records', component: RecordsComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path:'password-reset', component: PasswordResetComponent},
+  {path:'change-password', component: ChangePasswordComponent},
+  {path: 'auth', component: AuthPageComponent},
   {path: '**', component: HomeComponent},
+
 
 ];
 

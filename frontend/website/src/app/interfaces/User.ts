@@ -3,6 +3,7 @@ export interface User {
     lastname?:string;
     email?:string;
     id?: number;
-    username:string;
-    password:string; 
+    username?:string;
+    password?:string;
+    resetToken?:string;
 }

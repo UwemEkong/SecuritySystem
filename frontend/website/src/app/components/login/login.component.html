@@ -1,11 +1,11 @@
-<div class="container-fliud login-cont">
-    <form  #userData="ngForm" (ngSubmit)="login(userData)" novalidate>
-      <div class="form-group">
-        <input class="form-control login-input" name="username" id="username" ngModel=""><br>
-      </div>
-      <div class="form-group">
-        <input class="form-control login-input" type="password"  name="password" id="password" ngModel=""><br>
-      </div>
-      <button class="login-btn">Log In</button>
-    </form>
+<form #userData="ngForm" (ngSubmit)="login(userData)" novalidate>
+  <div class="form-group">
+  <input (click)="clearUsername()" class="form-control login-input" name="username" value="username" id="username" ngModel="{{usernamePlaceholder}}"><br>
   </div>
+  <div class="form-group">
+  <input (click)="clearPassword()" class="form-control login-input" type="password" name="password" value="password" id="password" ngModel="{{passwordPlaceholder}}"><br>
+  </div>
+  <button class="login-btn">Log In</button>
+</form>
+<div class="error-msg" *ngIf="this.authServ.error">{{this.authServ.error}}</div>
+<button class="register-btn" (click)="showRegister()">Create New Account</button>
