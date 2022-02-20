@@ -42,7 +42,7 @@ public class MediaxDTO {
         this.url = url;
     }
 
-    public MediaxDTO(Mediax mx, String url){
+    public MediaxDTO(Mediax mx, String path){
         this.userid = mx.getUserid();
         this.islocal = mx.isIslocal();
         this.isvideo = mx.isIsvideo();
@@ -50,7 +50,7 @@ public class MediaxDTO {
         this.filename = mx.getFilename();
         this.location = mx.getLocation();
         this.timestamp = mx.getTimestamp();
-        this.url = url;
+        this.url = path;
     }
 
     public MediaxDTO(){}

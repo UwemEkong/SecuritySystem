@@ -6,5 +6,5 @@ export interface Mediax {
     filename:string;
     location:string;
     timestamp:string;
-    presignedurl?:string;
+    url?:string;
 }

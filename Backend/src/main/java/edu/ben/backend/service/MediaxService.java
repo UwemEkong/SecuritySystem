@@ -33,6 +33,7 @@ public class MediaxService {
                 //change mediaxDTOs url to generated presigned url
                 try {
                     path = GeneratePresignedURL.genPresignedURL("mainmediabucket", mx.getPathorkey());
+                    System.out.println("path");
                     System.out.println(path);
                 } catch (Exception e) {
                     System.out.println("shooooooooot, couldn't generate presigned url");
