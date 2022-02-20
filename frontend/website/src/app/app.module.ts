@@ -13,10 +13,14 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./services/http-interceptor.service";
 import { CameraComponent} from "./components/camera/camera.component";
+import { ProfileComponent } from './components/profile/profile.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+
 
 
 @NgModule({
@@ -28,19 +32,23 @@ import { CameraComponent} from "./components/camera/camera.component";
     AboutUsComponent,
     CameraComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent,
+    PasswordResetComponent,
+    ChangePasswordComponent,
   ],
-  imports: [
-    FormsModule,
-    HttpClientModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    HttpClientModule
-  ],
+    imports: [
+        FormsModule,
+        HttpClientModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        HttpClientModule,
+        ReactiveFormsModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

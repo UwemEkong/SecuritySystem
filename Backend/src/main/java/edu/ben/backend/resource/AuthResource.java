@@ -37,5 +37,11 @@ class AuthResource {
     public userDTO getLoggedInUser() {
         return this.authenticationService.getLoggedInUser();
     }
+
+    @GetMapping("/forgot-password/{username}/{userId}")
+    public userDTO getToken(@PathVariable String username, @PathVariable Long userId) {
+
+        return this.authenticationService.passWordReset(username, userId);
+    }
 }
 
