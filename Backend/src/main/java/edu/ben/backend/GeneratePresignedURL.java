@@ -3,6 +3,8 @@ package edu.ben.backend;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
@@ -21,10 +23,18 @@ public class GeneratePresignedURL {
         //String objectKey = "*** Object key ***";
 
         try {
+            // PROLLY NOT VERY SECURE BUT .... HERE IS HOW WE GIVE AWS THE CREDENTIALS
+            // MORE SECURE WAY here for reference: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html
+            String accesskey = "AKIA2X357CBVPHQAVH2E";
+            String secretkey = "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";
+            BasicAWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
+
             AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                    .withRegion(clientRegion)
-                    .withCredentials(new ProfileCredentialsProvider())
+                    .withRegion("us-east-1")
+                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
                     .build();
+
+            // ^^ also prolly shouldn't be using us-east-1 hardcoded, but it works so .... whatchu gon do
 
             // Set the presigned URL to expire after one hour.
             java.util.Date expiration = new java.util.Date();
