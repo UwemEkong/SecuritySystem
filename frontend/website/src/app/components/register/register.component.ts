@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   register(userData: any) {
-    this.authServ.register({firstname: userData.value.firstname, lastname: userData.value.lastname, email: userData.value.email, username: userData.value.username, password: userData.value.password});
+    this.authServ.register({firstname: userData.value.firstName, lastname: userData.value.lastName, email: userData.value.email, username: userData.value.username, password: userData.value.password});
   }
 
   @Output() loginEmitter = new EventEmitter<any>();

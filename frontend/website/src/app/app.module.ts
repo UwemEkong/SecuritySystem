@@ -22,6 +22,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthPageComponent } from './components/auth-page/auth-page.component';
+import { EnterTokenComponent } from './components/enter-token/enter-token.component';
 
 @NgModule({
   declarations: [
@@ -33,11 +34,12 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
     CameraComponent,
     LoginComponent,
     RegisterComponent,
-    RecordsComponent
+    RecordsComponent,
     ProfileComponent,
     PasswordResetComponent,
     ChangePasswordComponent,
-    AuthPageComponent
+    AuthPageComponent,
+    EnterTokenComponent
   ],
   imports: [
     FormsModule,
@@ -51,7 +53,7 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
- 
+
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
