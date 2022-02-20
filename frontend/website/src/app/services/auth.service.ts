@@ -19,7 +19,7 @@ export class AuthService {
     this.router.navigateByUrl('/');
   }
 
- 
+
   login(user:User) {
     this.httpClient.get<User>(`api/auth/login/${user.username}/${user.password}`).subscribe((data: User) => {
       console.log(data)
@@ -51,8 +51,26 @@ export class AuthService {
   }
 
   editUser(user:User) {
+    console.log('user info: ' + JSON.stringify(user));
     this.httpClient.post<User>('api/auth/edituser', user).subscribe(() => {
-        this.getLoggedInUser();
+    })
+    this.router.navigateByUrl('/login');
+  }
+
+  resetStep(user:User) {
+    this.httpClient.get<User>(`api/auth/forgot-password/${user.username}/${user.id}`).subscribe((data: User) => {
+      console.log(data)
+      if (data.username) {
+        this.authenticated = true;
+        console.log("User data " + JSON.stringify(data))
+        this.loggedInUser = data
+        this.router.navigateByUrl('/change-password');
+      } else {
+        this.authenticated = false;
+      }
     })
   }
+
+
+
 }
