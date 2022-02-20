@@ -3,8 +3,8 @@
       "target": "http://localhost:8080",
       "secure": false
     },
-    "/": {
-      "target": "http://127.0.0.1:5000/",
+    "/flsk": {
+      "target": "http://127.0.0.1:5000",
       "secure": false
     }
   }

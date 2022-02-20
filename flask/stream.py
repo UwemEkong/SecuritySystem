@@ -1,6 +1,6 @@
 #https://towardsdatascience.com/video-streaming-in-web-browsers-with-opencv-flask-93a38846fe00
 #Import necessary libraries
-from flask import Flask, render_template, Response, send_file
+from flask import Flask, render_template, Response, send_file, jsonify
 import cv2
 import datetime
 import boto3
@@ -80,7 +80,7 @@ def index():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/save_snap_to_cloud', methods=['GET'])
+@app.route('/flsk/save_snap_to_cloud', methods=['GET'])
 def save_snap_to_cloud():
     if camera.isOpened():
         success, frame = camera.read()
@@ -98,9 +98,15 @@ def save_snap_to_cloud():
 
             print(uploaded)
 
-    return namekey, 200
+            response = jsonify({'namekey': namekey})
+            response.headers.add('Access-Control-Allow-Origin', 'localhost')
+            print("response")
+            print(response)
+            return response
 
-@app.route('/save_snap_to_pc', methods=['GET'])
+    return "failed", 200
+
+@app.route('/flsk/save_snap_to_pc', methods=['GET'])
 def save_snap_to_pc():
     if camera.isOpened():
         success, frame = camera.read()

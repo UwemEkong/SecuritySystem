@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import { MediaxService } from 'src/app/services/mediax.service';
+import {Mediax} from "../../interfaces/Mediax"
+
 
 @Component({
   selector: 'app-camera',
@@ -8,7 +11,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class CameraComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(public mediaxServ: MediaxService, private http: HttpClient) { }
 
   videoRef:any;
   ngOnInit(): void {
@@ -18,15 +21,17 @@ export class CameraComponent implements OnInit {
   }
 
   saveImageToCloud(){
-    console.log("hi")
-    this.http.get(`http://127.0.0.1:5000/save_snap_to_cloud`).subscribe((data:any) => {
+    this.http.get(`http://localhost:4200/flsk/save_snap_to_cloud`).subscribe((data: any) =>  {
       console.log(data);
+      let namekey = data["namekey"];
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location: "near benu", timestamp:"rn"}
+      this.mediaxServ.createMediax(mx);
     });
   }
 
   saveImage() {
     console.log("hello")
-    this.http.get(`http://127.0.0.1:5000/save_snap_to_pc`).subscribe((data: any) =>  {
+    this.http.get(`http://localhost:4200/flsk/save_snap_to_pc`).subscribe((data: any) =>  {
       console.log(data)
   });
   }

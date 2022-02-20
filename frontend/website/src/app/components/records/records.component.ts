@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MediaxService} from "../../services/mediax.service";
+import {Mediax} from "../../interfaces/Mediax";
 
 @Component({
   selector: 'app-records',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecordsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public mediaxServ:MediaxService) { }
+
+  listOfMediax:Mediax[] = [];
 
   ngOnInit(): void {
+    this.mediaxServ.getAllMediax().subscribe((data) => {
+      console.log(data)
+      this.listOfMediax = data;
+      console.log(this.listOfMediax);
+    });
   }
+
+
 
 }
