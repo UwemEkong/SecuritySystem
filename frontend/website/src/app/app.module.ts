@@ -20,8 +20,7 @@ import { CameraComponent} from "./components/camera/camera.component";
 import { ProfileComponent } from './components/profile/profile.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-
-
+import { AuthPageComponent } from './components/auth-page/auth-page.component';
 
 @NgModule({
   declarations: [
@@ -36,19 +35,21 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     ProfileComponent,
     PasswordResetComponent,
     ChangePasswordComponent,
+    AuthPageComponent
   ],
-    imports: [
-        FormsModule,
-        HttpClientModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        HttpClientModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    FormsModule,
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    HttpClientModule,
+    ReactiveFormsModule
+  ],
+ 
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
