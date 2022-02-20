@@ -1,0 +1,13 @@
+<h2>Your recorded videos and images</h2>
+<table>
+  <tbody>
+  <tr>
+  <tr *ngFor="let mxdto of listOfMediax">
+    <td>
+      <p>{{mxdto.filename}}</p>
+      <img src="{{mxdto.url}}" height="200px;"/>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
