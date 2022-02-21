@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="column" id="left">
+    <div class= "row profile">
+      <div class="col profile">
+        <p><b>Name: </b> {{this.authServ.loggedInUser.firstname + ' ' +  this.authServ.loggedInUser.lastname}}</p>
+        <p><b>Username: </b>{{this.authServ.loggedInUser.username}}</p>
+        <p><b>Email: </b>{{this.authServ.loggedInUser.email}}</p>
+        <p><b>Motion detection recording: </b>{{this.prefServ.loggedInUserPrefs}}</p>
+      </div>
+    </div>
+
+    </div>
+  <div class="column" id="center">
+    <br><br>
+    <h1>Your primary camera feed</h1>
+    <p>
+      <!--  <video id="video" autoplay></video>-->
+      <img style="height:300px;" src="http://127.0.0.1:5000/video_feed" alt="Cannot connect to camera feed server! It is possible your internet is not working, or our servers are currently down. Big Brother Inc apologizes for the inconvenience."/>
+      <br/>
+      <button>Take Snapshot</button>
+      <button>Record</button>
+    </p>
+    <form #preferenceData='ngForm' (ngSubmit)="updatePrefs(preferenceData)" class="form-inline">
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Should we record after every motion detection?</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+        <option selected>Choose...</option>
+        <option value="1">Yes</option>
+        <option value="2">No</option>
+      </select>
+      <br>
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Do you want your recordings stored for more than 24 hours?</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref2">
+        <option selected>Choose...</option>
+        <option value="1">Yes</option>
+        <option value="2">No</option>
+      </select>
+      <button type="submit" class="btn btn-primary my-1">Update preference</button>
+    </form>
+  </div>
+  <div class="column" id="right"></div>
+</div>
+
+

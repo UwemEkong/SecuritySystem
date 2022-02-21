@@ -45,6 +45,4 @@ public class userDTO {
         this.lastname = lastname;
     }
 
-
-
 }

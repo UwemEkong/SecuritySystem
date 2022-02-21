@@ -5,6 +5,9 @@ import edu.ben.backend.service.AuthService;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+
 @RestController
 @RequestMapping(value = "api/auth", produces = "application/json")
 class AuthResource {
@@ -38,10 +41,16 @@ class AuthResource {
         return this.authenticationService.getLoggedInUser();
     }
 
-    @GetMapping("/forgot-password/{username}/{userId}")
-    public userDTO getToken(@PathVariable String username, @PathVariable Long userId) {
+    @GetMapping("/forgot-password/{username}/{resetToken}")
+    public userDTO getToken(@PathVariable String username, @PathVariable String resetToken) {
 
-        return this.authenticationService.passWordReset(username, userId);
+        return this.authenticationService.passWordReset(username, resetToken);
+    }
+
+    @GetMapping("/forgot-password/{email}")
+    public userDTO sendToken(@PathVariable String email) throws MessagingException, UnsupportedEncodingException {
+
+        return this.authenticationService.sendEmail(email);
     }
 }
 
