@@ -28,6 +28,7 @@ public class AuthService {
     userDTO loggedInUser;
     userDTO resetUser;
     userDTO userReset;
+    String tokenNew;
 
     public AuthService(UserRepository userRepository, UserService userService, EmailSenderServ emailSenderService, Environment env) {
         this.userRepository = userRepository;
@@ -116,18 +117,11 @@ public class AuthService {
 
         if (user == null) {
             throw new UserNotFoundException();
-        } else if (user.getReset_token() == null) {
-            //if for  any reason the user does not have a token...we generate one and save it
-            try {
-                String tokenNew = userService.generateToken();
-                user.setResetToken(tokenNew);
-                userRepository.save(user);
-                userReset = new userDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getReset_token());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else
-            userReset = new userDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getReset_token());
+             tokenNew = userService.generateToken();
+             user.setResetToken(tokenNew);
+             userRepository.save(user);
+             userReset = new userDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getReset_token());
             System.out.println("Get reset = " + resetUser);
             String account = env.getProperty("spring.mail.username");
             SimpleMailMessage mailMessage = new SimpleMailMessage();
