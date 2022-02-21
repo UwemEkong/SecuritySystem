@@ -58,7 +58,21 @@ export class AuthService {
   }
 
   resetStep(user:User) {
-    this.httpClient.get<User>(`api/auth/forgot-password/${user.username}/${user.id}`).subscribe((data: User) => {
+    this.httpClient.get<User>(`api/auth/forgot-password/${user.email}`).subscribe((data: User) => {
+      console.log(data)
+      if (data.username) {
+        this.authenticated = true;
+        console.log("User data " + JSON.stringify(data))
+        this.loggedInUser = data
+        this.router.navigateByUrl('/enter-token');
+      } else {
+        this.authenticated = false;
+      }
+    })
+  }
+
+  tokenStep(user:User) {
+    this.httpClient.get<User>(`api/auth/forgot-password/${user.username}/${user.resetToken}`).subscribe((data: User) => {
       console.log(data)
       if (data.username) {
         this.authenticated = true;

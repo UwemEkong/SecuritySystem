@@ -57,4 +57,12 @@ public class user {
     public user(String password) {
         this.password = password;
     }
+
+    public String setReset_token() {
+        return this.reset_token;
+    }
+
+    public void setResetToken(String tokenNew) {
+        this.reset_token = tokenNew;
+    }
 }

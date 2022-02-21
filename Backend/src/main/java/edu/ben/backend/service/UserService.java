@@ -37,7 +37,7 @@ public class UserService {
         return User.getReset_token();
     }
 
-    private String generateToken() {
+    public String generateToken() {
         StringBuilder token = new StringBuilder();
 
         return token.append(UUID.randomUUID().toString())

@@ -11,7 +11,7 @@ import { User} from "../../interfaces/User";
 export class ChangePasswordComponent implements OnInit {
 
   constructor(public authServ: AuthService, private router: Router) { }
-
+  passwordPlaceholder = "Enter new password"
   ngOnInit(): void {
 
   }
@@ -21,5 +21,7 @@ export class ChangePasswordComponent implements OnInit {
       console.log(this.authServ.loggedInUser.username);
      this.authServ.editUser({username: this.authServ.loggedInUser.username, password: userData.value.password});
   }
-
+  clearPasswordPlaceholder() {
+    this.passwordPlaceholder = "";
+  }
 }

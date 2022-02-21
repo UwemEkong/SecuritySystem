@@ -16,9 +16,8 @@ export class PasswordResetComponent implements OnInit {
   }
 
   reset(userData: any) {
-    console.log(userData.value.username);
-    console.log(userData.value.id);
-    this.authService.resetStep({username: userData.value.username, id: userData.value.id});
+    console.log(userData.value.email);
+    this.authService.resetStep({email: userData.value.email});
 
 
   }
