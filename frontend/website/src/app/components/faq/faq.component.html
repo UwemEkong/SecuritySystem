@@ -11,7 +11,8 @@
   2) How much are our services?
 </h3>
 <p>
-  We have multiple service options starting at $9.99/Month/Camera. With each additional camera, there is a 5% discount (Max 20%).
+  We have multiple service options starting at $9.99/Month/Camera. With each additional camera, there is a 5% discount
+  (Max 20%).
 </p>
 <br>
 
@@ -19,7 +20,8 @@
   3) Do we ever offer promotions?
 </h3>
 <p>
-  We never offer promotions in order to prevent new customer from thinking they will lose out if they do not wait. Our prices are fixed.
+  We never offer promotions in order to prevent new customer from thinking they will lose out if they do not wait. Our
+  prices are fixed.
 </p>
 <br>
 
@@ -115,19 +117,34 @@
   Images are stored for 30 days and video are stored for 24 hours.</p>
 <br>
 
-
-
 <br><br><br><br><br>
-<h2>Do you have any questions or comments?</h2>
 
-<form action="mailto:big-bro@yahoo.com" method="post" enctype="text/plain">
-  Name:<br>
-  <input type="text" name="name"><br>
-  E-mail:<br>
-  <input type="text" name="mail"><br>
-  Question:<br>
-  <input type="text" name="comment" size="50"><br><br>
-  <input type="submit" class="button" value="Send">
-  <input type="reset" class="button" value="Reset">
-</form>
+<div class="form-cont">
+  <form #feedbackData="ngForm" (ngSubmit)="create(feedbackData)" novalidate class="form">
+    <div class="col">
+      <div class="form-group">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-control" style="width: 400px; margin: 0 auto" name="name" id="name" ngModel required
+               #name="ngModel">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">E-Mail</label>
+        <input class="form-control" style="width: 400px; margin: 0 auto" name="email" id="email" ngModel required
+               #email="ngModel">
+      </div>
+    </div>
+    <div class="col">
+      <label class="form-label" for="question">Question</label>
+    </div>
+
+    <!--          <input class="form-control" style="width: 500px; margin: 0 auto; height: 300px" name="question" id="question" ngModel required #question="ngModel">-->
+    <div class="col">
+      <textarea class="longInput" cols="80" rows="10" name="question" id="question" ngModel required
+                #question="ngModel"></textarea>
+    </div>
+    <button class="button">Send</button>
+    <input type="reset" class="button" value="Reset">
+  </form>
+</div>
+
 <br><br><br><br><br>
