@@ -31,6 +31,29 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`user` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `BigBroSecurity`.`Feedback`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`feedback` (
+                                                           `id` INT NOT NULL auto_increment,
+                                                           `name` VARCHAR(45) NULL,
+                                                           `email` VARCHAR(45) NULL,
+                                                           `question` VARCHAR(250) NULL,
+                                                           `sent` boolean NULL,
+                                                           PRIMARY KEY (`id`),
+                                                           UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `BigBroSecurity`.`Image`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`image` (
+                                                           `id` INT NOT NULL auto_increment,
+                                                           `url` VARCHAR(250) NULL,
+                                                           PRIMARY KEY (`id`),
+                                                           UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
