@@ -13,9 +13,9 @@ import java.util.List;
 public class FeedbackScheduler {
 
     FeedbackRepository feedbackRepository;
-    EMailService eMailService;
+    EmailSenderServ eMailService;
 
-    public FeedbackScheduler(FeedbackRepository feedbackRepository, EMailService eMailService) {
+    public FeedbackScheduler(FeedbackRepository feedbackRepository, EmailSenderServ eMailService) {
         this.feedbackRepository = feedbackRepository;
         this.eMailService = eMailService;
     }
