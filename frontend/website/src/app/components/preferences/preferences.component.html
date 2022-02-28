@@ -1,0 +1,54 @@
+<br><br>
+<h3> How often would you like your media to be deleted?</h3>
+<h3> Every: </h3>
+<p>
+  <label>
+    <input [(ngModel)]="deletePeriod" type="radio" value=1 name="beach"/> 1 Minute
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod" type="radio" value=5 name="beach"/> 5 Minutes
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod" type="radio" value=15 name="beach"/> 15 Minutes
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod" type="radio" value=30 name="beach"/> 30 Minutes
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod" type="radio" value=60 name="beach"/> 60 Minutes
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod" type="radio" value=180 name="beach"/> 3 Hours
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod" type="radio" value=360 name="beach"/> 6 Hours
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod"  type="radio" value=720 name="beach"/> 12 Hours
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod"  type="radio" value=1440 name="beach"/> 24 Hours
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod"  type="radio" value=2880 name="beach"/> 48 Hours
+  </label>
+  <br>
+  <label>
+    <input [(ngModel)]="deletePeriod"  type="radio" value=0 name="beach"/> Never
+  </label>
+  <br>
+</p>
+
+<br>
+<form (ngSubmit)="editPreferences()" novalidate class="form">
+  <button class="button">Submit</button>
+</form>
