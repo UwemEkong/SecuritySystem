@@ -18,6 +18,11 @@ export class MediaxService {
     })
   }
 
+  deleteMediax(mediax:Mediax) {
+    this.httpClient.post<Mediax>('api/mediax/deleteMediax', mediax).subscribe(() => {
+    })
+  }
+
   getAllMediax():Observable<Mediax[]>{
     return this.httpClient.get<Mediax[]>('api/mediax/getAllMediax')
   }
