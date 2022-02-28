@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MediaxService} from "../../services/mediax.service";
 import {Mediax} from "../../interfaces/Mediax";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-records',
