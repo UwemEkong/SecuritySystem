@@ -36,6 +36,12 @@ export class CameraComponent implements OnInit {
   });
   }
 
+  record() {
+    this.http.get(`http://localhost:4200/flsk/record`).subscribe((data: any) =>  {
+      console.log(data)
+  });
+  }
+
   setupCamera(){
     //navigator.mediaDevices.getUserMedia({
       //video:{width:500, height:500},
