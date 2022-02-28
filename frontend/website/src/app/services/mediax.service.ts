@@ -27,4 +27,11 @@ export class MediaxService {
     return this.httpClient.get<Mediax[]>('api/mediax/getAllMediax')
   }
 
+  editMediax(mediax:Mediax) {
+    this.httpClient.post<Mediax>('api/mediax/editMediax', mediax).subscribe(() => {
+      this.router.navigateByUrl('/records');
+    })
+  }
+
+
 }

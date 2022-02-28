@@ -1,14 +1,35 @@
+
+<div class="container">
+
+<br>
+  <br>
+  <br>
+
 <h2>Your recorded videos and images</h2>
 <table>
   <tbody>
   <tr>
   <tr *ngFor="let mxdto of listOfMediax">
-    <td>
-      <p>{{mxdto.filename}}</p>
-      <img src="{{mxdto.url}}" height="200px;"/>
-      <button (click)="deleteMediax(mxdto)">Delete</button>
-    </td>
-
+    <div class="recordrow">
+      <td>
+        <p>{{mxdto.filename}}</p>
+      </td>
+      <td>
+        <p>{{mxdto.timestamp}}</p>
+      </td>
+      <td>
+        <p>{{mxdto.location}}</p>
+      </td>
+      <td>
+        <img src="{{mxdto.url}}" height="200px;"/>
+      </td>
+      <td>
+        <button (click)="deleteMediax(mxdto)">Delete</button>
+      </td>
+      <hr>
+    </div>
   </tr>
   </tbody>
 </table>
+
+</div>

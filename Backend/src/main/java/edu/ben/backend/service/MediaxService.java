@@ -61,6 +61,13 @@ public class MediaxService {
 
         Mediax mediaxDelete = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
         mediaxRepository.delete(mediaxDelete);
+    }
+
+    public void editMediax(MediaxDTO mediaxDTO) {
+        System.out.println("editing mediax");
+        Mediax mx = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
+        mx.setFilename(mediaxDTO.getFilename());
+        mediaxRepository.save(mx);
 
     }
 }
