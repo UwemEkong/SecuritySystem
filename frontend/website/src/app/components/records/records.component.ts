@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MediaxService} from "../../services/mediax.service";
 import {Mediax} from "../../interfaces/Mediax";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-records',
@@ -9,7 +10,7 @@ import {Mediax} from "../../interfaces/Mediax";
 })
 export class RecordsComponent implements OnInit {
 
-  constructor(public mediaxServ:MediaxService) { }
+  constructor(public mediaxServ:MediaxService, private router: Router) { }
 
   listOfMediax:Mediax[] = [];
 
@@ -21,6 +22,10 @@ export class RecordsComponent implements OnInit {
     });
   }
 
+  deleteMediax(mediaxDelete: Mediax){
+    this.mediaxServ.deleteMediax(mediaxDelete);
+    location.reload();
 
+  }
 
 }

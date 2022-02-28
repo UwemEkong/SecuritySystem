@@ -56,4 +56,11 @@ public class MediaxService {
         System.out.println(mediaxDTO);
         mediaxRepository.save(new Mediax(mediaxDTO.getUserid(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp()));
     }
+
+    public void deleteMediax(MediaxDTO mediaxDTO) {
+
+        Mediax mediaxDelete = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
+        mediaxRepository.delete(mediaxDelete);
+
+    }
 }

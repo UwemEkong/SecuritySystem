@@ -28,4 +28,11 @@ public class MediaxResource {
 
         this.mediaxService.createMediax(mediaxDTO);
     }
+
+    @PostMapping("/deleteMediax")
+    public void deleteMediax(@RequestBody MediaxDTO mediaxDTO) {
+        this.mediaxService.deleteMediax(mediaxDTO);
+    }
+
+
 }
