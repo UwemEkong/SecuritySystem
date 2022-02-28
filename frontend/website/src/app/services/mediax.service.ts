@@ -20,6 +20,7 @@ export class MediaxService {
 
   deleteMediax(mediax:Mediax) {
     this.httpClient.post<Mediax>('api/mediax/deleteMediax', mediax).subscribe(() => {
+      this.router.navigateByUrl('/');
     })
   }
 

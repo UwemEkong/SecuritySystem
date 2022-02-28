@@ -34,5 +34,9 @@ public class MediaxResource {
         this.mediaxService.deleteMediax(mediaxDTO);
     }
 
+    @PostMapping("/editMediax")
+    public void editMediax(@RequestBody MediaxDTO mediaxDTO) {
+        this.mediaxService.editMediax(mediaxDTO);
+    }
 
 }

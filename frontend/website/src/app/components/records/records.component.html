@@ -5,14 +5,14 @@
   <br>
   <br>
 
-<h2>Your recorded videos and images</h2>
+<h2 id="bob">Your recorded videos and images</h2>
 <table>
   <tbody>
   <tr>
-  <tr *ngFor="let mxdto of listOfMediax">
+  <tr *ngFor="let mxdto of listOfMediax; let i = index">
     <div class="recordrow">
       <td>
-        <p>{{mxdto.filename}}</p>
+        <p>{{mxdto.filename}}</p><button (click)="rename(mxdto)">Rename</button>
       </td>
       <td>
         <p>{{mxdto.timestamp}}</p>
@@ -21,7 +21,11 @@
         <p>{{mxdto.location}}</p>
       </td>
       <td>
-        <img src="{{mxdto.url}}" height="200px;"/>
+        <img id="img{{i}}" src="{{mxdto.url}}" height="200px;" style="visibility: hidden"/>
+        <button id="sh{{i}}" (click)="showhide(mxdto,i)">Show</button>
+      </td>
+      <td>
+        <a href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer" download>Download</a>
       </td>
       <td>
         <button (click)="deleteMediax(mxdto)">Delete</button>
