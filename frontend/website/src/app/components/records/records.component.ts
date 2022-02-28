@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class RecordsComponent implements OnInit {
 
-  constructor(public mediaxServ:MediaxService, private router: Router) { }
+  constructor(public mediaxServ:MediaxService) { }
 
   listOfMediax:Mediax[] = [];
 
