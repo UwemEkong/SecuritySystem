@@ -21,6 +21,10 @@ export class RecordsComponent implements OnInit {
     });
   }
 
+  deleteMediax(mediaxDelete: Mediax){
+    this.mediaxServ.deleteMediax(mediaxDelete);
+    location.reload();
 
+  }
 
 }

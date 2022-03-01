@@ -10,19 +10,23 @@ public class EmailSenderServ {
     @Autowired
     private JavaMailSender mailSender;
 
-//    public void sendEmail(String toEMail, String subject, String fromEmail, String text) {
-//
-//        SimpleMailMessage mailMessage = new SimpleMailMessage();
-//        mailMessage.setFrom(fromEmail);
-//        mailMessage.setTo(toEMail);
-//        mailMessage.setSubject(subject);
-//        mailMessage.setText(text);
-//
-//        mailSender.send(mailMessage);
-//
-//        System.out.println("Email Sent Successfully!!");
-//
-//    }
+    public void sendEmail(String fromEmail, String toEmail, String emailSubject, String emailBody) {
+        SimpleMailMessage email = new SimpleMailMessage();
+
+        email.setFrom(fromEmail);
+        email.setTo(toEmail);
+        email.setSubject(emailSubject);
+        email.setText(emailBody);
+
+        mailSender.send(email);
+
+        System.out.println("Email sent details: " +
+                "\n" + fromEmail +
+                "\n" + toEmail +
+                "\n" + emailSubject +
+                "\n" + emailBody);
+
+    }
 
     public void sendEmail(SimpleMailMessage mailMessage) {
         mailSender.send(mailMessage);

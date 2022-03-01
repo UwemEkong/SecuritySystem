@@ -12,6 +12,7 @@ import {PasswordResetComponent} from "./components/password-reset/password-reset
 import {ChangePasswordComponent} from "./components/change-password/change-password.component";
 import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import {EnterTokenComponent} from "./components/enter-token/enter-token.component";
+import {PreferencesComponent} from "./components/preferences/preferences.component";
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'enter-token', component: EnterTokenComponent},
   {path:'change-password', component: ChangePasswordComponent},
   {path: 'auth', component: AuthPageComponent},
+  {path: 'preferences', component: PreferencesComponent},
   {path: '**', component: HomeComponent},
 
 
