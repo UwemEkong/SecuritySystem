@@ -20,11 +20,23 @@ export class MediaxService {
 
   deleteMediax(mediax:Mediax) {
     this.httpClient.post<Mediax>('api/mediax/deleteMediax', mediax).subscribe(() => {
+      this.router.navigateByUrl('/');
     })
   }
 
   getAllMediax():Observable<Mediax[]>{
     return this.httpClient.get<Mediax[]>('api/mediax/getAllMediax')
   }
+
+  getUserMediax():Observable<Mediax[]>{
+    return this.httpClient.get<Mediax[]>('api/mediax/getUserMediax')
+  }
+
+  editMediax(mediax:Mediax) {
+    this.httpClient.post<Mediax>('api/mediax/editMediax', mediax).subscribe(() => {
+      this.router.navigateByUrl('/records');
+    })
+  }
+
 
 }

@@ -23,6 +23,7 @@ import { PasswordResetComponent } from './components/password-reset/password-res
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import { EnterTokenComponent } from './components/enter-token/enter-token.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PreferencesComponent } from './components/preferences/preferences.component';
 
 @NgModule({
@@ -53,7 +54,8 @@ import { PreferencesComponent } from './components/preferences/preferences.compo
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
 
   providers: [

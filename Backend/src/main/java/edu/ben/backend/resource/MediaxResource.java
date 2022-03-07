@@ -23,6 +23,11 @@ public class MediaxResource {
         return this.mediaxService.getAllMediax();
     }
 
+    @GetMapping("/getUserMediax")
+    public List<MediaxDTO> getUserMediax() {
+        return this.mediaxService.getUserMediax();
+    }
+
     @PostMapping("/createMediax")
     public void createMediax(@RequestBody MediaxDTO mediaxDTO) {
 
@@ -34,5 +39,9 @@ public class MediaxResource {
         this.mediaxService.deleteMediax(mediaxDTO);
     }
 
+    @PostMapping("/editMediax")
+    public void editMediax(@RequestBody MediaxDTO mediaxDTO) {
+        this.mediaxService.editMediax(mediaxDTO);
+    }
 
 }
