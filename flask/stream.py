@@ -34,6 +34,21 @@ def upload_to_aws(pil_image, bucket, s3_file_name):
         print("Credentials not available")
         return False
 
+def upload_video_to_aws(local_file, bucket, s3_file):
+    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY,
+                      aws_secret_access_key=SECRET_KEY)
+
+    try:
+        s3.upload_file(local_file, bucket, s3_file, ExtraArgs={'ContentType': "video/avi"})
+        print("Upload Successful")
+        return True
+    except FileNotFoundError:
+        print("The file was not found")
+        return False
+    except NoCredentialsError:
+        print("Credentials not available")
+        return False
+
 #Initialize the Flask app
 app = Flask(__name__)
 
@@ -142,9 +157,10 @@ def video_feed():
 @app.route('/flsk/record', methods=['GET'])
 def record():
     capture_duration = 10
-
+    timetaken = time.ctime().replace(r':','_')
+    namekey = str('video_1' + timetaken)
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
+    out = cv2.VideoWriter('video_1' + timetaken + '.avi',fourcc, 20.0, (640,480))
 
     start_time = time.time()
     while( int(time.time() - start_time) < capture_duration ):
@@ -154,7 +170,14 @@ def record():
             out.write(frame)
         else:
             break
+    uploaded = upload_video_to_aws('video_1' + timetaken + '.avi', 'mainmediabucket', namekey)
+    print(uploaded)
+    response = jsonify({'namekey': namekey})
+    response.headers.add('Access-Control-Allow-Origin', 'localhost')
+    print("response")
+    print(response)
     return '', 200
+
 @app.route('/flsk/save_snap_to_cloud', methods=['GET'])
 def save_snap_to_cloud():
     if camera.isOpened():
