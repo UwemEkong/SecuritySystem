@@ -13,6 +13,7 @@ import time
 
 ACCESS_KEY = 'AKIA2X357CBVPHQAVH2E'
 SECRET_KEY = '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'
+motion = True
 
 def upload_to_aws(pil_image, bucket, s3_file_name):
     s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY,aws_secret_access_key=SECRET_KEY)
@@ -250,6 +251,19 @@ def detect_motion():
 def motion_feed():
     return Response(gen_motion_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/flsk/toggleMotionOn', methods=['GET'])
+def toggle_on():
+    global motion
+    motion = True
+    return '', 200
+
+@app.route('/flsk/toggleMotionOff', methods=['GET'])
+def toggle_off():
+    global motion
+    motion = False
+    return '', 200
+
+
 import threading
 static_back = None
  
@@ -292,7 +306,7 @@ def gen_motion_frames():
                         cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         # Show the total number of contours that were detected
 
-        if len(cnts) >= 10:
+        if len(cnts) >= 10 and motion == True:
             print("motion detected")
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
