@@ -24,6 +24,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import { EnterTokenComponent } from './components/enter-token/enter-token.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PreferencesComponent } from './components/preferences/preferences.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ChangePasswordComponent,
     AuthPageComponent,
     EnterTokenComponent,
+    PreferencesComponent
   ],
   imports: [
     FormsModule,

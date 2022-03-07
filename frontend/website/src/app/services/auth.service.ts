@@ -21,6 +21,7 @@ export class AuthService {
 
 
   login(user:User) {
+    let failedAttempts = 0;
     this.httpClient.get<User>(`api/auth/login/${user.username}/${user.password}`).subscribe((data: User) => {
       console.log(data)
       if (data.username) {
@@ -29,8 +30,12 @@ export class AuthService {
         this.loggedInUser = data
         this.router.navigateByUrl('/home');
       } else {
+        failedAttempts = failedAttempts + 1;
+        if(failedAttempts = 5) {
+          this.router.navigateByUrl('/password-reset')
+        }
         this.authenticated = false;
-        console.log("User data " + JSON.stringify(data))
+        console.log("User data " + JSON.stringify(data) + failedAttempts)
       }
     })
   }
@@ -84,7 +89,5 @@ export class AuthService {
       }
     })
   }
-
-
 
 }

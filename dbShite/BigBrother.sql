@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`feedback` (
                                                            `sent` boolean NULL,
                                                            PRIMARY KEY (`id`),
                                                            UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -54,6 +54,25 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`image` (
                                                            PRIMARY KEY (`id`),
                                                            UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `BigBroSecurity`.`Preferences`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`preferences` (
+                                                        `id` INT NOT NULL auto_increment,
+                                                        `userid` INT NULL,
+                                                        `remove` INT NULL,
+                                                        `motion` boolean NULL,
+                                                        `dark` boolean NULL,
+                                                        PRIMARY KEY (`id`),
+                                                        UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

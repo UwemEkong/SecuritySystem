@@ -12,22 +12,25 @@ import {PasswordResetComponent} from "./components/password-reset/password-reset
 import {ChangePasswordComponent} from "./components/change-password/change-password.component";
 import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import {EnterTokenComponent} from "./components/enter-token/enter-token.component";
+import {PreferencesComponent} from "./components/preferences/preferences.component";
+import {PathGuard} from "./components/guards/path.guard";
 
 
 const routes: Routes = [
 
   {path: 'home', component: HomeComponent},
-  {path: 'camera', component: CameraComponent},
+  {path: 'camera', component: CameraComponent, canActivate: [PathGuard]},
   {path: 'faq', component: FaqComponent},
   {path: 'about-us', component: AboutUsComponent},
   {path: 'login', component:  LoginComponent},
   {path:'register', component: RegisterComponent},
-  {path:'records', component: RecordsComponent},
-  {path: 'profile', component: ProfileComponent},
+  {path:'records', component: RecordsComponent, canActivate: [PathGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [PathGuard]},
   {path:'password-reset', component: PasswordResetComponent},
   {path: 'enter-token', component: EnterTokenComponent},
   {path:'change-password', component: ChangePasswordComponent},
   {path: 'auth', component: AuthPageComponent},
+  {path: 'preferences', component: PreferencesComponent, canActivate: [PathGuard]},
   {path: '**', component: HomeComponent},
 
 
