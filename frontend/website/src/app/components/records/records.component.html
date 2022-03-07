@@ -1,18 +1,29 @@
 
 <div class="container">
 
+  <br>
+  <br>
+  <br>
+
+
+
+<div class="typewriter">
+  <h1>Your Recorded Videos and Images</h1>
+</div>
 <br>
   <br>
   <br>
 
-<h2 id="bob">Your recorded videos and images</h2>
-<table>
+
+<table class="fixed">
   <tbody>
-  <tr>
+    <col width="100px" />
+    <col>
+    <col>
   <tr *ngFor="let mxdto of listOfMediax; let i = index">
     <div class="recordrow">
-      <td>
-        <p>{{mxdto.filename}}</p><button (click)="rename(mxdto)">Rename</button>
+      <td style="width:30em;">
+        <p style="margin:10px; display: inline-block;">{{mxdto.filename}}</p><button class="btn btn-sm btn-outline-primary" (click)="rename(mxdto)" style="display: inline-block;">Rename</button>
       </td>
       <td>
         <p>{{mxdto.timestamp}}</p>
@@ -21,19 +32,36 @@
         <p>{{mxdto.location}}</p>
       </td>
       <td>
-        <img id="img{{i}}" src="{{mxdto.url}}" height="200px;" style="visibility: hidden"/>
-        <button id="sh{{i}}" (click)="showhide(mxdto,i)">Show</button>
+        <!-- <img id="img{{i}}" src="{{mxdto.url}}" height="200px;" style="visibility: hidden"/>
+        <button id="sh{{i}}" (click)="showhide(mxdto,i)">Show</button> -->
+        <button class="btn btn-outline-primary" (click)="open(content,mxdto)">Show</button>
       </td>
       <td>
-        <a href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer" download>Download</a>
+        <a class="btn btn-outline-primary" href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer" download="{{mxdto.url}}">Download</a>
       </td>
       <td>
-        <button (click)="deleteMediax(mxdto)">Delete</button>
+        <button class="btn btn-outline-danger" (click)="deleteMediax(mxdto)">Delete</button>
+        
       </td>
-      <hr>
     </div>
   </tr>
   </tbody>
 </table>
+
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{currentmx.filename}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <img width="100%;" [src]="currentmx.url"/>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Alright</button>
+  </div>
+</ng-template>
 
 </div>

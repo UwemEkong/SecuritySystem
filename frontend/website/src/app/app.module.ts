@@ -23,6 +23,7 @@ import { PasswordResetComponent } from './components/password-reset/password-res
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import { EnterTokenComponent } from './components/enter-token/enter-token.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { EnterTokenComponent } from './components/enter-token/enter-token.compon
     PasswordResetComponent,
     ChangePasswordComponent,
     AuthPageComponent,
-    EnterTokenComponent
+    EnterTokenComponent,
   ],
   imports: [
     FormsModule,
@@ -51,7 +52,8 @@ import { EnterTokenComponent } from './components/enter-token/enter-token.compon
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
 
   providers: [

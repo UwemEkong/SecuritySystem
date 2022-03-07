@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {MediaxService} from "../../services/mediax.service";
 import {Mediax} from "../../interfaces/Mediax";
 import * as $ from 'jquery';
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-records',
@@ -10,15 +13,25 @@ import * as $ from 'jquery';
 })
 export class RecordsComponent implements OnInit {
 
-  constructor(public mediaxServ:MediaxService) { }
+  closeResult = '';
+  currentmx:Mediax = {} as Mediax;;
+
+  constructor(public mediaxServ:MediaxService, 
+    public authServ: AuthService, 
+    private router: Router,
+    private modalService: NgbModal) { }
 
   listOfMediax:Mediax[] = [];
 
   ngOnInit(): void {
-    this.mediaxServ.getAllMediax().subscribe((data) => {
-      console.log(data)
+
+    if(this.authServ.getLoggedInUser() == null){
+      this.router.navigateByUrl('/records');
+    }
+
+
+    this.mediaxServ.getUserMediax().subscribe((data:Mediax[]) => {
       this.listOfMediax = data;
-      console.log(this.listOfMediax);
     });
   }
 
@@ -32,6 +45,37 @@ export class RecordsComponent implements OnInit {
     let newname = prompt("New file name:");
     mx.filename = newname || mx.filename;
     this.editMediax(mx);
+  }
+
+  dowload(mxdto:Mediax){
+    // let url = window.URL.createObjectURL(mxdto.url||"#");
+    // let a = document.createElement('a');
+    // document.body.appendChild(a);
+    // a.setAttribute('style', 'display: none');
+    // a.href = url;
+    // a.download = mxdto.filename;
+    // a.click();
+    // window.URL.revokeObjectURL(url);
+    // a.remove();
+  }
+
+  open(content:any,mxdto:Mediax) {
+    this.currentmx = mxdto;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   editMediax(mx: Mediax) {

@@ -4,6 +4,7 @@ import edu.ben.backend.model.Mediax;
 import edu.ben.backend.model.dto.MediaxDTO;
 import edu.ben.backend.model.user;
 import edu.ben.backend.repository.MediaxRepository;
+import edu.ben.backend.service.AuthService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,14 +15,15 @@ import edu.ben.backend.GeneratePresignedURL;
 public class MediaxService {
 
     MediaxRepository mediaxRepository;
+    AuthService authService;
 
-    public MediaxService(MediaxRepository mediaxRepository) {
+    public MediaxService(MediaxRepository mediaxRepository, AuthService authService) {
+
         this.mediaxRepository = mediaxRepository;
+        this.authService = authService;
     }
 
-    public List<MediaxDTO> getAllMediax(){
-        List<Mediax> listOfMediax = mediaxRepository.findAll();
-        System.out.println(listOfMediax);
+    private ArrayList<MediaxDTO> assignAWSURLs( List<Mediax> listOfMediax){
 
         ArrayList<MediaxDTO> listofMediaxDTO = new ArrayList<MediaxDTO>();
 
@@ -48,8 +50,21 @@ public class MediaxService {
 
             listofMediaxDTO.add(mxdto);
         }
+        return listofMediaxDTO;
+
+    }
+
+    public List<MediaxDTO> getAllMediax(){
+        List<Mediax> listOfMediax = mediaxRepository.findAll();
+        System.out.println(listOfMediax);
+
+        ArrayList<MediaxDTO> listofMediaxDTO = assignAWSURLs(listOfMediax);
 
         return listofMediaxDTO;
+    }
+
+    public ArrayList<MediaxDTO> getUserMediax(){
+        return assignAWSURLs(mediaxRepository.findAllByUserid(authService.getLoggedInUser().getId()));
     }
 
     public void createMediax(MediaxDTO mediaxDTO) {
