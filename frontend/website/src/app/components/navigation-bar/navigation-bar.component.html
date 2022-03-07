@@ -3,11 +3,26 @@
   <span>
     Big Brother
   </span>
+
   <div class="spacer"></div>
-  <a mat-button routerLink="home">Home</a>
-  <a mat-button routerLink="camera">Camera</a>
-  <a mat-button routerLink="preferences">Preferences</a>
-  <a mat-button routerLink="faq">FAQ</a>
-  <a mat-button routerLink="about-us">About Us</a>
-  <a mat-button routerLink="auth"><mat-icon>login</mat-icon></a>
+
+  <div *ngIf="loggedIn">
+    <span style="font-size: 14px" > Hello </span>
+    <span style="color: orange; font-size: 14px" > {{loggedFirstname.toUpperCase()}} </span>
+    <a mat-button routerLink="home">Home</a>
+    <a mat-button routerLink="camera">Camera</a>
+    <a mat-button routerLink="records">Records</a>
+    <a mat-button routerLink="preferences">Preferences</a>
+    <a mat-button routerLink="faq">FAQ</a>
+    <a mat-button routerLink="about-us">About Us</a>
+    <a mat-button (click)="logout()">Log Out</a>
+  </div>
+
+  <div *ngIf="!loggedIn">
+    <a mat-button routerLink="home">Home</a>
+    <a mat-button routerLink="faq">FAQ</a>
+    <a mat-button routerLink="about-us">About Us</a>
+    <a mat-button routerLink="auth"><mat-icon>login</mat-icon> </a>
+  </div>
+
 </mat-toolbar>
