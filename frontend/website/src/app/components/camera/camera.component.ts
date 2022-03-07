@@ -24,7 +24,7 @@ export class CameraComponent implements OnInit {
     this.http.get(`http://localhost:4200/flsk/save_snap_to_cloud`).subscribe((data: any) =>  {
       console.log(data);
       let namekey = data["namekey"];
-      let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location: "near benu", timestamp:"rn"}
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location: "In Lisle, IL", timestamp:(new Date().toLocaleString())}
       this.mediaxServ.createMediax(mx);
     });
   }
@@ -32,6 +32,12 @@ export class CameraComponent implements OnInit {
   saveImage() {
     console.log("hello")
     this.http.get(`http://localhost:4200/flsk/save_snap_to_pc`).subscribe((data: any) =>  {
+      console.log(data)
+  });
+  }
+
+  record() {
+    this.http.get(`http://localhost:4200/flsk/record`).subscribe((data: any) =>  {
       console.log(data)
   });
   }

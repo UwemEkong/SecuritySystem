@@ -11,5 +11,6 @@ public interface MediaxRepository extends JpaRepository<Mediax, Long> {
 
     public Mediax findByPathorkey(String pathorkey);
     public List<Mediax> findAll();
+    public List<Mediax> findAllByUserid(Long id);
 
 }
