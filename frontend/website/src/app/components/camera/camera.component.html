@@ -1,9 +1,13 @@
-<br><br>
+<br><br><br>
+<div class="container">
+<h1>Live Camera Feed</h1>
+<br><br><br>
 <p>
 <!--  <video id="video" autoplay></video>-->
   <img style="height:300px;" src="http://127.0.0.1:5000/video_feed" alt="Cannot connect to camera feed server! It is possible your internet is not working, or our servers are currently down. Big Brother Inc apologizes for the inconvenience."/>
   <br/>
-  <button (click)="saveImage()">Take Snapshot</button>
-  <button (click)="saveImageToCloud()">Take Snapshot & Save to Cloud</button>
-  <button (click)="record()">Record</button>
+  <button class="btn btn-outline-primary" (click)="saveImage()">Take Snapshot</button>
+  <button class="btn btn-outline-primary" (click)="saveImageToCloud()">Take Snapshot & Save to Cloud</button>
+  <button class="btn btn-outline-danger" (click)="record()">Record</button>
 </p>
+</div>
