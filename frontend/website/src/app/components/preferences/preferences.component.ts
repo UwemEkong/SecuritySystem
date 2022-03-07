@@ -19,8 +19,12 @@ export class PreferencesComponent implements OnInit {
 
 
   editPreferences(){
-    let preferences:Preferences = {userid: this.authServices.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
-    this.preferencesServices.editPreferences(preferences);
+    if (this.deletePeriod != undefined)
+    {
+      let preferences:Preferences = {userid: this.authServices.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
+      this.preferencesServices.editPreferences(preferences);
+    }
+
   }
 
 
