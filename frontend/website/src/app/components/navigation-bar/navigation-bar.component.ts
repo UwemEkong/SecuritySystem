@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 
@@ -8,6 +8,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./navigation-bar.component.scss']
 })
 export class NavigationBarComponent implements OnInit {
+  @Output()
+  dark = new EventEmitter<boolean>();
+  darkMode = false;
 
   loggedIn = false
   loggedFirstname: any
@@ -30,6 +33,9 @@ export class NavigationBarComponent implements OnInit {
     location.reload()
   }
 
-
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    this.dark.emit(this.darkMode);
+  }
 
 }
