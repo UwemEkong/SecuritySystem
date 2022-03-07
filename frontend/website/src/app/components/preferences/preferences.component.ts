@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PreferencesService} from "../../services/preferences.service";
 import {Preferences} from "../../interfaces/Preferences";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-preferences',
@@ -9,7 +10,7 @@ import {Preferences} from "../../interfaces/Preferences";
 })
 export class PreferencesComponent implements OnInit {
 
-  constructor(public preferencesServices: PreferencesService) { }
+  constructor(public preferencesServices: PreferencesService, public authServices: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -18,8 +19,12 @@ export class PreferencesComponent implements OnInit {
 
 
   editPreferences(){
-    let preferences:Preferences = {userid: 1, remove: this.deletePeriod, motion: true, dark: false}
-    this.preferencesServices.editPreferences(preferences);
+    if (this.deletePeriod != undefined)
+    {
+      let preferences:Preferences = {userid: this.authServices.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
+      this.preferencesServices.editPreferences(preferences);
+    }
+
   }
 
 

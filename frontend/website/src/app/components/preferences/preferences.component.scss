@@ -1,38 +1,28 @@
-h3 {
-  text-align: left;
+div{
   padding-left:30px;
-}
-p {
-  text-align: left;
-  padding-left:30px;
-}
-h2 {
-  text-align: center;
-  padding-left:30px;
-}
-
-form {
-  text-align: left;
-  padding-right:30px;
-
 }
 
 .button {
   width:150px;
-  margin-top:2%;
-  margin-bottom:5%;
-  margin-left:5%;
-  margin-right:5%;
+  height:50px;
   background-color: #1877F2;
   color:white;
   font-family: "Helvetica", sans-serif;
   font-size:20px;
   font-weight:bold;
-  border: none;
-  border-radius:5px;
-  height:50px;
+
+
 }
 
-.longInput {
-  align: Center;
+select {
+  width:150px;
+  height:50px;
+  font-family: "Helvetica", sans-serif;
+  font-size:20px;
+  font-weight:bold;
+  color:            black;
+  background-color: white;
+  border-radius:     5px;
+  border-color:     blue;
+  margin-right: 20px;
 }

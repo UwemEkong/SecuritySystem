@@ -2,7 +2,9 @@ package edu.ben.backend.service;
 
 import edu.ben.backend.exceptions.*;
 import edu.ben.backend.model.dto.userDTO;
+import edu.ben.backend.model.preferences;
 import edu.ben.backend.model.user;
+import edu.ben.backend.repository.PreferencesRepository;
 import edu.ben.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -25,16 +27,18 @@ public class AuthService {
     EmailSenderServ emailSenderService;
     UserService userService;
     UserRepository userRepository;
+    PreferencesRepository preferencesRepository;
     userDTO loggedInUser;
     userDTO resetUser;
     userDTO userReset;
     String tokenNew;
 
-    public AuthService(UserRepository userRepository, UserService userService, EmailSenderServ emailSenderService, Environment env) {
+    public AuthService(UserRepository userRepository, UserService userService, EmailSenderServ emailSenderService, Environment env, PreferencesRepository preferencesRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.emailSenderService = emailSenderService;
         this.env = env;
+        this.preferencesRepository = preferencesRepository;
     }
 
     public userDTO login(String username, String password) {
@@ -66,6 +70,7 @@ public class AuthService {
         } else {
             System.out.println(userDTO);
             userRepository.save(new user(userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getFirstname(), userDTO.getLastname(), userService.generateToken()));
+            preferencesRepository.save(new preferences(userRepository.findByUsername(userDTO.getUsername()).getId().intValue(), 0, true, false));
         }
     }
 
