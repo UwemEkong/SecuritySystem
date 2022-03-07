@@ -21,6 +21,7 @@ export class RecordsComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal) { }
 
+
   listOfMediax:Mediax[] = [];
 
   ngOnInit(): void {
@@ -37,9 +38,9 @@ export class RecordsComponent implements OnInit {
 
   deleteMediax(mediaxDelete: Mediax){
     this.mediaxServ.deleteMediax(mediaxDelete);
-    //location.reload();
-
+    this.router.navigateByUrl('/home');
   }
+
 
   rename(mx: Mediax){
     let newname = prompt("New file name:");

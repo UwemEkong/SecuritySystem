@@ -1,0 +1,9 @@
+#theme-container{
+  width: 100%;
+  min-height: 100%;
+}
+
+#theme-container.darkTheme {
+  background-color: black;
+  color:white;
+}
