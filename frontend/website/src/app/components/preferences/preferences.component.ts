@@ -10,19 +10,19 @@ import {AuthService} from "../../services/auth.service";
 })
 export class PreferencesComponent implements OnInit {
 
-  constructor(public preferencesServices: PreferencesService, public authServices: AuthService) { }
+  constructor(public preferencesServices: PreferencesService, public auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  deletePeriod: 0 | undefined
+  removePeriod: 0 | undefined
 
 
   editPreferences(){
-    if (this.deletePeriod != undefined)
+    if (this.removePeriod != undefined)
     {
-      let preferences:Preferences = {userid: this.authServices.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
-      this.preferencesServices.editPreferences(preferences);
+      let preferences:Preferences = {userid: this.auth.loggedInUser.id, remove: this.removePeriod}
+      this.preferencesServices.editPreferencesRemove(preferences);
     }
 
   }

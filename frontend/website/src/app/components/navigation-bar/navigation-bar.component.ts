@@ -1,6 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {PreferencesService} from "../../services/preferences.service";
+import {Preferences} from "../../interfaces/Preferences";
 
 @Component({
   selector: 'app-navigation-bar',
@@ -16,19 +18,26 @@ export class NavigationBarComponent implements OnInit {
   loggedFirstname: any
 
   constructor(
-    private router: Router, private auth:AuthService){}
+    private router: Router, private auth: AuthService, private pref: PreferencesService) {
+  }
 
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
         this.loggedIn = this.auth.authenticated;
         this.loggedFirstname = this.auth.loggedInUser.firstname;
+
+        if (this.auth.authenticated) {
+          this.pref.getPreferences().subscribe(response => {
+            this.darkMode = response.dark;
+            this.dark.emit(this.darkMode);
+          })
+        }
       }
     })
   }
 
-  logout()
-  {
+  logout() {
     this.auth.logout()
     location.reload()
   }
@@ -36,6 +45,13 @@ export class NavigationBarComponent implements OnInit {
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
     this.dark.emit(this.darkMode);
+
+    if (this.auth.authenticated)
+    {
+      let preferences:Preferences = {userid: this.auth.loggedInUser.id, dark: this.darkMode}
+      this.pref.editPreferencesDark(preferences);
+    }
+
   }
 
 }
