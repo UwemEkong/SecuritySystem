@@ -14,10 +14,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class RecordsComponent implements OnInit {
 
   closeResult = '';
-  currentmx:Mediax = {} as Mediax;;
+  currentmx:Mediax = {} as Mediax;
 
-  constructor(public mediaxServ:MediaxService, 
-    public authServ: AuthService, 
+  constructor(public mediaxServ:MediaxService,
+    public authServ: AuthService,
     private router: Router,
     private modalService: NgbModal) { }
 

@@ -69,13 +69,15 @@ public class MediaxService {
 
     public void createMediax(MediaxDTO mediaxDTO) {
         System.out.println(mediaxDTO);
-        mediaxRepository.save(new Mediax(mediaxDTO.getUserid(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp()));
+        mediaxRepository.save(new Mediax(authService.loggedInUser.getId(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp()));
     }
 
     public void deleteMediax(MediaxDTO mediaxDTO) {
 
         Mediax mediaxDelete = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
         mediaxRepository.delete(mediaxDelete);
+
+        GeneratePresignedURL.deleteFromS3("mainmediabucket", mediaxDTO.getPathorkey());
     }
 
     public void editMediax(MediaxDTO mediaxDTO) {
