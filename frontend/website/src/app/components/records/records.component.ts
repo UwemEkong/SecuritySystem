@@ -5,6 +5,7 @@ import * as $ from 'jquery';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-records',
@@ -14,12 +15,13 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class RecordsComponent implements OnInit {
 
   closeResult = '';
+  safeUrl: SafeResourceUrl | undefined;
   currentmx:Mediax = {} as Mediax;;
 
   constructor(public mediaxServ:MediaxService, 
     public authServ: AuthService, 
     private router: Router,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private _sanitizer: DomSanitizer) { }
 
 
   listOfMediax:Mediax[] = [];
@@ -60,13 +62,23 @@ export class RecordsComponent implements OnInit {
     // a.remove();
   }
 
-  open(content:any,mxdto:Mediax) {
+  open(imagemodal:any,videomodal:any,mxdto:Mediax) {
     this.currentmx = mxdto;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    if (this.currentmx.isvideo) {
+      console.log(mxdto.url)
+      this.safeUrl = this._sanitizer.bypassSecurityTrustResourceUrl(this.currentmx.url as string)
+      this.modalService.open(videomodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    } else {
+      this.modalService.open(imagemodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
   }
 
   private getDismissReason(reason: any): string {
