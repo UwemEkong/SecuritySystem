@@ -21,7 +21,7 @@ export class PreferencesComponent implements OnInit {
   motionSetting = this.preferencesServices.currentUserPrefences.motion
 
   editPreferences(){
-    if (this.removePeriod != undefined)
+    if (this.deletePeriod != undefined)
     {
       let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod}
       this.preferencesServices.editPreferencesRemove(preferences);
