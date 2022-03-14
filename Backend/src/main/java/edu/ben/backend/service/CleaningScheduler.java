@@ -28,7 +28,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 1) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -45,7 +45,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 5) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -62,7 +62,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 15) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -79,7 +79,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 30) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -96,7 +96,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 60) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -113,7 +113,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 180) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -130,7 +130,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 360) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -147,7 +147,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 720) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -164,7 +164,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 1440) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));
@@ -181,7 +181,7 @@ public class CleaningScheduler {
         List<Mediax> mediax = mediaxRepository.findAll();
         for (int i = 0; i < preferences.size(); i++) {
             if (preferences.get(i).getRemove() == 2880) {
-                int userid = preferences.get(i).getUserid();
+                Long userid = preferences.get(i).getUserid();
                 for (int j = 0; j < mediax.size(); j++) {
                     if (mediax.get(j).getUserid() == userid) {
                         mediaxRepository.delete(mediax.get(j));

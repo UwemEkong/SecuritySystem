@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import { Router } from '@angular/router';
 import {Preferences} from "../interfaces/Preferences";
 import {Observable} from "rxjs";
+import { AuthService } from './auth.service';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ import {Observable} from "rxjs";
 export class PreferencesService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
+
 
   editPreferencesRemove(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesRemove', preferences).subscribe(() => {
@@ -32,5 +35,26 @@ export class PreferencesService {
     return this.httpClient.get<{ id: number, userid: number, remove: number, motion:boolean, dark:boolean }>(`api/preferences/getPreferences`);
   }
 
+  currentUserPrefences = <Preferences>{};
+  
+  editPreferences(preferences:Preferences) {
+    this.httpClient.post<Preferences>('api/preferences/editPreferences', preferences).subscribe(() => {
+
+    })
+  }
+
+  getPreferences(userId: number) {
+    this.httpClient.get<Preferences>(`api/preferences/getPreferences/${userId}`).subscribe((data: Preferences) => {
+      this.currentUserPrefences = data;
+      console.log(this.currentUserPrefences)
+    })
+  }
+
+
+  updateFlaskPreferences() {
+    this.httpClient.post<Preferences>('http://localhost:4200/flsk/updatePreferences', this.currentUserPrefences).subscribe(() => {
+   
+    })
+  }
 
 }

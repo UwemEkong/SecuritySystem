@@ -10,23 +10,33 @@ import {AuthService} from "../../services/auth.service";
 })
 export class PreferencesComponent implements OnInit {
 
-  constructor(public preferencesServices: PreferencesService, public auth: AuthService) { }
+  constructor(public preferencesServices: PreferencesService, public authService: AuthService) { }
+
 
   ngOnInit(): void {
-  }
+    this.preferencesServices.getPreferences(this.authService.loggedInUser.id as number)
 
-  removePeriod: 0 | undefined
-
+  deletePeriod = this.preferencesServices.currentUserPrefences.remove
+  motionSetting = this.preferencesServices.currentUserPrefences.motion
 
   editPreferences(){
     if (this.removePeriod != undefined)
     {
-      let preferences:Preferences = {userid: this.auth.loggedInUser.id, remove: this.removePeriod}
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod}
       this.preferencesServices.editPreferencesRemove(preferences);
     }
-
   }
 
-
+  toggleMotion(newSetting: boolean) {
+    if (newSetting == true) {
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: false, dark: false}
+      this.preferencesServices.editPreferences(preferences);
+    } else {
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
+      this.preferencesServices.editPreferences(preferences);
+    }
+    this.preferencesServices.getPreferences(this.authService.loggedInUser.id as number)
+    this.preferencesServices.updateFlaskPreferences()
+  }
 
 }

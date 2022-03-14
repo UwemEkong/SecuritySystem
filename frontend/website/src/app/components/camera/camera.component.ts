@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { MediaxService } from 'src/app/services/mediax.service';
 import {Mediax} from "../../interfaces/Mediax"
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -11,13 +12,14 @@ import {Mediax} from "../../interfaces/Mediax"
 })
 export class CameraComponent implements OnInit {
 
-  constructor(public mediaxServ: MediaxService, private http: HttpClient) { }
+  constructor(public mediaxServ: MediaxService, private http: HttpClient, public authService: AuthService) { }
 
   videoRef:any;
   ngOnInit(): void {
     // this.videoRef = document.getElementById('video');
     // console.log(this.videoRef);
     // this.setupCamera();
+    this.authService.getLoggedInUser();
   }
 
   saveImageToCloud(){
@@ -29,15 +31,17 @@ export class CameraComponent implements OnInit {
     });
   }
 
-  saveImage() {
-    console.log("hello")
-    this.http.get(`http://localhost:4200/flsk/save_snap_to_pc`).subscribe((data: any) =>  {
-      console.log(data)
+  record() {
+    this.http.get(`http://localhost:4200/flsk/record`).subscribe((data: any) =>  {
+      let namekey = data["namekey"];
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location: "In Lisle, IL", timestamp:(new Date().toLocaleString())}
+      this.mediaxServ.createMediax(mx);
   });
   }
 
-  record() {
-    this.http.get(`http://localhost:4200/flsk/record`).subscribe((data: any) =>  {
+  saveImage() {
+    console.log("hello")
+    this.http.get(`http://localhost:4200/flsk/save_snap_to_pc`).subscribe((data: any) =>  {
       console.log(data)
   });
   }

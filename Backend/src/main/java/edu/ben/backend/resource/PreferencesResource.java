@@ -32,5 +32,11 @@ class PreferencesResource {
     public preferencesDTO getPreferences() {
         return this.preferencesService.getPreferences();
     }
+
+    @GetMapping("/getPreferences/{userId}")
+    public preferencesDTO getPreferences(@PathVariable Long userId) {
+        return this.preferencesService.getPreferences(userId);
+    }
+
 }
 

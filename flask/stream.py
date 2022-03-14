@@ -1,6 +1,6 @@
 #https://towardsdatascience.com/video-streaming-in-web-browsers-with-opencv-flask-93a38846fe00
 #Import necessary libraries
-from flask import Flask, render_template, Response, send_file, jsonify
+from flask import Flask, render_template, Response, request, send_file, jsonify
 import cv2
 import datetime
 import boto3
@@ -25,6 +25,21 @@ def upload_to_aws(pil_image, bucket, s3_file_name):
     try:
         # Upload image to s3
         s3.upload_fileobj(in_mem_file, 'mainmediabucket', s3_file_name, ExtraArgs={'ContentType': "image/jpeg"})
+        print("Upload Successful")
+        return True
+    except FileNotFoundError:
+        print("The file was not found")
+        return False
+    except NoCredentialsError:
+        print("Credentials not available")
+        return False
+
+def upload_video_to_aws(local_file, bucket, s3_file):
+    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY,
+                      aws_secret_access_key=SECRET_KEY)
+
+    try:
+        s3.upload_file(local_file, bucket, s3_file, ExtraArgs={'ContentType': "video/avi"})
         print("Upload Successful")
         return True
     except FileNotFoundError:
@@ -142,9 +157,10 @@ def video_feed():
 @app.route('/flsk/record', methods=['GET'])
 def record():
     capture_duration = 10
-
+    timetaken = time.ctime().replace(r':','_')
+    namekey = str('video_1' + timetaken)
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
+    out = cv2.VideoWriter('video_1' + timetaken + '.avi',fourcc, 20.0, (640,480))
 
     start_time = time.time()
     while( int(time.time() - start_time) < capture_duration ):
@@ -154,7 +170,14 @@ def record():
             out.write(frame)
         else:
             break
-    return '', 200
+    uploaded = upload_video_to_aws('video_1' + timetaken + '.avi', 'mainmediabucket', namekey)
+    print(uploaded)
+    response = jsonify({'namekey': namekey})
+    response.headers.add('Access-Control-Allow-Origin', 'localhost')
+    print("response")
+    print(response)
+    return response
+
 @app.route('/flsk/save_snap_to_cloud', methods=['GET'])
 def save_snap_to_cloud():
     if camera.isOpened():
@@ -249,7 +272,7 @@ def gen_motion_frames():
                         cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         # Show the total number of contours that were detected
 
-        if len(cnts) >= 10:
+        if len(cnts) >= 10 and toggle_motion == True:
             print("motion detected")
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
@@ -284,10 +307,21 @@ def gen_motion_frames():
         yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
-# prints if motion detected
-def thread_voice_alert(prompt):
-    print(prompt)
-    print("motion detected")
+
+toggle_motion = True
+@app.route('/flsk/updatePreferences', methods=['POST', 'GET'])
+def updatePreferences():
+    global toggle_motion
+    if request.method == 'GET':
+        pass
+    if request.method == 'POST':
+        print(type(request.data))
+        print(type(request.json))
+        print(request.json)
+        toggle_motion = request.json["motion"]
+        print(toggle_motion)
+        return '', 200
+    
 
 if __name__ == "__main__":
     app.run(debug=True, threaded = True)
