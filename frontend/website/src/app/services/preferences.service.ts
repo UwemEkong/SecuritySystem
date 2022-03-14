@@ -43,7 +43,7 @@ export class PreferencesService {
     })
   }
 
-  getPreferences(userId: number) {
+  getPreferences2(userId: number) {
     this.httpClient.get<Preferences>(`api/preferences/getPreferences/${userId}`).subscribe((data: Preferences) => {
       this.currentUserPrefences = data;
       console.log(this.currentUserPrefences)

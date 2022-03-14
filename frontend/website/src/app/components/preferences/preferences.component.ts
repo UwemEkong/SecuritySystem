@@ -14,7 +14,7 @@ export class PreferencesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.preferencesServices.getPreferences(this.authService.loggedInUser.id as number)
+    this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
   }
   
   deletePeriod = this.preferencesServices.currentUserPrefences.remove
@@ -36,7 +36,7 @@ export class PreferencesComponent implements OnInit {
       let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
       this.preferencesServices.editPreferences(preferences);
     }
-    this.preferencesServices.getPreferences(this.authService.loggedInUser.id as number)
+    this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
     this.preferencesServices.updateFlaskPreferences()
   }
 

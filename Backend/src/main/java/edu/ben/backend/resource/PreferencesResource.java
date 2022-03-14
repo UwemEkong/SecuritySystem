@@ -18,6 +18,7 @@ class PreferencesResource {
     @PostMapping("/editPreferences")
     public void editPreferences(@RequestBody preferencesDTO preferencesDTO) {
         this.preferencesService.editPreferences(preferencesDTO);
+    }
         
     @PostMapping("/editPreferencesRemove")
     public void editPreferencesRemove(@RequestBody preferencesDTO preferencesDTO) {

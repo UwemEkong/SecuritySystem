@@ -50,13 +50,15 @@ public class PreferencesService {
 
 
     public preferencesDTO getPreferences() {
-        preferences preferences = preferencesRepository.findByuserid(authService.getLoggedInUser().getId().intValue());
+        preferences preferences = preferencesRepository.findByuserid((long) authService.getLoggedInUser().getId().intValue());
         preferencesDTO preferencesDTO = new preferencesDTO(preferences.getUserid(), preferences.getRemove(), preferences.isMotion(), preferences.isDark());
         return preferencesDTO;
+    }
 
     public preferencesDTO getPreferences(Long userId) {
         preferences preferences = preferencesRepository.findByuserid(userId);
         return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark());
 
     }
+
 }
