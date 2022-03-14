@@ -16,6 +16,18 @@ public class PreferencesService {
         this.preferencesRepository = preferencesRepository;
         this.authService = authService;
     }
+    
+     public void editPreferences(preferencesDTO preferencesDTO) {
+
+        preferences preferences = preferencesRepository.findByuserid(preferencesDTO.getUserid());
+
+        preferences.setRemove(preferencesDTO.getRemove());
+        preferences.setMotion(preferencesDTO.isMotion());
+        preferences.setDark(preferencesDTO.isDark());
+
+        preferencesRepository.save(preferences);
+
+    }
 
     public void editPreferencesRemove(preferencesDTO preferencesDTO) {
         preferences preferences = preferencesRepository.findByuserid(preferencesDTO.getUserid());
