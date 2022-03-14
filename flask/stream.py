@@ -10,6 +10,9 @@ from PIL import Image
 from matplotlib import cm
 import numpy as np
 import time
+import requests
+from urllib.parse import quote
+
 
 ACCESS_KEY = 'AKIA2X357CBVPHQAVH2E'
 SECRET_KEY = '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'
@@ -124,11 +127,22 @@ def gen_frames():
 
             if motion_list[-1] == 0 and motion_list[-2] == 1:
                 print("hello")
+                send_email_report("racoon")
+
+
             ret, buffer = cv2.imencode(".jpg", frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-                   
+
+
+def send_email_report(report):
+    HEADERS = {
+                'Access-Control-Allow-Origin': 'localhost'
+            }
+
+    response = requests.get('http://localhost:8080/api/auth/report/{}'.format(report), headers=HEADERS)
+    print(response)
 
 
 @app.route('/')
@@ -275,9 +289,11 @@ def gen_motion_frames():
         # Appending Start time of motion
         if motion_list[-1] == 1 and motion_list[-2] == 0:
             print("motion detected")
+            
 
         if motion_list[-1] == 0 and motion_list[-2] == 1:
             print("hello")
+
  
         ret, buffer = cv2.imencode(".jpg", frame)
         frame = buffer.tobytes()
@@ -288,6 +304,7 @@ def gen_motion_frames():
 def thread_voice_alert(prompt):
     print(prompt)
     print("motion detected")
+
 
 if __name__ == "__main__":
     app.run(debug=True, threaded = True)
