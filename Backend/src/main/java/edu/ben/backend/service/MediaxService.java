@@ -76,6 +76,8 @@ public class MediaxService {
 
         Mediax mediaxDelete = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
         mediaxRepository.delete(mediaxDelete);
+
+        GeneratePresignedURL.deleteFromS3("mainmediabucket", mediaxDTO.getPathorkey());
     }
 
     public void editMediax(MediaxDTO mediaxDTO) {

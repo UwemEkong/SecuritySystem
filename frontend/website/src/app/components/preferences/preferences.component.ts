@@ -12,18 +12,19 @@ export class PreferencesComponent implements OnInit {
 
   constructor(public preferencesServices: PreferencesService, public authService: AuthService) { }
 
+
   ngOnInit(): void {
     this.preferencesServices.getPreferences(this.authService.loggedInUser.id as number)
   }
-
+  
   deletePeriod = this.preferencesServices.currentUserPrefences.remove
   motionSetting = this.preferencesServices.currentUserPrefences.motion
 
   editPreferences(){
     if (this.deletePeriod != undefined)
     {
-      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
-      this.preferencesServices.editPreferences(preferences);
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod}
+      this.preferencesServices.editPreferencesRemove(preferences);
     }
   }
 

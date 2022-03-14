@@ -15,11 +15,12 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 export class RecordsComponent implements OnInit {
 
   closeResult = '';
+
   safeUrl: SafeResourceUrl | undefined;
   currentmx:Mediax = {} as Mediax;;
 
-  constructor(public mediaxServ:MediaxService, 
-    public authServ: AuthService, 
+  constructor(public mediaxServ:MediaxService,
+    public authServ: AuthService,
     private router: Router,
     private modalService: NgbModal, private _sanitizer: DomSanitizer) { }
 

@@ -18,6 +18,23 @@ class PreferencesResource {
     @PostMapping("/editPreferences")
     public void editPreferences(@RequestBody preferencesDTO preferencesDTO) {
         this.preferencesService.editPreferences(preferencesDTO);
+        
+    @PostMapping("/editPreferencesRemove")
+    public void editPreferencesRemove(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesRemove(preferencesDTO);
+    }
+    @PostMapping("/editPreferencesDark")
+    public void editPreferencesDark(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesDark(preferencesDTO);
+    }
+    @PostMapping("/editPreferencesMotion")
+    public void editPreferencesMotion(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesMotion(preferencesDTO);
+    }
+
+    @GetMapping("/getPreferences")
+    public preferencesDTO getPreferences() {
+        return this.preferencesService.getPreferences();
     }
 
     @GetMapping("/getPreferences/{userId}")
