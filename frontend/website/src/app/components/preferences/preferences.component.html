@@ -1,8 +1,16 @@
-<br><br>
+<br>
+<br>
+<br>
 
-<div>
-  <h3> How often would you like your media to be deleted?</h3>
-  <h3> Every: </h3>
+<div class="typewriter">
+  <h1>My Preferences<img class="gear" src="https://cdn-icons-png.flaticon.com/512/446/446085.png"></h1>
+</div>
+<br>
+<br>
+<br>
+
+<div class="clear-preference">
+  <h3 class="clear-header">Clear My Media Every: </h3>
   <select [(ngModel)]="deletePeriod">
     <option value="1">1 Minute</option>
     <option value="5">5 Minutes</option>
@@ -15,6 +23,20 @@
     <option value="1440">24 Hours</option>
     <option value="2880">48 Hours</option>
     <option value="0">Never</option>
-  </select>
-  <button class="button" (click)="editPreferences()">Submit</button>
+  </select><br><br>
+  <button class="submit-btn" (click)="editPreferences()">Submit</button>
+</div>
+
+<div class="motion-preference">
+  <h3 class="clear-header">Toggle Motion Capture: </h3>
+
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(true)">
+    <input type="checkbox">
+    <span class="slider1 round"></span>
+  </label>
+
+  <label *ngIf="!this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(false)">
+    <input type="checkbox">
+    <span class="slider2 round"></span>
+  </label>
 </div>

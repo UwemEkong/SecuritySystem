@@ -5,7 +5,6 @@ import com.amazonaws.HttpMethod;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -63,5 +62,20 @@ public class GeneratePresignedURL {
         }
         return "failed_to_generate_url";
     }
-}
+
+    public static void deleteFromS3(String bucketName, String objectKey) {
+
+        String accesskey = "AKIA2X357CBVPHQAVH2E";
+        String secretkey = "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";
+
+        BasicAWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                .withRegion("us-east-1")
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .build();
+
+        s3Client.deleteObject(bucketName, objectKey);
+    }
+
+    }
 
