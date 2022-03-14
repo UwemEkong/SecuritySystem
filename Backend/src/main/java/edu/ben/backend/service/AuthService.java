@@ -142,5 +142,17 @@ public class AuthService {
             return new userDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getReset_token());
 
     }
+
+    public void emailWhatHasBeenDetected(String report){
+        String account = env.getProperty("spring.mail.username");
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(this.getLoggedInUser().getEmail());
+        mailMessage.setSubject("Motion Detected");
+        mailMessage.setFrom(account);
+        mailMessage.setText("Hi, your BigBro camera has detected " + report + ".");
+
+        // Send the email
+        emailSenderService.sendEmail(mailMessage);
+    }
 }
 

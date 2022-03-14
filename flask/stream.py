@@ -10,6 +10,10 @@ from PIL import Image
 from matplotlib import cm
 import numpy as np
 import time
+
+import requests
+from urllib.parse import quote
+
 import os
 import tarfile
 import urllib.request
@@ -187,6 +191,8 @@ def gen_frames():
 
             if len(cnts) >= 10 and toggle_motion == True:
                 print("motion detected")
+                send_email_report("somethings is at the door")
+                
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
                 PIL_image.name = "theimg"
@@ -265,7 +271,14 @@ def gen_frames2():
         yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + image_np_with_detections + b'\r\n')  # concat frame one by one and show result
                      
+def send_email_report(report):
+    HEADERS = {
+                'Access-Control-Allow-Origin': 'localhost'
+            }
 
+    response = requests.get('http://localhost:8080/api/auth/report/{}'.format(report), headers=HEADERS)
+    print(response)
+    
 
 @app.route('/')
 def index():
@@ -416,6 +429,7 @@ def gen_motion_frames():
     
         # motion_list = motion_list[-2:]
     
+
         # # Appending Start time of motion
         # if motion_list[-1] == 1 and motion_list[-2] == 0:
         #     print("motion detected")
@@ -475,6 +489,7 @@ def updatePreferences():
         print(toggle_motion)
         return '', 200
     
+
 
 if __name__ == "__main__":
     app.run(debug=True, threaded = True)

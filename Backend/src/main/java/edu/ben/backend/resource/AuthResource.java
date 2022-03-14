@@ -52,5 +52,12 @@ class AuthResource {
 
         return this.authenticationService.sendEmail(email);
     }
+
+    @GetMapping("/report/{report}")
+    public String reportWhatHasBeenDetected(@PathVariable String report){
+        System.out.println("sending email reporting motion detected");
+        this.authenticationService.emailWhatHasBeenDetected(report);
+        return "success";
+    }
 }
 
