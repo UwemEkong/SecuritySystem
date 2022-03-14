@@ -11,13 +11,13 @@ import lombok.ToString;
 @AllArgsConstructor
 public class preferencesDTO {
     int id;
-    int userid;
+    Long userid;
     int remove;
     boolean motion;
     boolean dark;
 
 
-    public preferencesDTO(int userid, int remove, boolean motion, boolean dark) {
+    public preferencesDTO(Long userid, int remove, boolean motion, boolean dark) {
         this.userid = userid;
         this.remove = remove;
         this.motion = motion;

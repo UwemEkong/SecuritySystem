@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllImages();
+    this.authService.getLoggedInUser();
   }
 
   getAllImages() {

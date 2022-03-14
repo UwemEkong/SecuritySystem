@@ -2,20 +2,42 @@ div{
   padding-left:30px;
 }
 
-.button {
-  width:150px;
-  height:50px;
+.submit-btn {
+  width:100px;
+  height:45px;
   background-color: #1877F2;
   color:white;
   font-family: "Helvetica", sans-serif;
   font-size:20px;
   font-weight:bold;
+  border:none;
+  border-radius:8px;
+}
 
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+  display:inline-block;
+  font-size:30px;
+  font-weight:bold;
+}
 
+.typewriter {
+  text-align: center;
+}
+
+.gear {
+  width:30px;
+  height:auto;
 }
 
 select {
-  width:150px;
   height:50px;
   font-family: "Helvetica", sans-serif;
   font-size:20px;
@@ -24,5 +46,83 @@ select {
   background-color: white;
   border-radius:     5px;
   border-color:     blue;
-  margin-right: 20px;
+  width:8%;
+  margin-right: 46%;
+  margin-left:46%;
+}
+
+.clear-preference {
+  text-align:center; 
+  width:100%;
+}
+
+.clear-header {
+  font-size:24px;
+}
+
+.motion-preference {
+  text-align:center;
+  margin-top:20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider1 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider1:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider2 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2196F3;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider2:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
 }

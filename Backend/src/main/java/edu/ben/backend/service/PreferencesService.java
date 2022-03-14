@@ -27,4 +27,8 @@ public class PreferencesService {
     }
 
 
+    public preferencesDTO getPreferences(Long userId) {
+        preferences preferences = preferencesRepository.findByuserid(userId);
+        return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark());
+    }
 }

@@ -18,7 +18,7 @@ public class preferences {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(name = "userid")
-    int userid;
+    Long userid;
     @Column(name = "remove")
     int remove;
     @Column(name = "motion")
@@ -26,7 +26,7 @@ public class preferences {
     @Column(name = "dark")
     boolean dark;
 
-    public preferences(int userid, int remove, boolean motion, boolean dark) {
+    public preferences(Long userid, int remove, boolean motion, boolean dark) {
         this.userid = userid;
         this.remove = remove;
         this.motion = motion;

@@ -1,6 +1,6 @@
 #https://towardsdatascience.com/video-streaming-in-web-browsers-with-opencv-flask-93a38846fe00
 #Import necessary libraries
-from flask import Flask, render_template, Response, send_file, jsonify
+from flask import Flask, render_template, Response, request, send_file, jsonify
 import cv2
 import datetime
 import boto3
@@ -176,7 +176,7 @@ def record():
     response.headers.add('Access-Control-Allow-Origin', 'localhost')
     print("response")
     print(response)
-    return '', 200
+    return response
 
 @app.route('/flsk/save_snap_to_cloud', methods=['GET'])
 def save_snap_to_cloud():
@@ -272,7 +272,7 @@ def gen_motion_frames():
                         cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         # Show the total number of contours that were detected
 
-        if len(cnts) >= 10:
+        if len(cnts) >= 10 and toggle_motion == True:
             print("motion detected")
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
@@ -307,10 +307,21 @@ def gen_motion_frames():
         yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
-# prints if motion detected
-def thread_voice_alert(prompt):
-    print(prompt)
-    print("motion detected")
+
+toggle_motion = True
+@app.route('/flsk/updatePreferences', methods=['POST', 'GET'])
+def updatePreferences():
+    global toggle_motion
+    if request.method == 'GET':
+        pass
+    if request.method == 'POST':
+        print(type(request.data))
+        print(type(request.json))
+        print(request.json)
+        toggle_motion = request.json["motion"]
+        print(toggle_motion)
+        return '', 200
+    
 
 if __name__ == "__main__":
     app.run(debug=True, threaded = True)

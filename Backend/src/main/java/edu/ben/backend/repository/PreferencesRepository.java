@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PreferencesRepository extends JpaRepository<preferences, Long> {
 
-    public preferences findByuserid(int userid);
+    public preferences findByuserid(Long userid);
 
 
 
