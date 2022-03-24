@@ -13,6 +13,11 @@ export class PreferencesService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
+  removePeriod = 0;
+  fontSizeSetting = 14;
+  imageSizeSetting = 300;
+  videoSizeSetting = 300;
+
 
   editPreferencesRemove(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesRemove', preferences).subscribe(() => {
@@ -31,12 +36,36 @@ export class PreferencesService {
     })
   }
 
-  public getPreferences = (): Observable<{ id: number, userid: number, remove: number, motion:boolean, dark:boolean}> => {
-    return this.httpClient.get<{ id: number, userid: number, remove: number, motion:boolean, dark:boolean }>(`api/preferences/getPreferences`);
+  editPreferencesFontSize(preferences:Preferences) {
+    this.httpClient.post<Preferences>('api/preferences/editPreferencesFontSize', preferences).subscribe(() => {
+      // this.router.navigateByUrl('/home');
+      alert("Font Size Changed Successfully!!");
+
+    })
+  }
+
+  editPreferencesImageSize(preferences:Preferences) {
+    this.httpClient.post<Preferences>('api/preferences/editPreferencesImageSize', preferences).subscribe(() => {
+      // this.router.navigateByUrl('/home');
+      alert("Image Size Changed Successfully!!");
+    })
+
+  }
+
+  editPreferencesVideoSize(preferences:Preferences) {
+    this.httpClient.post<Preferences>('api/preferences/editPreferencesVideoSize', preferences).subscribe(() => {
+      // this.router.navigateByUrl('/home');
+      alert("Video Size Changed Successfully!!");
+
+    })
+  }
+
+  public getPreferences = (): Observable<{ id: number, userid: number, remove: number, motion:boolean, dark:boolean, fontsize:number, imagesize:number, videosize:number}> => {
+    return this.httpClient.get<{ id: number, userid: number, remove: number, motion:boolean, dark:boolean, fontsize:number, imagesize:number, videosize:number }>(`api/preferences/getPreferences`);
   }
 
   currentUserPrefences = <Preferences>{};
-  
+
   editPreferences(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferences', preferences).subscribe(() => {
 
@@ -50,10 +79,20 @@ export class PreferencesService {
     })
   }
 
+  public getCurrentUserPreferences()
+  {
+    this.getPreferences().subscribe(response =>{
+      this.removePeriod = response.remove;
+      this.fontSizeSetting = response.fontsize;
+      this.imageSizeSetting = response.imagesize;
+      this.videoSizeSetting = response.videosize;
+    })
+  }
+
 
   updateFlaskPreferences() {
     this.httpClient.post<Preferences>('http://localhost:4200/flsk/updatePreferences', this.currentUserPrefences).subscribe(() => {
-   
+
     })
   }
 

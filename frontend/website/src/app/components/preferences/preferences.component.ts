@@ -10,23 +10,25 @@ import {AuthService} from "../../services/auth.service";
 })
 export class PreferencesComponent implements OnInit {
 
+  fontSize = this.preferencesServices.fontSizeSetting
+
   constructor(public preferencesServices: PreferencesService, public authService: AuthService) { }
 
 
   ngOnInit(): void {
+    document.body.style.fontSize = this.fontSize + 'px';
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
+
   }
-  
+
+  removePeriod = this.preferencesServices.removePeriod;
+  fontSizeSetting = this.preferencesServices.fontSizeSetting;
+  imageSizeSetting = this.preferencesServices.imageSizeSetting;
+  videoSizeSetting = this.preferencesServices.videoSizeSetting;
+
   deletePeriod = this.preferencesServices.currentUserPrefences.remove
   motionSetting = this.preferencesServices.currentUserPrefences.motion
 
-  editPreferences(){
-    if (this.deletePeriod != undefined)
-    {
-      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod}
-      this.preferencesServices.editPreferencesRemove(preferences);
-    }
-  }
 
   toggleMotion(newSetting: boolean) {
     if (newSetting == true) {
@@ -38,6 +40,35 @@ export class PreferencesComponent implements OnInit {
     }
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
     this.preferencesServices.updateFlaskPreferences()
+  }
+
+  editPreferencesRemove(){
+    if (this.removePeriod != undefined)
+    {
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.removePeriod}
+      this.preferencesServices.editPreferencesRemove(preferences);
+    }
+  }
+  editPreferencesFontSize(){
+    if (this.fontSizeSetting != undefined)
+    {
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, fontsize: this.fontSizeSetting}
+      this.preferencesServices.editPreferencesFontSize(preferences);
+    }
+  }
+  editPreferencesImageSize(){
+    if (this.imageSizeSetting != undefined)
+    {
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, imagesize: this.imageSizeSetting}
+      this.preferencesServices.editPreferencesImageSize(preferences);
+    }
+  }
+  editPreferencesVideoSize(){
+    if (this.videoSizeSetting != undefined)
+    {
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, videosize: this.videoSizeSetting}
+      this.preferencesServices.editPreferencesVideoSize(preferences);
+    }
   }
 
 }

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import { MediaxService } from 'src/app/services/mediax.service';
 import {Mediax} from "../../interfaces/Mediax"
 import { AuthService } from 'src/app/services/auth.service';
+import {PreferencesService} from "../../services/preferences.service";
 
 
 @Component({
@@ -12,8 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CameraComponent implements OnInit {
 
-  constructor(public mediaxServ: MediaxService, private http: HttpClient, public authService: AuthService) { }
+  constructor(public mediaxServ: MediaxService, private http: HttpClient, public authService: AuthService, private pref: PreferencesService) { }
 
+  videoSize = this.pref.videoSizeSetting;
   videoRef:any;
   ngOnInit(): void {
     // this.videoRef = document.getElementById('video');

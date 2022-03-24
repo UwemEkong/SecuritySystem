@@ -65,6 +65,9 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`preferences` (
                                                         `remove` INT NULL,
                                                         `motion` boolean NULL,
                                                         `dark` boolean NULL,
+                                                        `fontsize` INT NULL,
+                                                        `imagesize` INT NULL,
+                                                        `videosize` INT NULL,
                                                         PRIMARY KEY (`id`),
                                                         UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;

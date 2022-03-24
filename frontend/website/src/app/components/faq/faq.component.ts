@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FeedbackService} from "../../services/feedback.service";
+import {PreferencesService} from "../../services/preferences.service";
 
 class feedback {
   constructor(
@@ -19,10 +20,14 @@ class feedback {
 export class FaqComponent implements OnInit {
 
   feedbackList: feedback[] = [];
+  fontSize = this.pref.fontSizeSetting;
+  headerSize = this.pref.fontSizeSetting*1.5;
 
-  constructor(public feedbackService: FeedbackService) { }
+  constructor(public feedbackService: FeedbackService, private pref: PreferencesService) { }
 
   ngOnInit(): void {
+    document.body.style.fontSize = this.fontSize + 'px';
+
   }
 
   create(feedbackData: any) {

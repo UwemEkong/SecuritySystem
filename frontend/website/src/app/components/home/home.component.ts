@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import {ImageService} from "../../services/image.service";
+import {PreferencesService} from "../../services/preferences.service";
 
 class image {
   constructor(
@@ -16,12 +17,18 @@ class image {
 export class HomeComponent implements OnInit {
 
   imageList: image[] = [];
+  imageSize = this.pref.imageSizeSetting;
+  fontSize = this.pref.fontSizeSetting;
+  headerSize = this.pref.fontSizeSetting*2;
 
-  constructor(public authService: AuthService, public imageService: ImageService) { }
+  constructor(public authService: AuthService, public imageService: ImageService, private pref:PreferencesService) { }
 
   ngOnInit(): void {
     this.getAllImages();
-    this.authService.getLoggedInUser();
+    document.body.style.fontSize = this.fontSize + 'px';
+
+    // Uncommenting the code below prevents the images on the homepage from showing up
+    // this.authService.getLoggedInUser();
   }
 
   getAllImages() {

@@ -23,16 +23,19 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe(event => {
+
+      if (this.auth.authenticated) {
+        this.pref.getPreferences().subscribe(response => {
+          this.darkMode = response.dark;
+          this.dark.emit(this.darkMode);
+          this.pref.getCurrentUserPreferences();
+
+        })
+      }
+
       if (event.constructor.name === "NavigationEnd") {
         this.loggedIn = this.auth.authenticated;
         this.loggedFirstname = this.auth.loggedInUser.firstname;
-
-        if (this.auth.authenticated) {
-          this.pref.getPreferences().subscribe(response => {
-            this.darkMode = response.dark;
-            this.dark.emit(this.darkMode);
-          })
-        }
       }
     })
   }
