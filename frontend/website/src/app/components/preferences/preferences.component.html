@@ -30,12 +30,12 @@
 <div class="motion-preference">
   <h3 class="clear-header">Toggle Motion Capture: </h3>
 
-  <label *ngIf="this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(true)">
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == false" class="switch" (click)="toggleMotion(true)">
     <input type="checkbox">
     <span class="slider1 round"></span>
   </label>
 
-  <label *ngIf="!this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(false)">
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == true" class="switch" (click)="toggleMotion(false)">
     <input type="checkbox">
     <span class="slider2 round"></span>
   </label>
