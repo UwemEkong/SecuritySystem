@@ -21,14 +21,16 @@ export class PreferencesService {
 
   editPreferencesRemove(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesRemove', preferences).subscribe(() => {
-      this.router.navigateByUrl('/home');
+      this.getCurrentUserPreferences();
+      alert("Media Clear Time Changed Successfully!!");
+
     })
   }
 
   editPreferencesDark(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesDark', preferences).subscribe(() => {
-      // this.router.navigateByUrl('/home');
-      // alert("Video Size Changed Successfully!!");
+      this.getCurrentUserPreferences();
+      // alert("Font Size Changed Successfully!!");
     })
   }
 
@@ -40,7 +42,7 @@ export class PreferencesService {
 
   editPreferencesFontSize(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesFontSize', preferences).subscribe(() => {
-      // this.router.navigateByUrl('/home');
+      this.getCurrentUserPreferences();
       alert("Font Size Changed Successfully!!");
 
     })
@@ -48,7 +50,7 @@ export class PreferencesService {
 
   editPreferencesImageSize(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesImageSize', preferences).subscribe(() => {
-      // this.router.navigateByUrl('/home');
+      this.getCurrentUserPreferences();
       alert("Image Size Changed Successfully!!");
     })
 
@@ -56,7 +58,7 @@ export class PreferencesService {
 
   editPreferencesVideoSize(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesVideoSize', preferences).subscribe(() => {
-      // this.router.navigateByUrl('/home');
+      this.getCurrentUserPreferences();
       alert("Video Size Changed Successfully!!");
 
     })

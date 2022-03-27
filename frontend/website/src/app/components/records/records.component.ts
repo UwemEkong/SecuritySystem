@@ -75,7 +75,7 @@ export class RecordsComponent implements OnInit {
     this.mediaxServ.editMediaxFavorite(mx);
     alert("Favorite Setting Changed Successfully!!");
 
-    this.mediaFilteration()
+    // this.mediaFilteration()
   }
 
 
