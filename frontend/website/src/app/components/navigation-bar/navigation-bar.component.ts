@@ -12,7 +12,7 @@ import {Preferences} from "../../interfaces/Preferences";
 export class NavigationBarComponent implements OnInit {
   @Output()
   dark = new EventEmitter<boolean>();
-  darkMode = false;
+  darkMode = this.checkDarkMode();
 
   loggedIn = false
   loggedFirstname: any
@@ -23,13 +23,11 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe(event => {
-
       if (this.auth.authenticated) {
         this.pref.getPreferences().subscribe(response => {
           this.darkMode = response.dark;
           this.dark.emit(this.darkMode);
           this.pref.getCurrentUserPreferences();
-
         })
       }
 
@@ -54,7 +52,15 @@ export class NavigationBarComponent implements OnInit {
       let preferences:Preferences = {userid: this.auth.loggedInUser.id, dark: this.darkMode}
       this.pref.editPreferencesDark(preferences);
     }
-
   }
 
+  checkDarkMode(): boolean {
+    if (this.auth.authenticated)
+    {
+      this.pref.getPreferences().subscribe(response => {
+        return response.dark;
+      })
+    }
+    return false;
+  }
 }

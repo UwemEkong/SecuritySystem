@@ -4,6 +4,7 @@ import {Mediax} from "../interfaces/Mediax"
 import {HttpClient} from "@angular/common/http";
 import { Router } from '@angular/router';
 import {Observable} from "rxjs";
+import {Preferences} from "../interfaces/Preferences";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,12 @@ export class MediaxService {
 
   editMediax(mediax:Mediax) {
     this.httpClient.post<Mediax>('api/mediax/editMediax', mediax).subscribe(() => {
+      this.router.navigateByUrl('/records');
+    })
+  }
+
+  editMediaxFavorite(mediax:Mediax) {
+    this.httpClient.post<Mediax>('api/mediax/editMediaxFavorite', mediax).subscribe(() => {
       this.router.navigateByUrl('/records');
     })
   }

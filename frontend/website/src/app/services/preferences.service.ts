@@ -27,6 +27,8 @@ export class PreferencesService {
 
   editPreferencesDark(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesDark', preferences).subscribe(() => {
+      // this.router.navigateByUrl('/home');
+      // alert("Video Size Changed Successfully!!");
     })
   }
 

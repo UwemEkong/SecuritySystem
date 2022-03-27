@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PreferencesService} from "../../services/preferences.service";
 import {Preferences} from "../../interfaces/Preferences";
 import {AuthService} from "../../services/auth.service";
+import {NavigationBarComponent} from "../navigation-bar/navigation-bar.component";
+import {Router} from "@angular/router";
 
 @Component({
+  providers:[NavigationBarComponent],
   selector: 'app-preferences',
   templateUrl: './preferences.component.html',
   styleUrls: ['./preferences.component.scss']
 })
 export class PreferencesComponent implements OnInit {
+  @Output()
+  dark = new EventEmitter<boolean>();
 
   fontSize = this.preferencesServices.fontSizeSetting
 
-  constructor(public preferencesServices: PreferencesService, public authService: AuthService) { }
+  constructor(public preferencesServices: PreferencesService, public authService: AuthService, private navigation: NavigationBarComponent, private router: Router) { }
 
 
   ngOnInit(): void {
     document.body.style.fontSize = this.fontSize + 'px';
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
-
   }
 
   removePeriod = this.preferencesServices.removePeriod;
@@ -70,5 +74,27 @@ export class PreferencesComponent implements OnInit {
       this.preferencesServices.editPreferencesVideoSize(preferences);
     }
   }
+
+  toggleDarkMode() {
+    this.preferencesServices.getPreferences().subscribe(response => {
+
+      let darkMode = response.dark;
+
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, dark: !darkMode}
+      this.preferencesServices.editPreferencesDark(preferences);
+
+      this.dark.emit(!darkMode);
+
+      alert("Dark Mode Setting Changed Successfully!!");
+
+      setTimeout(() =>
+        {
+          this.router.navigate(['/home']);
+        },
+        100);
+    })
+  }
+
+
 
 }

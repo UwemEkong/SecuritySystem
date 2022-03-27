@@ -5,9 +5,26 @@
 <div class="typewriter" >
   <h1>My Preferences<img class="gear" src="https://cdn-icons-png.flaticon.com/512/446/446085.png"></h1>
 </div>
-<br>
-<br>
-<br>
+<br><br><br>
+
+<div class="motion-preference">
+  <p>Toggle Motion Capture: </p>
+
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(true)">
+    <input type="checkbox">
+    <span class="slider1 round"></span>
+  </label>
+
+  <label *ngIf="!this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(false)">
+    <input type="checkbox">
+    <span class="slider2 round"></span>
+  </label>
+</div><br><br>
+
+<div class="clear-preference">
+  <button class="submit-btn" (click)="toggleDarkMode()">Dark / Light</button>
+</div>
+<br><br><br>
 
 <div class="clear-preference">
   <p>Clear My Media Every: </p>
@@ -25,20 +42,6 @@
     <option value="0">Never</option>
   </select><br><br>
   <button class="submit-btn" (click)="editPreferencesRemove()">Submit</button>
-</div><br><br>
-
-<div class="motion-preference">
-  <p>Toggle Motion Capture: </p>
-
-  <label *ngIf="this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(true)">
-    <input type="checkbox">
-    <span class="slider1 round"></span>
-  </label>
-
-  <label *ngIf="!this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(false)">
-    <input type="checkbox">
-    <span class="slider2 round"></span>
-  </label>
 </div><br><br>
 
 
