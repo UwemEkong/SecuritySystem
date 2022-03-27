@@ -8,18 +8,18 @@
 <br><br><br>
 
 <div class="motion-preference">
-  <p>Toggle Motion Capture: </p>
 
-  <label *ngIf="this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(true)">
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == false" class="switch" (click)="toggleMotion(true)">
     <input type="checkbox">
     <span class="slider1 round"></span>
   </label>
 
-  <label *ngIf="!this.preferencesServices.currentUserPrefences.motion" class="switch" (click)="toggleMotion(false)">
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == true" class="switch" (click)="toggleMotion(false)">
     <input type="checkbox">
     <span class="slider2 round"></span>
   </label>
-</div><br><br>
+</div>
+<br><br>
 
 <div class="clear-preference">
   <button class="submit-btn" (click)="toggleDarkMode()">Dark / Light</button>
@@ -133,5 +133,5 @@
   <button class="submit-btn"  (click)="editPreferencesVideoSize()">Submit</button>
 </div>
 
-<br><br>
+
 <br><br>
