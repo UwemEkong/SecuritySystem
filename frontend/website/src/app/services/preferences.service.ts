@@ -92,11 +92,9 @@ export class PreferencesService {
       this.videoSizeSetting = response.videosize;
     })
   }
-
-
-  updateFlaskPreferences() {
-    this.httpClient.post<Preferences>('http://localhost:4200/flsk/updatePreferences', this.currentUserPrefences).subscribe(() => {
-
+  updateFlaskPreferences(preferences: Preferences) {
+    this.httpClient.post<Preferences>('http://localhost:4200/flsk/updatePreferences', preferences).subscribe(() => {
+   
     })
   }
 
