@@ -12,8 +12,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./preferences.component.scss']
 })
 export class PreferencesComponent implements OnInit {
-  @Output()
-  dark = new EventEmitter<boolean>();
+  darkMode = false;
 
   fontSize = this.preferencesServices.fontSizeSetting
 
@@ -23,22 +22,24 @@ export class PreferencesComponent implements OnInit {
   ngOnInit(): void {
     document.body.style.fontSize = this.fontSize + 'px';
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
+
+    this.preferencesServices.getPreferences().subscribe(response => {
+      this.darkMode = response.dark;
+    })
   }
 
   removePeriod = this.preferencesServices.removePeriod;
   fontSizeSetting = this.preferencesServices.fontSizeSetting;
   imageSizeSetting = this.preferencesServices.imageSizeSetting;
   videoSizeSetting = this.preferencesServices.videoSizeSetting;
-
   deletePeriod = this.preferencesServices.currentUserPrefences.remove
   motionSetting = this.preferencesServices.currentUserPrefences.motion
 
-
   toggleMotion(newSetting: boolean) {
-    
+
       let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: newSetting, dark: false}
       this.preferencesServices.editPreferences(preferences);
-    
+
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
     this.preferencesServices.updateFlaskPreferences(preferences)
   }
@@ -73,25 +74,15 @@ export class PreferencesComponent implements OnInit {
   }
 
   toggleDarkMode() {
-    this.preferencesServices.getPreferences().subscribe(response => {
+    this.darkMode = !this.darkMode;
 
-      let darkMode = response.dark;
+    let preferences:Preferences = {userid: this.authService.loggedInUser.id, dark: this.darkMode}
+    this.preferencesServices.editPreferencesDark(preferences);
 
-      let preferences:Preferences = {userid: this.authService.loggedInUser.id, dark: !darkMode}
-      this.preferencesServices.editPreferencesDark(preferences);
+    this.authService.checkedPrefOnLogin = false;
 
-      this.dark.emit(!darkMode);
+    alert("Dark Mode Setting Changed Successfully!!");
 
-      alert("Dark Mode Setting Changed Successfully!!");
-
-      setTimeout(() =>
-        {
-          this.router.navigate(['/home']);
-        },
-        100);
-    })
+    this.router.navigateByUrl('/home');
   }
-
-
-
 }

@@ -12,7 +12,7 @@ import {Preferences} from "../../interfaces/Preferences";
 export class NavigationBarComponent implements OnInit {
   @Output()
   dark = new EventEmitter<boolean>();
-  darkMode = this.checkDarkMode();
+  darkMode = false;
 
   loggedIn = false
   loggedFirstname: any
@@ -55,13 +55,4 @@ export class NavigationBarComponent implements OnInit {
     }
   }
 
-  checkDarkMode(): boolean {
-    if (this.auth.authenticated)
-    {
-      this.pref.getPreferences().subscribe(response => {
-        return response.dark;
-      })
-    }
-    return false;
-  }
 }
