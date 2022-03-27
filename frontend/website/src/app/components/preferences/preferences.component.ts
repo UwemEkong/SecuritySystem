@@ -35,15 +35,12 @@ export class PreferencesComponent implements OnInit {
 
 
   toggleMotion(newSetting: boolean) {
-    if (newSetting == true) {
-      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: false, dark: false}
+    
+      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: newSetting, dark: false}
       this.preferencesServices.editPreferences(preferences);
-    } else {
-      let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: true, dark: false}
-      this.preferencesServices.editPreferences(preferences);
-    }
+    
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
-    this.preferencesServices.updateFlaskPreferences()
+    this.preferencesServices.updateFlaskPreferences(preferences)
   }
 
   editPreferencesRemove(){
