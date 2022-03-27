@@ -1,5 +1,6 @@
 #https://towardsdatascience.com/video-streaming-in-web-browsers-with-opencv-flask-93a38846fe00
 #Import necessary libraries
+import threading
 from flask import Flask, render_template, Response, request, send_file, jsonify
 import cv2
 import datetime
@@ -79,79 +80,64 @@ def apply_timestamp(fram):
 
 camera = cv2.VideoCapture(0)
 def gen_frames():
-    global motion_list
-    global static_back
-    while camera.isOpened():
-        success, frame = camera.read()
-        if success:
-            frame = apply_timestamp(frame)
-        if not success:
-            break
-        else:
-            # Initializing motion = 0(no motion)
-            motion = 0
-    
-            # Converting color image to gray_scale image
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        
-            # Converting gray scale image to GaussianBlur
-            # so that change can be find easily
-            gray = cv2.GaussianBlur(gray, (21, 21), 0)
-        
-            # In first iteration we assign the value
-            # of static_back to our first frame
-            if static_back is None:
-                static_back = gray
-                continue
-        
-            # Difference between static background
-            # and current frame(which is GaussianBlur)
-            diff_frame = cv2.absdiff(static_back, gray)
-        
-            # If change in between static background and
-            # current frame is greater than 30 it will show white color(255)
-            thresh_frame = cv2.threshold(diff_frame, 30, 255, cv2.THRESH_BINARY)[1]
-            thresh_frame = cv2.dilate(thresh_frame, None, iterations = 2)
-        
-            # Finding contour of moving object
-            cnts,_ = cv2.findContours(thresh_frame.copy(),
-                            cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            # Show the total number of contours that were detected
+ global prevtime
+ global toggle_motion
+ while camera.isOpened():
+    # to read frame by frame
+    _, img_1 = camera.read()
+    _, img_2 = camera.read()
 
-            if len(cnts) >= 10 and toggle_motion == True:
-                print("motion detected")
-                send_email_report("somethings is at the door")       
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                PIL_image = Image.fromarray(np.uint8(frame)).convert('RGB')
+    # find difference between two frames
+    diff = cv2.absdiff(img_1, img_2)
+
+    # to convert the frame to grayscale
+    diff_gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+
+    # apply some blur to smoothen the frame
+    diff_blur = cv2.GaussianBlur(diff_gray, (5, 5), 0)
+
+    # to get the binary image
+    _, thresh_bin = cv2.threshold(diff_blur, 20, 255, cv2.THRESH_BINARY)
+
+    # to find contours
+    contours, hierarchy = cv2.findContours(thresh_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    # to draw the bounding box when the motion is detected
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour)
+        if cv2.contourArea(contour) > 300 and toggle_motion == True:
+            cv2.rectangle(img_1, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            if allow_motion_detection() == True:
+                prevtime = time.time()
+                print("motion detected")      
+                img_1 = cv2.cvtColor(img_1, cv2.COLOR_BGR2RGB)
+                send_email_report("somethings is at the door") 
+                PIL_image = Image.fromarray(np.uint8(img_1)).convert('RGB')
                 PIL_image.name = "theimg"
                 timetaken = time.ctime().replace(r':','_')
                 PIL_image.save("snapshot_" + timetaken + ".png")
                 get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
-            for contour in cnts:
-                if cv2.contourArea(contour) < 10000:
-                    continue
-                motion = 1
-        
-                (x, y, w, h) = cv2.boundingRect(contour)
-                # making green rectangle around the moving object
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
-        
-            # Appending status of motion
-            motion_list.append(motion)
-        
-            motion_list = motion_list[-2:]
-        
-            # Appending Start time of motion
-            if motion_list[-1] == 1 and motion_list[-2] == 0:
-                print("motion detected")
 
-            if motion_list[-1] == 0 and motion_list[-2] == 1:
-                print("hello")
-            ret, buffer = cv2.imencode(".jpg", frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+    ret, buffer = cv2.imencode(".jpg", img_1)
+    img_1 = buffer.tobytes()
+    yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + img_1 + b'\r\n')  # concat frame one by one and show result
 
+prevtime = time.time()
+first_detection = True
+
+# Checks if 10 seconds have passed since the last motion detection
+# Checks if this is the first time motion has been detection since the app loaded up
+# Checks if user has "motion" user preference set to true
+# If all of the above checks are true, then the function returns true
+def allow_motion_detection():
+    global first_detection
+    global prevtime
+    global toggle_motion
+    if toggle_motion == True and first_detection == True or  toggle_motion == True and time.time() - prevtime > 10:
+        first_detection = False
+        return True
+    return False
 def send_email_report(report):
     HEADERS = {
                 'Access-Control-Allow-Origin': 'localhost'
@@ -160,7 +146,10 @@ def send_email_report(report):
     response = requests.get('http://localhost:8080/api/auth/report/{}'.format(report), headers=HEADERS)
     print(response)
 
+aws_rekognition_active = False
 def get_aws_rekognition_labels(image_file_path):
+    global aws_rekognition_active
+    aws_rekognition_active = True
     client=boto3.client('rekognition', region_name='us-east-1', aws_access_key_id=ACCESS_KEY,aws_secret_access_key=SECRET_KEY)
    
     with open(image_file_path, 'rb') as image:
@@ -169,7 +158,7 @@ def get_aws_rekognition_labels(image_file_path):
     print('Detected labels in ' + image_file_path)    
     for label in response['Labels']:
         print (label['Name'] + ' : ' + str(label['Confidence']))
-
+    aws_rekognition_active = False
     return response['Labels']
 
 @app.route('/')
