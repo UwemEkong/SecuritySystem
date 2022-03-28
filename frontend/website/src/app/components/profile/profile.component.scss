@@ -1,10 +1,9 @@
-
 /* Create three equal columns that floats next to each other */
 .column {
   float: left;
   width: 33.33%;
   padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
+
 }
 
 /* Clear floats after the columns */
@@ -27,5 +26,36 @@
 
 #storage {
   padding-top: 20px;
+}
+
+#left {
+  padding-left: 0px;
+  text-align: center;
+}
+
+#right {
+  padding-left: 45px;
+
+}
+
+.button {
+  width:150px;
+  margin-top:2%;
+  margin-bottom:5%;
+  margin-left:5%;
+  margin-right:5%;
+  background-color: #1877F2;
+  color:white;
+  font-family: "Helvetica", sans-serif;
+  font-size:20px;
+  font-weight:bold;
+  border: none;
+  border-radius:5px;
+  height:50px;
+}
+
+#center {
+  text-align: center;
+  padding-right: 25px;
 }
 
