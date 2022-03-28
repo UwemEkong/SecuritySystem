@@ -1,8 +1,10 @@
 import { Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import * as $ from 'jquery';
-import {Component, } from '@angular/core';
 import {NavigationBarComponent} from "../navigation-bar/navigation-bar.component";
 import {Router} from "@angular/router";
+import { Preferences } from 'src/app/interfaces/Preferences';
+import { PreferencesService } from 'src/app/services/preferences.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   providers:[NavigationBarComponent],
@@ -21,7 +23,7 @@ export class PreferencesComponent implements OnInit {
     document.body.style.fontSize = this.fontSize + 'px';
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
 
-    this.preferencesServices.getPreferences().subscribe(response => {
+    this.preferencesServices.getPreferences().subscribe((response: { dark: boolean; }) => {
       this.darkMode = response.dark;
     })
   }
