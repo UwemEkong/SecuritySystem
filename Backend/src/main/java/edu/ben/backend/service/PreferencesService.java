@@ -5,6 +5,10 @@ import edu.ben.backend.model.preferences;
 import edu.ben.backend.repository.PreferencesRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 @Service
 public class PreferencesService {
@@ -24,6 +28,7 @@ public class PreferencesService {
         preferences.setRemove(preferencesDTO.getRemove());
         preferences.setMotion(preferencesDTO.isMotion());
         preferences.setDark(preferencesDTO.isDark());
+         preferences.setLabels(preferencesDTO.getLabels());
 
         preferencesRepository.save(preferences);
 
@@ -51,14 +56,26 @@ public class PreferencesService {
 
     public preferencesDTO getPreferences() {
         preferences preferences = preferencesRepository.findByuserid((long) authService.getLoggedInUser().getId().intValue());
-        preferencesDTO preferencesDTO = new preferencesDTO(preferences.getUserid(), preferences.getRemove(), preferences.isMotion(), preferences.isDark());
+        preferencesDTO preferencesDTO = new preferencesDTO(preferences.getUserid(), preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getLabels());
         return preferencesDTO;
     }
 
     public preferencesDTO getPreferences(Long userId) {
         preferences preferences = preferencesRepository.findByuserid(userId);
-        return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark());
+        return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getLabels());
 
     }
 
+    public String getLabels() {
+        String labels = getPreferences(authService.getLoggedInUser().getId()).getLabels();
+
+        return labels;
+
+    }
+
+    public void editLabels(String newlabels) {
+        preferences preferences = preferencesRepository.findByuserid(authService.getLoggedInUser().getId());
+        preferences.setLabels(newlabels);
+        preferencesRepository.save(preferences);
+    }
 }

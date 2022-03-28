@@ -15,13 +15,15 @@ public class preferencesDTO {
     int remove;
     boolean motion;
     boolean dark;
+    String labels;
 
 
-    public preferencesDTO(Long userid, int remove, boolean motion, boolean dark) {
+    public preferencesDTO(Long userid, int remove, boolean motion, boolean dark, String labels) {
         this.userid = userid;
         this.remove = remove;
         this.motion = motion;
         this.dark = dark;
+        this.labels = labels;
     }
 
     public preferencesDTO(){}

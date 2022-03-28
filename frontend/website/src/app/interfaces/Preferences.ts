@@ -3,4 +3,5 @@ export interface Preferences {
     remove?:number;
     motion?:boolean;
     dark?: boolean;
+    labels?:string;
 }

@@ -25,11 +25,14 @@ public class preferences {
     boolean motion;
     @Column(name = "dark")
     boolean dark;
+    @Column(name = "labels")
+    String labels;
 
     public preferences(Long userid, int remove, boolean motion, boolean dark) {
         this.userid = userid;
         this.remove = remove;
         this.motion = motion;
         this.dark = dark;
+        this.labels = "person,car";
     }
 }
