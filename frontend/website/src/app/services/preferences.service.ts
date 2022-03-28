@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Router } from '@angular/router';
 import {Preferences} from "../interfaces/Preferences";
 import {Observable} from "rxjs";
@@ -10,6 +10,7 @@ import { User } from '../interfaces/User';
   providedIn: 'root'
 })
 export class PreferencesService {
+  
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -66,11 +67,14 @@ export class PreferencesService {
 
   public getPreferences = (): Observable<{ id: number, userid: number, remove: number, motion:boolean, dark:boolean, fontsize:number, imagesize:number, videosize:number}> => {
     return this.httpClient.get<{ id: number, userid: number, remove: number, motion:boolean, dark:boolean, fontsize:number, imagesize:number, videosize:number }>(`api/preferences/getPreferences`);
+
   }
+
 
   currentUserPrefences = <Preferences>{};
 
   editPreferences(preferences:Preferences) {
+    console.log(preferences);
     this.httpClient.post<Preferences>('api/preferences/editPreferences', preferences).subscribe(() => {
 
     })

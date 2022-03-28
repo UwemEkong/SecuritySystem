@@ -4,6 +4,8 @@ import edu.ben.backend.model.dto.preferencesDTO;
 import edu.ben.backend.service.PreferencesService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "api/preferences", produces = "application/json")
@@ -56,6 +58,16 @@ class PreferencesResource {
     @GetMapping("/getPreferences/{userId}")
     public preferencesDTO getPreferences(@PathVariable Long userId) {
         return this.preferencesService.getPreferences(userId);
+    }
+
+    @GetMapping(value = "/getLabels")
+    public String getLabels() {
+        return this.preferencesService.getLabels();
+    }
+
+    @PostMapping("/editPreferencesLabels")
+    public void editLabels(@RequestBody String newlabels) {
+        this.preferencesService.editLabels(newlabels);
     }
 
 }

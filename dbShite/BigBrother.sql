@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`preferences` (
                                                         `remove` INT NULL,
                                                         `motion` boolean NULL,
                                                         `dark` boolean NULL,
+                                                        `labels` VARCHAR(255) NULL,
                                                         `fontsize` INT NULL,
                                                         `imagesize` INT NULL,
                                                         `videosize` INT NULL,
