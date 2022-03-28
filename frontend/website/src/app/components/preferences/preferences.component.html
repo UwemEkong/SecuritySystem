@@ -2,30 +2,10 @@
 <br>
 <br>
 
-<div class="typewriter">
+<div class="typewriter" >
   <h1>My Preferences<img class="gear" src="https://cdn-icons-png.flaticon.com/512/446/446085.png"></h1>
 </div>
-<br>
-<br>
-<br>
-
-<div class="clear-preference">
-  <h3 class="clear-header">Clear My Media Every: </h3>
-  <select [(ngModel)]="deletePeriod">
-    <option value="1">1 Minute</option>
-    <option value="5">5 Minutes</option>
-    <option value="15">15 Minutes</option>
-    <option value="30">30 Minutes</option>
-    <option value="60">1 Hour</option>
-    <option value="180">3 Hours</option>
-    <option value="360">6 Hours</option>
-    <option value="720">12 Hours</option>
-    <option value="1440">24 Hours</option>
-    <option value="2880">48 Hours</option>
-    <option value="0">Never</option>
-  </select><br><br>
-  <button class="submit-btn" (click)="editPreferences()">Submit</button>
-</div>
+<br><br><br>
 
 <div class="motion-preference">
   <h3 class="clear-header">Toggle Motion Capture: </h3>
@@ -40,3 +20,119 @@
     <span class="slider2 round"></span>
   </label>
 </div>
+<br><br>
+
+<div class="clear-preference">
+  <button class="submit-btn" (click)="toggleDarkMode()">Dark / Light</button>
+</div>
+<br><br><br>
+
+<div class="clear-preference">
+  <p>Clear My Media Every: </p>
+  <select [(ngModel)]="removePeriod">
+    <option value="1">1 Minute</option>
+    <option value="5">5 Minutes</option>
+    <option value="15">15 Minutes</option>
+    <option value="30">30 Minutes</option>
+    <option value="60">1 Hour</option>
+    <option value="180">3 Hours</option>
+    <option value="360">6 Hours</option>
+    <option value="720">12 Hours</option>
+    <option value="1440">24 Hours</option>
+    <option value="2880">48 Hours</option>
+    <option value="0">Never</option>
+  </select><br><br>
+  <button class="submit-btn" (click)="editPreferencesRemove()">Submit</button>
+</div><br><br>
+
+<br><br>
+<div class="clear-preference">
+  <p> What font size would you like?</p>
+  <p> Font-Size (Pixels): </p>
+  <select [(ngModel)]="fontSizeSetting">
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+    <option value="24">24</option>
+    <option value="25">25</option>
+    <option value="26">26</option>
+    <option value="27">27</option>
+    <option value="28">28</option>
+    <option value="29">29</option>
+    <option value="30">30</option>
+    <option value="31">31</option>
+    <option value="32">32</option>
+    <option value="33">33</option>
+    <option value="34">34</option>
+    <option value="35">35</option>
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+    <option value="42">42</option>
+    <option value="43">43</option>
+    <option value="44">44</option>
+    <option value="45">45</option>
+    <option value="46">46</option>
+    <option value="47">47</option>
+    <option value="48">48</option>
+    <option value="49">49</option>
+    <option value="50">50</option>
+  </select><br><br>
+  <button class="submit-btn"  (click)="editPreferencesFontSize()">Submit</button>
+</div><br><br>
+
+<br><br>
+<div class="clear-preference">
+  <p> What image size would you like?</p>
+  <p> Image-Size (Pixels): </p>
+  <select [(ngModel)]="imageSizeSetting">
+    <option value="50">50</option>
+    <option value="100">100</option>
+    <option value="150">150</option>
+    <option value="200">200</option>
+    <option value="250">250</option>
+    <option value="300">300</option>
+    <option value="350">350</option>
+    <option value="400">400</option>
+    <option value="450">450</option>
+    <option value="500">500</option>
+  </select><br><br>
+  <button class="submit-btn"  (click)="editPreferencesImageSize()">Submit</button>
+</div><br><br>
+
+<br><br>
+<div class="clear-preference">
+  <p> What video size would you like?</p>
+  <p> Video-Size (Pixels): </p>
+  <select [(ngModel)]="videoSizeSetting">
+    <option value="50">50</option>
+    <option value="100">100</option>
+    <option value="150">150</option>
+    <option value="200">200</option>
+    <option value="250">250</option>
+    <option value="300">300</option>
+    <option value="350">350</option>
+    <option value="400">400</option>
+    <option value="450">450</option>
+    <option value="500">500</option>
+  </select><br><br>
+  <button class="submit-btn"  (click)="editPreferencesVideoSize()">Submit</button>
+</div>
+
+
+<br><br>
+

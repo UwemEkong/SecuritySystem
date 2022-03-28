@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ImageService} from "../../services/image.service";
+import {AuthService} from "../../services/auth.service";
+import {PreferencesService} from "../../services/preferences.service";
 
 class image {
   constructor(
@@ -16,7 +18,10 @@ export class AboutUsComponent implements OnInit {
 
   imageList: image[] = [];
 
-  constructor(public imageService: ImageService) { }
+  imageWidth = this.pref.imageSizeSetting;
+  imageHeight = this.pref.imageSizeSetting*1.25;
+
+  constructor(public imageService: ImageService, private authService: AuthService, private pref:PreferencesService) { }
 
   ngOnInit(): void {
     this.getAllImages();

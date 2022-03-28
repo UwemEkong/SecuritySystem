@@ -2,6 +2,7 @@ package edu.ben.backend.resource;
 
 import edu.ben.backend.model.Mediax;
 import edu.ben.backend.model.dto.MediaxDTO;
+import edu.ben.backend.model.dto.preferencesDTO;
 import edu.ben.backend.model.dto.userDTO;
 import edu.ben.backend.service.MediaxService;
 import org.springframework.web.bind.annotation.*;
@@ -44,4 +45,8 @@ public class MediaxResource {
         this.mediaxService.editMediax(mediaxDTO);
     }
 
+    @PostMapping("/editMediaxFavorite")
+    public void editMediaxFavorite(@RequestBody MediaxDTO mediaxDTO) {
+        this.mediaxService.editMediaxFavorite(mediaxDTO);
+    }
 }

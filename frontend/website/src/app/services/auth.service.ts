@@ -14,8 +14,11 @@ export class AuthService {
   error = "";
   selectedImage = "";
   loggedInUser = <User>{};
+  checkedPrefOnLogin = false;
+
   logout() {
     this.authenticated = false;
+    this.checkedPrefOnLogin = false;
     this.router.navigateByUrl('/');
   }
 

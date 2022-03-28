@@ -2,6 +2,8 @@ package edu.ben.backend.service;
 
 import edu.ben.backend.model.Mediax;
 import edu.ben.backend.model.dto.MediaxDTO;
+import edu.ben.backend.model.dto.preferencesDTO;
+import edu.ben.backend.model.preferences;
 import edu.ben.backend.model.user;
 import edu.ben.backend.repository.MediaxRepository;
 import edu.ben.backend.service.AuthService;
@@ -69,7 +71,7 @@ public class MediaxService {
 
     public void createMediax(MediaxDTO mediaxDTO) {
         System.out.println(mediaxDTO);
-        mediaxRepository.save(new Mediax(authService.loggedInUser.getId(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp()));
+        mediaxRepository.save(new Mediax(authService.loggedInUser.getId(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp(), mediaxDTO.isIsfavorite()));
     }
 
     public void deleteMediax(MediaxDTO mediaxDTO) {
@@ -87,4 +89,11 @@ public class MediaxService {
         mediaxRepository.save(mx);
 
     }
+
+    public void editMediaxFavorite(MediaxDTO mediaxDTO) {
+        Mediax mx = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
+        mx.setIsfavorite(mediaxDTO.isIsfavorite());
+        mediaxRepository.save(mx);
+    }
+
 }

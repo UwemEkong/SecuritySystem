@@ -70,7 +70,7 @@ public class AuthService {
         } else {
             System.out.println(userDTO);
             userRepository.save(new user(userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getFirstname(), userDTO.getLastname(), userService.generateToken()));
-            preferencesRepository.save(new preferences(userRepository.findByUsername(userDTO.getUsername()).getId(), 0, true, false));
+            preferencesRepository.save(new preferences(userRepository.findByUsername(userDTO.getUsername()).getId(), 0, true, false, 14, 300, 300));
         }
     }
 
