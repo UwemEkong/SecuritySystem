@@ -51,18 +51,39 @@ public class PreferencesService {
         preferences.setMotion(preferencesDTO.isMotion());
         preferencesRepository.save(preferences);
     }
+    public void editPreferencesFontSize(preferencesDTO preferencesDTO) {
+        preferences preferences = preferencesRepository.findByuserid(preferencesDTO.getUserid());
+        preferences.setFontsize(preferencesDTO.getFontsize());
+        preferencesRepository.save(preferences);
+    }
+
+    public void editPreferencesImageSize(preferencesDTO preferencesDTO) {
+        preferences preferences = preferencesRepository.findByuserid(preferencesDTO.getUserid());
+        preferences.setImagesize(preferencesDTO.getImagesize());
+        preferencesRepository.save(preferences);
+    }
+
+    public void editPreferencesVideoSize(preferencesDTO preferencesDTO) {
+        preferences preferences = preferencesRepository.findByuserid(preferencesDTO.getUserid());
+        preferences.setVideosize(preferencesDTO.getVideosize());
+        preferencesRepository.save(preferences);
+    }
 
 
 
     public preferencesDTO getPreferences() {
         preferences preferences = preferencesRepository.findByuserid((long) authService.getLoggedInUser().getId().intValue());
-        preferencesDTO preferencesDTO = new preferencesDTO(preferences.getUserid(), preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getLabels());
-        return preferencesDTO;
+
+        preferencesDTO preferencesDTO = new preferencesDTO(
+                preferences.getUserid(), preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getFontsize(), preferences.getImagesize(), preferences.getVideosize(), preferences.getLabels());
+
+      return preferencesDTO;
     }
 
     public preferencesDTO getPreferences(Long userId) {
         preferences preferences = preferencesRepository.findByuserid(userId);
-        return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getLabels());
+
+        return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getFontsize(), preferences.getImagesize(), preferences.getVideosize(), preferences.getLabels());
 
     }
 

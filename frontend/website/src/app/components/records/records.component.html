@@ -1,77 +1,179 @@
-
 <div class="container">
-
+  <br>
+  <br>
+  <br>
+  <div class="typewriter">
+    <h1>Your Recorded Videos and Images</h1>
+  </div>
   <br>
   <br>
   <br>
 
+  <div>
+    How would you like to filter your media?
+  </div>
 
+  <div class="container2">
 
-<div class="typewriter">
-  <h1>Your Recorded Videos and Images</h1>
-</div>
-<br>
-  <br>
-  <br>
-
-
-<table class="fixed">
-  <tbody>
-    <col width="100px" />
-    <col>
-    <col>
-  <tr *ngFor="let mxdto of listOfMediax; let i = index">
-    <div class="recordrow">
-      <td style="width:30em;">
-        <p style="margin:10px; display: inline-block;">{{mxdto.filename}}</p><button class="btn btn-sm btn-outline-primary" (click)="rename(mxdto)" style="display: inline-block;">Rename</button>
-      </td>
-      <td>
-        <p>{{mxdto.timestamp}}</p>
-      </td>
-      <td>
-        <p>{{mxdto.location}}</p>
-      </td>
-      <td>
-        <!-- <img id="img{{i}}" src="{{mxdto.url}}" height="200px;" style="visibility: hidden"/>
-        <button id="sh{{i}}" (click)="showhide(mxdto,i)">Show</button> -->
-        <button *ngIf="!mxdto.isvideo" class="btn btn-outline-primary" (click)="open(imagemodal, videomodal, mxdto)">Show</button>
-      </td>
-      <td>
-        <a class="btn btn-outline-primary" href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer" download="{{mxdto.url}}">Download</a>
-      </td>
-      <td>
-        <button class="btn btn-outline-danger" (click)="deleteMediax(mxdto)">Delete</button>
-        
-      </td>
+    <div>
+      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="mediaFilterationSetting(0)">Show
+        All
+      </button>
     </div>
-  </tr>
-  </tbody>
-</table>
 
-<ng-template #imagemodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{currentmx.filename}}</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <img width="100%;" [src]="currentmx.url"/>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Alright</button>
-  </div>
-</ng-template>
+    <div>
+      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="mediaFilterationSetting(1)">Show
+        None
+      </button>
+    </div>
 
-<ng-template #videomodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{currentmx.filename}}</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <div>
+      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="mediaFilterationSetting(2)">Show
+        Favorites
+      </button>
+    </div>
+
+
+    <div>
+      <p> Show by Month:</p>
+      <select [(ngModel)]="monthFilter">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+      <br>
+      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="filterByMonth(monthFilter)">Submit
+      </button>
+    </div>
+    <div>
+
+      <p> Show by Hour of Day:</p>
+      <select [(ngModel)]="timeFilter">
+        <option value="0">Midnight</option>
+        <option value="1">1 AM</option>
+        <option value="2">2 AM</option>
+        <option value="3">3 AM</option>
+        <option value="4">4 AM</option>
+        <option value="5">5 AM</option>
+        <option value="6">6 AM</option>
+        <option value="7">7 AM</option>
+        <option value="8">8 AM</option>
+        <option value="9">9 AM</option>
+        <option value="10">10 AM</option>
+        <option value="11">11 AM</option>
+        <option value="12">12 PM</option>
+        <option value="13">1 PM</option>
+        <option value="14">2 PM</option>
+        <option value="15">3 PM</option>
+        <option value="16">4 PM</option>
+        <option value="17">5 PM</option>
+        <option value="18">6 PM</option>
+        <option value="19">7 PM</option>
+        <option value="20">8 PM</option>
+        <option value="21">9 PM</option>
+        <option value="22">10 PM</option>
+        <option value="23">11 PM</option>
+      </select>
+      <br>
+      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="filterByTime(timeFilter)">Submit
+      </button>
+    </div>
   </div>
-  <div class="modal-body">
-    <embed [src]="safeUrl">
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Alright</button>
-  </div>
-</ng-template>
+  <br><br><br><br>
+  <table class="fixed">
+    <tbody>
+    <col width="100px"/>
+    <col>
+    <col>
+    <tr *ngFor="let mxdto of listOfMediax; let i = index">
+      <div class="recordrow">
+
+
+        <td *ngIf="mxdto.isfavorite" style="margin:10px;">
+          <button mat-icon-button color="warn" (click)="updateFavorite(mxdto)">
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </td>
+
+        <td *ngIf="!mxdto.isfavorite" style="margin:10px;">
+          <button mat-icon-button color="disabled" (click)="updateFavorite(mxdto)">
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </td>
+
+        <td style="width:100em;">  {{mxdto.filename}}</td>
+
+
+        <td style="width:35em;">
+          <p>{{mxdto.timestamp}}</p>
+        </td>
+
+        <td style="width:35em;">
+          <p>{{mxdto.location}}</p>
+        </td>
+
+
+        <td>
+          <!-- <img id="img{{i}}" src="{{mxdto.url}}" height="200px;" style="visibility: hidden"/>
+            <button id="sh{{i}}" (click)="showhide(mxdto,i)">Show</button> -->
+          <button *ngIf="!mxdto.isvideo" class="btn btn-outline-primary" (click)="open(imagemodal, videomodal, mxdto)">
+            Show
+          </button>
+        </td>
+
+        <td>
+          <button class="btn btn-outline-primary" (click)="rename(mxdto)">Rename</button>
+        </td>
+
+
+        <td>
+          <a class="btn btn-outline-primary" href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer"
+             download="{{mxdto.url}}">Download</a>
+        </td>
+
+        <td>
+          <button class="btn btn-outline-danger" (click)="deleteMediax(mxdto)">Delete</button>
+        </td>
+
+      </div>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <ng-template #imagemodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{currentmx.filename}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <img width="100%;" [src]="currentmx.url"/>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Alright</button>
+    </div>
+  </ng-template>
+
+  <ng-template #videomodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{currentmx.filename}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <embed [src]="safeUrl">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Alright</button>
+    </div>
+  </ng-template>
 
 </div>

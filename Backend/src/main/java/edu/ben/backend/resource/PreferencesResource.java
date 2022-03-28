@@ -35,6 +35,21 @@ class PreferencesResource {
         this.preferencesService.editPreferencesMotion(preferencesDTO);
     }
 
+    @PostMapping("/editPreferencesFontSize")
+    public void editPreferencesFontSize(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesFontSize(preferencesDTO);
+    }
+
+    @PostMapping("/editPreferencesImageSize")
+    public void editPreferencesImageSize(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesImageSize(preferencesDTO);
+    }
+
+    @PostMapping("/editPreferencesVideoSize")
+    public void editPreferencesVideoSize(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesVideoSize(preferencesDTO);
+    }
+
     @GetMapping("/getPreferences")
     public preferencesDTO getPreferences() {
         return this.preferencesService.getPreferences();

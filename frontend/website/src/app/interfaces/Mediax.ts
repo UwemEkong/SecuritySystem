@@ -7,4 +7,5 @@ export interface Mediax {
     location:string;
     timestamp:string;
     url?:string;
+    isfavorite:boolean;
 }

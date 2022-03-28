@@ -20,7 +20,7 @@ div{
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .15em; /* Adjust as needed */
-  animation: 
+  animation:
     typing 3.5s steps(40, end),
     blink-caret .75s step-end infinite;
   display:inline-block;
@@ -52,7 +52,8 @@ select {
 }
 
 .clear-preference {
-  text-align:center; 
+  font-size: 1em;
+  text-align:center;
   width:100%;
 }
 
@@ -61,6 +62,7 @@ select {
 }
 
 .motion-preference {
+  font-size: 1em;
   text-align:center;
   margin-top:20px;
 }
@@ -125,4 +127,8 @@ select {
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+}
+
+.font-varies {
+  font-size: 1em;
 }
