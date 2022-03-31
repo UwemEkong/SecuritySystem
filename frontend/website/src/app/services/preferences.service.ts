@@ -10,7 +10,6 @@ import { User } from '../interfaces/User';
   providedIn: 'root'
 })
 export class PreferencesService {
-  
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -18,6 +17,7 @@ export class PreferencesService {
   fontSizeSetting = 14;
   imageSizeSetting = 300;
   videoSizeSetting = 300;
+  darkModeSetting = false;
 
 
   editPreferencesRemove(preferences:Preferences) {
@@ -94,11 +94,11 @@ export class PreferencesService {
       this.fontSizeSetting = response.fontsize;
       this.imageSizeSetting = response.imagesize;
       this.videoSizeSetting = response.videosize;
+      this.darkModeSetting = response.dark;
     })
   }
   updateFlaskPreferences(preferences: Preferences) {
     this.httpClient.post<Preferences>('http://localhost:4200/flsk/updatePreferences', preferences).subscribe(() => {
-   
     })
   }
 
