@@ -1,15 +1,6 @@
-<mat-toolbar color="primary" class="mat-elevation-z8">
-  <mat-icon>photo_camera</mat-icon>
-  <span>
-    Big Brother
-  </span>
-  <button (click)="toggleDarkMode()">Dark / Light</button>
-
-  <div class="spacer"></div>
-
+<nav class="navbar navbar-dark bg-primary">
   <div *ngIf="loggedIn">
-    <span style="font-size: 14px" > Hello </span>
-    <span style="color: orange; font-size: 14px" > {{loggedFirstname.toUpperCase()}} </span>
+    <i class="bi bi-camera-fill"></i>
     <a mat-button routerLink="home">Home</a>
     <a mat-button routerLink="camera">Camera</a>
     <a mat-button routerLink="records">Records</a>
@@ -18,12 +9,14 @@
     <a mat-button routerLink="about-us">About Us</a>
     <a mat-button (click)="logout()">Log Out</a>
   </div>
-
   <div *ngIf="!loggedIn">
+    <i class="bi bi-camera-fill"></i>
     <a mat-button routerLink="home">Home</a>
     <a mat-button routerLink="faq">FAQ</a>
     <a mat-button routerLink="about-us">About Us</a>
-    <a mat-button routerLink="auth"><mat-icon>login</mat-icon> </a>
-  </div>
+    <a mat-button routerLink="login">Login</a>
+    <a mat-button routerLink="register">Register</a>
 
-</mat-toolbar>
+
+  </div>
+</nav>
