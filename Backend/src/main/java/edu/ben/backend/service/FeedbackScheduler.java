@@ -20,7 +20,7 @@ public class FeedbackScheduler {
         this.eMailService = eMailService;
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "*/300 * * * * *")
     public void SendFeedbackToMailBox()
     {
         List<feedback> feedback = feedbackRepository.findAll();

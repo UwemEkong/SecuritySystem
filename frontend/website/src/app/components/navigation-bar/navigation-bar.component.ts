@@ -23,14 +23,17 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe(event => {
+
       if (event.constructor.name === "NavigationEnd") {
         this.loggedIn = this.auth.authenticated;
         this.loggedFirstname = this.auth.loggedInUser.firstname;
 
-        if (this.auth.authenticated) {
+        if (this.auth.authenticated && !this.auth.checkedPrefOnLogin) {
           this.pref.getPreferences().subscribe(response => {
             this.darkMode = response.dark;
             this.dark.emit(this.darkMode);
+            this.pref.getCurrentUserPreferences();
+            this.auth.checkedPrefOnLogin = true;
           })
         }
       }
@@ -46,12 +49,10 @@ export class NavigationBarComponent implements OnInit {
     this.darkMode = !this.darkMode;
     this.dark.emit(this.darkMode);
 
-    if (this.auth.authenticated)
-    {
-      let preferences:Preferences = {userid: this.auth.loggedInUser.id, dark: this.darkMode}
+    if (this.auth.authenticated) {
+      let preferences: Preferences = {userid: this.auth.loggedInUser.id, dark: this.darkMode}
       this.pref.editPreferencesDark(preferences);
     }
-
   }
 
 }

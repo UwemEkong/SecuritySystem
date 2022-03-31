@@ -65,12 +65,31 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`preferences` (
                                                         `remove` INT NULL,
                                                         `motion` boolean NULL,
                                                         `dark` boolean NULL,
+                                                        `labels` VARCHAR(255) NULL,
+                                                        `fontsize` INT NULL,
+                                                        `imagesize` INT NULL,
+                                                        `videosize` INT NULL,
                                                         PRIMARY KEY (`id`),
                                                         UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
-
+-- -----------------------------------------------------
+-- Table `BigBroSecurity`.`MediaX`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`mediax` (
+                                                              `id` INT NOT NULL auto_increment,
+                                                              `filename` VARCHAR(255) NULL,
+                                                              `islocal` boolean NULL,
+                                                              `isvideo` boolean NULL,
+                                                              `location` VARCHAR(255) NULL,
+                                                              `pathorkey` VARCHAR(255) NULL,
+                                                              `timestamp` VARCHAR(255) NULL,
+                                                              `userid` INT NULL,
+                                                              `isfavorite` boolean NULL,
+                                                              PRIMARY KEY (`id`),
+                                                              UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
 
 
 

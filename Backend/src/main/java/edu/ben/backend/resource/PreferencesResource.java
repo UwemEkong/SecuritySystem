@@ -4,6 +4,8 @@ import edu.ben.backend.model.dto.preferencesDTO;
 import edu.ben.backend.service.PreferencesService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "api/preferences", produces = "application/json")
@@ -33,6 +35,21 @@ class PreferencesResource {
         this.preferencesService.editPreferencesMotion(preferencesDTO);
     }
 
+    @PostMapping("/editPreferencesFontSize")
+    public void editPreferencesFontSize(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesFontSize(preferencesDTO);
+    }
+
+    @PostMapping("/editPreferencesImageSize")
+    public void editPreferencesImageSize(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesImageSize(preferencesDTO);
+    }
+
+    @PostMapping("/editPreferencesVideoSize")
+    public void editPreferencesVideoSize(@RequestBody preferencesDTO preferencesDTO) {
+        this.preferencesService.editPreferencesVideoSize(preferencesDTO);
+    }
+
     @GetMapping("/getPreferences")
     public preferencesDTO getPreferences() {
         return this.preferencesService.getPreferences();
@@ -41,6 +58,16 @@ class PreferencesResource {
     @GetMapping("/getPreferences/{userId}")
     public preferencesDTO getPreferences(@PathVariable Long userId) {
         return this.preferencesService.getPreferences(userId);
+    }
+
+    @GetMapping(value = "/getLabels")
+    public String getLabels() {
+        return this.preferencesService.getLabels();
+    }
+
+    @PostMapping("/editPreferencesLabels")
+    public void editLabels(@RequestBody String newlabels) {
+        this.preferencesService.editLabels(newlabels);
     }
 
 }

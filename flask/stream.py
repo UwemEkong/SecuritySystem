@@ -18,6 +18,7 @@ from urllib.parse import quote
 import os
 import tarfile
 import urllib.request
+import json
 
 ACCESS_KEY = 'AKIA2X357CBVPHQAVH2E'
 SECRET_KEY = '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'
@@ -107,16 +108,30 @@ def gen_frames():
         x, y, w, h = cv2.boundingRect(contour)
         if cv2.contourArea(contour) > 300 and toggle_motion == True:
             cv2.rectangle(img_1, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            #if allow_motion_detection() == True:
-                # prevtime = time.time()
-                #  print("motion detected")      
-                # img_1 = cv2.cvtColor(img_1, cv2.COLOR_BGR2RGB)
-                # send_email_report("somethings is at the door") 
-                # PIL_image = Image.fromarray(np.uint8(img_1)).convert('RGB')
-                # PIL_image.name = "theimg"
-                # timetaken = time.ctime().replace(r':','_')
-                # PIL_image.save("snapshot_" + timetaken + ".png")
-                # get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
+
+            if allow_motion_detection() == True:
+                 prevtime = time.time()
+                  print("motion detected")      
+                 img_1 = cv2.cvtColor(img_1, cv2.COLOR_BGR2RGB)
+                 send_email_report("somethings is at the door") 
+                 PIL_image = Image.fromarray(np.uint8(img_1)).convert('RGB')
+                 PIL_image.name = "theimg"
+                 timetaken = time.ctime().replace(r':','_')
+                 PIL_image.save("snapshot_" + timetaken + ".png")
+                 get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
+
+            if allow_motion_detection() == True:
+                prevtime = time.time()
+                print("motion detected")      
+                img_1 = cv2.cvtColor(img_1, cv2.COLOR_BGR2RGB)
+                PIL_image = Image.fromarray(np.uint8(img_1)).convert('RGB')
+                PIL_image.name = "theimg"
+                timetaken = time.ctime().replace(r':','_')
+                PIL_image.save("snapshot_" + timetaken + ".png")
+                labels = get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
+                notify_user(labels)
+
+
 
     ret, buffer = cv2.imencode(".jpg", img_1)
     img_1 = buffer.tobytes()
@@ -125,6 +140,8 @@ def gen_frames():
 
 prevtime = time.time()
 first_detection = True
+
+
 
 # Checks if 10 seconds have passed since the last motion detection
 # Checks if this is the first time motion has been detection since the app loaded up
@@ -138,6 +155,38 @@ def allow_motion_detection():
         first_detection = False
         return True
     return False
+
+def notify_user(labels):
+
+    HEADERS = {
+                'Access-Control-Allow-Origin': 'localhost'
+            }
+
+    response = requests.get('http://localhost:8080/api/preferences/getLabels', headers=HEADERS)
+    
+    print("USER LABELS")
+    userlabels = response.content.decode('utf-8').split(",")
+    print(userlabels)
+    # print("LABLES")
+    # print(labels)
+
+    labelstrings = []
+
+    for label in labels:
+        labelstrings.append(label['Name'].lower())
+
+
+    print('labelstrings')
+    print(labelstrings)
+
+    for l in labelstrings:
+        
+        if l in userlabels:
+
+            print("user notified")
+            send_email_report("Big Brother detected a " + l + ". The following was also detected at the same time: " + ", ".join(labelstrings))
+
+
 def send_email_report(report):
     HEADERS = {
                 'Access-Control-Allow-Origin': 'localhost'

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MediaxService} from "../../services/mediax.service";
 import {Mediax} from "../../interfaces/Mediax";
 import * as $ from 'jquery';
@@ -17,41 +17,136 @@ export class RecordsComponent implements OnInit {
   closeResult = '';
 
   safeUrl: SafeResourceUrl | undefined;
-  currentmx:Mediax = {} as Mediax;;
+  currentmx: Mediax = {} as Mediax;
 
-  constructor(public mediaxServ:MediaxService,
-    public authServ: AuthService,
-    private router: Router,
-    private modalService: NgbModal, private _sanitizer: DomSanitizer) { }
+  constructor(public mediaxServ: MediaxService,
+              public authServ: AuthService,
+              private router: Router,
+              private modalService: NgbModal, private _sanitizer: DomSanitizer) {
+  }
 
 
-  listOfMediax:Mediax[] = [];
+  listOfMediax: Mediax[] = [];
+  mediaFilter = 0;
+  monthFilter = 1;
+  timeFilter = 0;
+
 
   ngOnInit(): void {
 
-    if(this.authServ.getLoggedInUser() == null){
+    if (this.authServ.getLoggedInUser() == null) {
       this.router.navigateByUrl('/records');
     }
+    this.getAllMedia();
+  }
+
+  mediaFilterationSetting(mediaFilter: number) {
+    this.mediaFilter = mediaFilter;
+    this.mediaFilteration();
+  }
+
+  mediaFilteration() {
 
 
-    this.mediaxServ.getUserMediax().subscribe((data:Mediax[]) => {
+    if (this.mediaFilter == 0) {
+      this.getAllMedia();
+    }
+
+    if (this.mediaFilter == 1) {
+      this.listOfMediax = [];
+    }
+
+    if (this.mediaFilter == 2) {
+      this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
+        let listOfMediaxTemp1 = data;
+        let listOfMediaxTemp2: Mediax[] = [];
+        for (let i = 0; i < listOfMediaxTemp1.length; i++) {
+          if (listOfMediaxTemp1[i].isfavorite) {
+            listOfMediaxTemp2.push(listOfMediaxTemp1[i])
+          }
+        }
+        this.listOfMediax = listOfMediaxTemp2;
+      });
+    }
+  }
+
+  updateFavorite(mx: Mediax) {
+    mx.isfavorite = !mx.isfavorite;
+    this.mediaxServ.editMediaxFavorite(mx);
+    alert("Favorite Setting Changed Successfully!!");
+
+    // this.mediaFilteration()
+  }
+
+
+  filterByMonth(monthFilter: number) {
+
+    this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
+      let listOfMediaxTemp1 = data;
+      let listOfMediaxTemp2: Mediax[] = [];
+      for (let i = 0; i < listOfMediaxTemp1.length; i++) {
+        if (parseInt(listOfMediaxTemp1[i].timestamp.substring(0, listOfMediaxTemp1[i].timestamp.indexOf("/"))) == monthFilter) {
+          listOfMediaxTemp2.push(listOfMediaxTemp1[i])
+        }
+      }
+      this.listOfMediax = listOfMediaxTemp2;
+    });
+  }
+
+  filterByTime(timeFilter: number) {
+
+    this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
+
+      let isAM = true
+      if (timeFilter >= 12) {
+        isAM = false;
+      }
+
+      if (timeFilter == 0)
+      {
+        timeFilter = 12;
+      }
+
+      let listOfMediaxTemp1 = data;
+      let listOfMediaxTemp2: Mediax[] = [];
+      for (let i = 0; i < listOfMediaxTemp1.length; i++) {
+
+        let comma = listOfMediaxTemp1[i].timestamp.indexOf(",");
+
+        if
+        (
+          isAM == (listOfMediaxTemp1[i].timestamp.includes("A"))
+          &&
+          (parseInt(listOfMediaxTemp1[i].timestamp.substring(comma + 2, comma + 4)) == timeFilter || parseInt(listOfMediaxTemp1[i].timestamp.substring(comma + 2, comma + 4)) == timeFilter - 12)
+        )
+          listOfMediaxTemp2.push(listOfMediaxTemp1[i])
+      }
+      this.listOfMediax = listOfMediaxTemp2;
+
+    });
+  }
+
+
+  getAllMedia() {
+    this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
       this.listOfMediax = data;
     });
   }
 
-  deleteMediax(mediaxDelete: Mediax){
+
+  deleteMediax(mediaxDelete: Mediax) {
     this.mediaxServ.deleteMediax(mediaxDelete);
     this.router.navigateByUrl('/home');
   }
 
 
-  rename(mx: Mediax){
+  rename(mx: Mediax) {
     let newname = prompt("New file name:");
     mx.filename = newname || mx.filename;
     this.editMediax(mx);
   }
 
-  dowload(mxdto:Mediax){
+  dowload(mxdto: Mediax) {
     // let url = window.URL.createObjectURL(mxdto.url||"#");
     // let a = document.createElement('a');
     // document.body.appendChild(a);
@@ -63,7 +158,7 @@ export class RecordsComponent implements OnInit {
     // a.remove();
   }
 
-  open(imagemodal:any,videomodal:any,mxdto:Mediax) {
+  open(imagemodal: any, videomodal: any, mxdto: Mediax) {
     this.currentmx = mxdto;
     if (this.currentmx.isvideo) {
       console.log(mxdto.url)
@@ -96,11 +191,11 @@ export class RecordsComponent implements OnInit {
     this.mediaxServ.editMediax(mx);
   }
 
-  showhide(mxdto: Mediax,i:number) {
+  showhide(mxdto: Mediax, i: number) {
 
-    let elem = $("#img"+i);
+    let elem = $("#img" + i);
 
-    console.log($("#img"+i).is(":hidden"));
+    console.log($("#img" + i).is(":hidden"));
 
     //elem.css('visibility', 'visible'); //to show
     //elem.css('visibility', 'hidden');
@@ -108,10 +203,10 @@ export class RecordsComponent implements OnInit {
     // $("#img" + i).show();
     //
 
-    if(elem.css("visibility") == "hidden"){
-      elem.css("visibility","visible");
+    if (elem.css("visibility") == "hidden") {
+      elem.css("visibility", "visible");
     } else {
-      elem.css("visibility","hidden");
+      elem.css("visibility", "hidden");
     }
 
     // if(elem.is(":hidden")) {

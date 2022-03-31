@@ -1,6 +1,31 @@
+.container2 {
+  display: flex;
+  padding: 20px;
+  margin: 20px;
+}
+
+button {
+  margin: 20px;
+  alignment: center;
+}
+
+select {
+  margin: 20px;
+  height: 30px;
+  width: 125px;
+  font-size:20px;
+  font-weight:bold;
+  border-radius:     5px;
+  border-color:     blue;
+}
+
+p {
+  margin: 20px;
+}
+
 .recordrow {
 
-  padding: 20px;
+  padding: 10px;
   margin: 10px;
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -12,8 +37,8 @@ tr {
 }
 
 td {
-  padding: 20px;
-  margin: 10px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .hiddenimg {
@@ -33,10 +58,10 @@ table.fixed td { overflow: hidden; }
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .15em; /* Adjust as needed */
-  animation: 
+  animation:
     typing 3.5s steps(40, end),
     blink-caret .75s step-end infinite;
-  display:inline-block; 
+  display:inline-block;
 }
 
 /* The typing effect */

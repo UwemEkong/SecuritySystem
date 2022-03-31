@@ -25,11 +25,23 @@ public class preferences {
     boolean motion;
     @Column(name = "dark")
     boolean dark;
+    @Column(name = "labels")
+    String labels;
+    @Column(name = "fontsize")
+    int fontsize;
+    @Column(name = "imagesize")
+    int imagesize;
+    @Column(name = "videosize")
+    int videosize;
 
-    public preferences(Long userid, int remove, boolean motion, boolean dark) {
+    public preferences(Long userid, int remove, boolean motion, boolean dark, int fontsize, int imagesize, int videosize) {
         this.userid = userid;
         this.remove = remove;
         this.motion = motion;
         this.dark = dark;
+        this.labels = "person,car";
+        this.fontsize = fontsize;
+        this.imagesize = imagesize;
+        this.videosize = videosize;
     }
 }

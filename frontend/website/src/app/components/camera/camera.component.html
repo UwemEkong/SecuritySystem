@@ -4,7 +4,7 @@
 <br><br><br>
 <p>
 <!--  <video id="video" autoplay></video>-->
-  <img style="height:300px;" src="http://10.100.212.46:8000" alt="Cannot connect to camera feed server! It is possible your internet is not working, or our servers are currently down. Big Brother Inc apologizes for the inconvenience."/>
+  <img height="{{videoSize}}" src="http://127.0.0.1:5000/video_feed" alt="Cannot connect to camera feed server! It is possible your internet is not working, or our servers are currently down. Big Brother Inc apologizes for the inconvenience."/>
   <br/>
   <button class="btn btn-outline-primary" (click)="saveImage()">Take Snapshot</button>
   <button class="btn btn-outline-primary" (click)="saveImageToCloud()">Take Snapshot & Save to Cloud</button>
