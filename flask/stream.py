@@ -84,6 +84,7 @@ def gen_frames():
  global prevtime
  global toggle_motion
  while camera.isOpened():
+        
     # to read frame by frame
     _, img_1 = camera.read()
     _, img_2 = camera.read()
@@ -108,17 +109,6 @@ def gen_frames():
         x, y, w, h = cv2.boundingRect(contour)
         if cv2.contourArea(contour) > 300 and toggle_motion == True:
             cv2.rectangle(img_1, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-            if allow_motion_detection() == True:
-                 prevtime = time.time()
-                  print("motion detected")      
-                 img_1 = cv2.cvtColor(img_1, cv2.COLOR_BGR2RGB)
-                 send_email_report("somethings is at the door") 
-                 PIL_image = Image.fromarray(np.uint8(img_1)).convert('RGB')
-                 PIL_image.name = "theimg"
-                 timetaken = time.ctime().replace(r':','_')
-                 PIL_image.save("snapshot_" + timetaken + ".png")
-                 get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
 
             if allow_motion_detection() == True:
                 prevtime = time.time()
