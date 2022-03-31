@@ -78,7 +78,7 @@ def apply_timestamp(fram):
 
     return fram
 
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture("http://10.100.212.46:8000")
 def gen_frames():
  global prevtime
  global toggle_motion
@@ -107,16 +107,16 @@ def gen_frames():
         x, y, w, h = cv2.boundingRect(contour)
         if cv2.contourArea(contour) > 300 and toggle_motion == True:
             cv2.rectangle(img_1, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            if allow_motion_detection() == True:
-                prevtime = time.time()
-                print("motion detected")      
-                img_1 = cv2.cvtColor(img_1, cv2.COLOR_BGR2RGB)
-                send_email_report("somethings is at the door") 
-                PIL_image = Image.fromarray(np.uint8(img_1)).convert('RGB')
-                PIL_image.name = "theimg"
-                timetaken = time.ctime().replace(r':','_')
-                PIL_image.save("snapshot_" + timetaken + ".png")
-                get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
+            #if allow_motion_detection() == True:
+                # prevtime = time.time()
+                #  print("motion detected")      
+                # img_1 = cv2.cvtColor(img_1, cv2.COLOR_BGR2RGB)
+                # send_email_report("somethings is at the door") 
+                # PIL_image = Image.fromarray(np.uint8(img_1)).convert('RGB')
+                # PIL_image.name = "theimg"
+                # timetaken = time.ctime().replace(r':','_')
+                # PIL_image.save("snapshot_" + timetaken + ".png")
+                # get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
 
     ret, buffer = cv2.imencode(".jpg", img_1)
     img_1 = buffer.tobytes()
@@ -235,7 +235,7 @@ def save_snap_to_pc():
             PIL_image.save("snapshot_" + timetaken + ".png")
     return '', 200
 
-camera2 = cv2.VideoCapture(0)
+#camera2 = cv2.VideoCapture("http://10.100.212.46:8000")
 
 import threading
 static_back = None
