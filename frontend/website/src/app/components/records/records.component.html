@@ -2,92 +2,121 @@
   <br>
   <br>
   <br>
+
+
   <div class="typewriter">
     <h1>Your Recorded Videos and Images</h1>
+
+
+    <div>
+      <br><br>
+      How would you like to filter your media?
+      <br><br>
+      <p>
+        FROM DATE:
+      </p>
+
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <div class="dp-hidden position-absolute">
+            <div class="input-group">
+              <input name="datepicker"
+                     class="form-control"
+                     ngbDatepicker
+                     #datepicker="ngbDatepicker"
+                     [autoClose]="'outside'"
+                     (dateSelect)="onDateSelection($event)"
+                     [displayMonths]="2"
+                     [dayTemplate]="t"
+                     outsideDays="hidden"
+                     [startDate]="fromDate!"
+                     tabindex="-1">
+              <ng-template #t let-date let-focused="focused">
+          <span class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isRange(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null">
+            {{ date.day }}
+          </span>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="input-group">
+              <input #dpFromDate
+                     class="form-control" placeholder="yyyy-mm-dd"
+                     name="dpFromDate"
+                     [value]="formatter.format(fromDate)"
+                     (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+              <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-12">
+          <p>
+            TO DATE:
+          </p>
+          <div class="input-group">
+            <input #dpToDate
+                   class="form-control" placeholder="yyyy-mm-dd"
+                   name="dpToDate"
+                   [value]="formatter.format(toDate)"
+                   (input)="toDate = validateInput(toDate, dpToDate.value)">
+            <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+          </div>
+        </div>
+      </form>
+
+
+      <br><br>
+      <div>
+        <p>
+          FROM TIME:
+        </p>
+        <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
+      </div>
+
+      <div>
+        <p>
+          TO TIME:
+        </p>
+        <ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
+      </div>
+
+
+      <br><br>
+
+
+      <div class="container">
+        <div class="_ul_checkbox">
+          <ul>
+            <li>
+              <input [(ngModel)]="favorites" type="checkbox" name="favorites"/>Favorites Only
+            </li>
+            <li>
+              <input [(ngModel)]="videos" type="checkbox" name="videos"/>Show Videos
+            </li>
+            <li>
+              <input [(ngModel)]="images" type="checkbox" name="images"/>Show Images
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="startFilter()">Filter</button>
+
+      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="resetFilter()">Reset</button>
+
+    </div>
   </div>
   <br>
   <br>
   <br>
-
-  <div>
-    How would you like to filter your media?
-  </div>
-
-<!--  <div class="container2">-->
-
-<!--    <div>-->
-<!--      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="mediaFilterationSetting(0)">Show-->
-<!--        All-->
-<!--      </button>-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="mediaFilterationSetting(1)">Show-->
-<!--        None-->
-<!--      </button>-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="mediaFilterationSetting(2)">Show-->
-<!--        Favorites-->
-<!--      </button>-->
-<!--    </div>-->
-
-
-<!--    <div>-->
-<!--      <p> Show by Month:</p>-->
-<!--      <select [(ngModel)]="monthFilter">-->
-<!--        <option value="1">January</option>-->
-<!--        <option value="2">February</option>-->
-<!--        <option value="3">March</option>-->
-<!--        <option value="4">April</option>-->
-<!--        <option value="5">May</option>-->
-<!--        <option value="6">June</option>-->
-<!--        <option value="7">July</option>-->
-<!--        <option value="8">August</option>-->
-<!--        <option value="9">September</option>-->
-<!--        <option value="10">October</option>-->
-<!--        <option value="11">November</option>-->
-<!--        <option value="12">December</option>-->
-<!--      </select>-->
-<!--      <br>-->
-<!--      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="filterByMonth(monthFilter)">Submit-->
-<!--      </button>-->
-<!--    </div>-->
-<!--    <div>-->
-
-<!--      <p> Show by Hour of Day:</p>-->
-<!--      <select [(ngModel)]="timeFilter">-->
-<!--        <option value="0">Midnight</option>-->
-<!--        <option value="1">1 AM</option>-->
-<!--        <option value="2">2 AM</option>-->
-<!--        <option value="3">3 AM</option>-->
-<!--        <option value="4">4 AM</option>-->
-<!--        <option value="5">5 AM</option>-->
-<!--        <option value="6">6 AM</option>-->
-<!--        <option value="7">7 AM</option>-->
-<!--        <option value="8">8 AM</option>-->
-<!--        <option value="9">9 AM</option>-->
-<!--        <option value="10">10 AM</option>-->
-<!--        <option value="11">11 AM</option>-->
-<!--        <option value="12">12 PM</option>-->
-<!--        <option value="13">1 PM</option>-->
-<!--        <option value="14">2 PM</option>-->
-<!--        <option value="15">3 PM</option>-->
-<!--        <option value="16">4 PM</option>-->
-<!--        <option value="17">5 PM</option>-->
-<!--        <option value="18">6 PM</option>-->
-<!--        <option value="19">7 PM</option>-->
-<!--        <option value="20">8 PM</option>-->
-<!--        <option value="21">9 PM</option>-->
-<!--        <option value="22">10 PM</option>-->
-<!--        <option value="23">11 PM</option>-->
-<!--      </select>-->
-<!--      <br>-->
-<!--      <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="filterByTime(timeFilter)">Submit-->
-<!--      </button>-->
-<!--    </div>-->
-<!--  </div>-->
 
 
   <br><br><br><br>
