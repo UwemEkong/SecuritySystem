@@ -1,10 +1,13 @@
 h1 {
   text-align: left;
-  padding-left:30px;
+  padding-left: 85px;
+  background: white;
 }
 h3 {
   text-align: left;
   padding-left:30px;
+  background: #EAEAEC;
+
 }
 p {
   text-align: left;
@@ -15,27 +18,33 @@ div {
   text-align: left;
   padding-left:30px;
 }
-
-body{
-  background:#eee;
-  margin-top:20px;
-}
-.align-items-center {
-  -webkit-box-align: center!important;
-  align-items: center!important;
-}
-.form-row {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -5px;
-  margin-left: -5px;
+.btn btn-primary{
+  margin-right: 2.5%;
 }
 
-img {
-  vertical-align: middle;
-  border-style: none;
-  padding-left:15px;
+.btn btn-success{
+  margin-right: 2.5%;
+
+}
+
+#main {
+  background-image: url("../../../assets/shutterstock_611542028.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#body {
+  background: #EAEAEC;
+  width: 40%;
+}
+
+h1.btn btn-primary {
+  padding: 5px 5px;
+}
+
+h1.btn btn-success {
+  padding: 5px 5px;
 }
 
 .font-varies {

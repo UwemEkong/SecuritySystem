@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import {ImageService} from "../../services/image.service";
 import {PreferencesService} from "../../services/preferences.service";
 
+
 class image {
   constructor(
     public id: number,
@@ -24,26 +25,20 @@ export class HomeComponent implements OnInit {
   constructor(public authService: AuthService, public imageService: ImageService, private pref:PreferencesService) { }
 
   ngOnInit(): void {
-    this.getAllImages();
-    document.body.style.fontSize = this.fontSize + 'px';
 
-    // Uncommenting the code below prevents the images on the homepage from showing up
-    // this.authService.getLoggedInUser();
+  // getAllImages() {
+  //   this.imageService.getAllImages().subscribe(response => {
+  //     let i = 0;
+  //     while (i in response){
+  //       let newImage = <image>({
+  //         id: response[i].id,
+  //         url: response[i].url
+  //       })
+  //       this.imageList.push(newImage);
+  //       i++
+  //     }
+  //     console.log(this.imageList)
+  //   });
+  // }
   }
-
-  getAllImages() {
-    this.imageService.getAllImages().subscribe(response => {
-      let i = 0;
-      while (i in response){
-        let newImage = <image>({
-          id: response[i].id,
-          url: response[i].url
-        })
-        this.imageList.push(newImage);
-        i++
-      }
-      console.log(this.imageList)
-    });
-  }
-
 }
