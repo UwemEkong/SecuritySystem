@@ -17,6 +17,10 @@ export class AuthService {
   loggedInUser = <User>{};
 
   logout() {
+    this.httpClient.get(`api/auth/logout`).subscribe((data: User) => {
+      this.loggedInUser = data
+      console.log(data)
+    })
     this.authenticated = false;
     this.router.navigateByUrl('/');
   }
@@ -55,7 +59,12 @@ export class AuthService {
 
   getLoggedInUser() {
     this.httpClient.get<User>('api/auth/getloggedinuser').subscribe((data) => {
-      console.log("User data " + JSON.stringify(data))
+      if (Object.keys(data).length == 0) {
+        this.authenticated = false
+      } else {
+        console.log("User data " + JSON.stringify(data))
+        this.authenticated = true
+      }
       this.loggedInUser = data
     })
   }

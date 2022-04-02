@@ -28,6 +28,8 @@ export class NavigationBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.auth.getLoggedInUser()
+    this.loggedIn = this.auth.authenticated
   }
 
   logout() {

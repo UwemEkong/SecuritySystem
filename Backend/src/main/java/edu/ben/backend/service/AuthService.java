@@ -55,6 +55,11 @@ public class AuthService {
         }
     }
 
+    public void logout() {
+        loggedInUser = null;
+        System.out.println("LOGGED OUT SUCCESSFULLY");
+    }
+
     public void register(userDTO userDTO) {
         System.out.println("Registering: " + userDTO);
         user existingUser = userRepository.findByUsername(userDTO.getUsername());
@@ -154,5 +159,7 @@ public class AuthService {
         // Send the email
         emailSenderService.sendEmail(mailMessage);
     }
+
+
 }
 
