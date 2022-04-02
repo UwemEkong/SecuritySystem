@@ -2,23 +2,22 @@ import { Injectable } from '@angular/core';
 import {User} from "../interfaces/User";
 import {HttpClient} from "@angular/common/http";
 import { Router } from '@angular/router';
+import {PreferencesService} from "./preferences.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router, private pref: PreferencesService) { }
 
   authenticated = false;
   error = "";
   selectedImage = "";
   loggedInUser = <User>{};
-  checkedPrefOnLogin = false;
 
   logout() {
     this.authenticated = false;
-    this.checkedPrefOnLogin = false;
     this.router.navigateByUrl('/');
   }
 
@@ -31,6 +30,9 @@ export class AuthService {
         this.authenticated = true;
         console.log("User data " + JSON.stringify(data))
         this.loggedInUser = data
+
+        this.pref.getCurrentUserPreferences();
+
         this.router.navigateByUrl('/home');
       } else {
         failedAttempts = failedAttempts + 1;
