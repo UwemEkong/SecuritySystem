@@ -23,9 +23,9 @@ export class PreferencesComponent implements OnInit {
     document.body.style.fontSize = this.fontSize + 'px';
     this.preferencesServices.getPreferences2(this.authService.loggedInUser.id as number)
 
-    this.preferencesServices.getPreferences().subscribe((response: { dark: boolean; }) => {
-      this.darkMode = response.dark;
-    })
+    // this.preferencesServices.getPreferences().subscribe((response: { dark: boolean; }) => {
+    //   this.darkMode = response.dark;
+    // })
     this.getAllLabels();
 
     // this.preferencesServices.getPreferences().subscribe((response: { dark: boolean; }) => {
