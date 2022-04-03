@@ -23,7 +23,7 @@
 <br><br>
 
 <div class="clear-preference">
-  <button class="submit-btn" (click)="toggleDarkMode()">Dark / Light</button>
+  <button class="btn btn-outline-primary" (click)="toggleDarkMode()">Dark / Light</button>
 </div>
 <br><br><br>
 
@@ -42,7 +42,7 @@
     <option value="2880">48 Hours</option>
     <option value="0">Never</option>
   </select><br><br>
-  <button class="submit-btn" (click)="editPreferencesRemove()">Submit</button>
+  <button class="btn btn-outline-primary" (click)="editPreferencesRemove()">Submit</button>
 </div><br><br>
 
 <br><br>
@@ -92,7 +92,7 @@
     <option value="49">49</option>
     <option value="50">50</option>
   </select><br><br>
-  <button class="submit-btn"  (click)="editPreferencesFontSize()">Submit</button>
+  <button class="btn btn-outline-primary"  (click)="editPreferencesFontSize()">Submit</button>
 </div><br><br>
 
 <br><br>
@@ -111,7 +111,7 @@
     <option value="450">450</option>
     <option value="500">500</option>
   </select><br><br>
-  <button class="submit-btn"  (click)="editPreferencesImageSize()">Submit</button>
+  <button class="btn btn-outline-primary"  (click)="editPreferencesImageSize()">Submit</button>
 </div><br><br>
 
 <br><br>
@@ -130,17 +130,16 @@
     <option value="450">450</option>
     <option value="500">500</option>
   </select><br><br>
-  <button class="submit-btn"  (click)="editPreferencesVideoSize()">Submit</button>
+  <button class="btn btn-outline-primary"  (click)="editPreferencesVideoSize()">Submit</button>
 </div>
 
 
 <br><br>
 
-
 <div class="motion-preference">
   <h3 class="clear-header">Things to Notify Me About: </h3>
 
-  <input id="addLabel" size=100><button (click)="addLabel()" class="submit-btn">Add</button>
+  <input id="addLabel" size=100 class="form-control" aria-describedby="motionHelp" placeholder="Person, car, dog, etc..."><button class="btn btn-outline-primary" (click)="addLabel()" class="submit-btn">Add</button>
 <br><br>
   <ul *ngFor="let l of listOfLabels; let i = index">
     
@@ -149,8 +148,7 @@
   
   </ul>
   
-  <!-- <input id="labelsToNotifyFor" size="100" value="{{this.preferencesServices.currentUserPrefences.labels}}"/>
-  <button (click)="updateLabels()">Update</button> -->
 </div>
+
 
 <br><br>
