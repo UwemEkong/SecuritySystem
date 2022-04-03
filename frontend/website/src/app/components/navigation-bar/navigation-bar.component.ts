@@ -2,7 +2,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {PreferencesService} from "../../services/preferences.service";
-import {Preferences} from "../../interfaces/Preferences";
 
 @Component({
   selector: 'app-navigation-bar',
@@ -12,7 +11,6 @@ import {Preferences} from "../../interfaces/Preferences";
 export class NavigationBarComponent implements OnInit {
   @Output()
   dark = new EventEmitter<boolean>();
-  darkMode = false;
 
   loggedIn = false
   loggedFirstname: any
@@ -21,38 +19,21 @@ export class NavigationBarComponent implements OnInit {
     private router: Router, private auth: AuthService, private pref: PreferencesService) {
   }
 
+  ngDoCheck() {
+    this.loggedIn = this.auth.authenticated;
+    this.loggedFirstname = this.auth.loggedInUser.firstname;
+    if (this.auth.authenticated) {
+      this.dark.emit(this.pref.darkModeSetting);
+    }
+  }
+
   ngOnInit() {
-    this.router.events.subscribe(event => {
-
-      if (event.constructor.name === "NavigationEnd") {
-        this.loggedIn = this.auth.authenticated;
-        this.loggedFirstname = this.auth.loggedInUser.firstname;
-
-        if (this.auth.authenticated && !this.auth.checkedPrefOnLogin) {
-          this.pref.getPreferences().subscribe(response => {
-            this.darkMode = response.dark;
-            this.dark.emit(this.darkMode);
-            this.pref.getCurrentUserPreferences();
-            this.auth.checkedPrefOnLogin = true;
-          })
-        }
-      }
-    })
+    this.auth.getLoggedInUser()
+    this.loggedIn = this.auth.authenticated
   }
 
   logout() {
     this.auth.logout()
     location.reload()
   }
-
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-    this.dark.emit(this.darkMode);
-
-    if (this.auth.authenticated) {
-      let preferences: Preferences = {userid: this.auth.loggedInUser.id, dark: this.darkMode}
-      this.pref.editPreferencesDark(preferences);
-    }
-  }
-
 }

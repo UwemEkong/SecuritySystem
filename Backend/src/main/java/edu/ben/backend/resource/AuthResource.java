@@ -24,6 +24,11 @@ class AuthResource {
         return this.authenticationService.login(username, password);
     }
 
+    @GetMapping("/logout")
+    public void logout() {
+        this.authenticationService.logout();
+    }
+
     @PostMapping("/register")
     public void createEmployee(@RequestBody userDTO userDTO) {
 

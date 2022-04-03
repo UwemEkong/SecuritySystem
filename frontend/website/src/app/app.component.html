@@ -1,5 +1,7 @@
+<div id="theme-container" [ngClass]="[setDark ? 'darkTheme' : '']">
 
   <app-navigation-bar (dark)="darkMode($event)"></app-navigation-bar>
 
   <router-outlet></router-outlet>
 
+</div>

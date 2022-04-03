@@ -25,6 +25,8 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import { EnterTokenComponent } from './components/enter-token/enter-token.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PreferencesComponent } from './components/preferences/preferences.component';
+import { NeighborsComponent } from './components/neighbors/neighbors.component';
+import { SharedMediaComponent } from './components/shared-media/shared-media.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { PreferencesComponent } from './components/preferences/preferences.compo
     ChangePasswordComponent,
     AuthPageComponent,
     EnterTokenComponent,
-    PreferencesComponent
+    PreferencesComponent,
+    NeighborsComponent,
+    SharedMediaComponent
   ],
   imports: [
     FormsModule,

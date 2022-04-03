@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
-import {NavigationBarComponent} from "../navigation-bar/navigation-bar.component";
 import {Router} from "@angular/router";
 import { Preferences } from 'src/app/interfaces/Preferences';
 import { PreferencesService } from 'src/app/services/preferences.service';
@@ -8,16 +7,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Label } from '../../interfaces/Label';
 
 @Component({
-  providers:[NavigationBarComponent],
   selector: 'app-preferences',
   templateUrl: './preferences.component.html',
   styleUrls: ['./preferences.component.scss']
 })
 export class PreferencesComponent implements OnInit {
-  darkMode = false;
   fontSize = this.preferencesServices.fontSizeSetting
 
-  constructor(public preferencesServices: PreferencesService, public authService: AuthService, private navigation: NavigationBarComponent, private router: Router) { }
+  constructor(public preferencesServices: PreferencesService, public authService: AuthService, private router: Router) { }
 
   listOfLabels: Label[] = [];
 
@@ -30,6 +27,7 @@ export class PreferencesComponent implements OnInit {
       this.darkMode = response.dark;
     })
     this.getAllLabels();
+
     // this.preferencesServices.getPreferences().subscribe((response: { dark: boolean; }) => {
     //   this.darkMode = response.dark;
     // })
@@ -42,7 +40,6 @@ export class PreferencesComponent implements OnInit {
   deletePeriod = this.preferencesServices.currentUserPrefences.remove;
   motionSetting = this.preferencesServices.currentUserPrefences.motion;
 
-  
   editPreferences(){
     if (this.deletePeriod != undefined)
     {
@@ -91,12 +88,10 @@ export class PreferencesComponent implements OnInit {
   }
 
   toggleDarkMode() {
-    this.darkMode = !this.darkMode;
+    this.preferencesServices.darkModeSetting = !this.preferencesServices.darkModeSetting;
 
-    let preferences:Preferences = {userid: this.authService.loggedInUser.id, dark: this.darkMode}
+    let preferences:Preferences = {userid: this.authService.loggedInUser.id, dark: this.preferencesServices.darkModeSetting}
     this.preferencesServices.editPreferencesDark(preferences);
-
-    this.authService.checkedPrefOnLogin = false;
 
     alert("Dark Mode Setting Changed Successfully!!");
 
