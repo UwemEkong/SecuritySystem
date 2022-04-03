@@ -8,7 +8,7 @@ div{
   background-color: #1877F2;
   color:white;
   font-family: "Helvetica", sans-serif;
-  font-size:20px;
+  font-size:15px;
   font-weight:bold;
   border:none;
   border-radius:8px;
@@ -39,6 +39,8 @@ div{
 
 select {
   height:50px;
+  width: 25%;
+  text-align: center;
   font-family: "Helvetica", sans-serif;
   font-size:20px;
   font-weight:bold;
@@ -46,9 +48,9 @@ select {
   background-color: white;
   border-radius:     5px;
   border-color:     blue;
-  width:8%;
-  margin-right: 46%;
-  margin-left:46%;
+  //width:8%;
+  //margin-right: 46%;
+  //margin-left:46%;
 }
 
 .clear-preference {
@@ -131,4 +133,10 @@ select {
 
 .font-varies {
   font-size: 1em;
+}
+
+button {
+  margin: 10px;
+
+  font-size: 15px;
 }
