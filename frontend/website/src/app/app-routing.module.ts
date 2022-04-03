@@ -14,11 +14,12 @@ import { AuthPageComponent } from './components/auth-page/auth-page.component';
 import {EnterTokenComponent} from "./components/enter-token/enter-token.component";
 import {PreferencesComponent} from "./components/preferences/preferences.component";
 import {PathGuard} from "./components/guards/path.guard";
+import { NeighborsComponent } from './components/neighbors/neighbors.component';
 
 
 const routes: Routes = [
 
-  {path: 'home', component: HomeComponent},
+  
   {path: 'camera', component: CameraComponent, canActivate: [PathGuard]},
   {path: 'faq', component: FaqComponent},
   {path: 'about-us', component: AboutUsComponent},
@@ -31,7 +32,10 @@ const routes: Routes = [
   {path:'change-password', component: ChangePasswordComponent},
   {path: 'auth', component: AuthPageComponent},
   {path: 'preferences', component: PreferencesComponent, canActivate: [PathGuard]},
+  {path: 'home', component: HomeComponent},
+  {path: 'neighbors', component: NeighborsComponent, canActivate: [PathGuard]},
   {path: '**', component: HomeComponent},
+
 
 
 ];

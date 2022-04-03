@@ -79,9 +79,30 @@ def apply_timestamp(fram):
 
     return fram
 
-camera = cv2.VideoCapture(0)
+import socket
+from contextlib import closing
+   
+def check_socket(host, port):
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
+        if sock.connect_ex((host, port)) == 0:
+            print("Port is open")
+            return True
+        else:
+            print("Port is not open")
+            return False
+            
+def get_camera():
+    global camera
+    is_port_open = check_socket("10.100.212.46", 8080)
 
-# camera = cv2.VideoCapture("http://10.100.212.46:8000")
+    if is_port_open == True:
+        camera = cv2.VideoCapture("http://10.100.212.46:8000")
+    else:
+        camera = cv2.VideoCapture(0)
+
+camera = cv2.VideoCapture(0)
+get_camera()
+
 def gen_frames():
  global prevtime
  global toggle_motion

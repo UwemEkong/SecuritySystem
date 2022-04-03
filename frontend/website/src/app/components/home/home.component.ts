@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
   constructor(public authService: AuthService, public imageService: ImageService, private pref:PreferencesService) { }
 
   ngOnInit(): void {
-
   // getAllImages() {
   //   this.imageService.getAllImages().subscribe(response => {
   //     let i = 0;
