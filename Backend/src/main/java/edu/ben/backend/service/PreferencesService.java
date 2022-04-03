@@ -1,12 +1,13 @@
 package edu.ben.backend.service;
 
+import edu.ben.backend.model.Label;
 import edu.ben.backend.model.dto.preferencesDTO;
 import edu.ben.backend.model.preferences;
+import edu.ben.backend.repository.LabelRepository;
 import edu.ben.backend.repository.PreferencesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -14,10 +15,12 @@ import java.util.List;
 public class PreferencesService {
 
     PreferencesRepository preferencesRepository;
+    LabelRepository labelRepository;
     AuthService authService;
 
-    public PreferencesService(PreferencesRepository preferencesRepository, AuthService authService) {
+    public PreferencesService(PreferencesRepository preferencesRepository, LabelRepository labelRepository, AuthService authService) {
         this.preferencesRepository = preferencesRepository;
+        this.labelRepository = labelRepository;
         this.authService = authService;
     }
     
@@ -28,7 +31,6 @@ public class PreferencesService {
         preferences.setRemove(preferencesDTO.getRemove());
         preferences.setMotion(preferencesDTO.isMotion());
         preferences.setDark(preferencesDTO.isDark());
-         preferences.setLabels(preferencesDTO.getLabels());
 
         preferencesRepository.save(preferences);
 
@@ -75,7 +77,7 @@ public class PreferencesService {
         preferences preferences = preferencesRepository.findByuserid((long) authService.getLoggedInUser().getId().intValue());
 
         preferencesDTO preferencesDTO = new preferencesDTO(
-                preferences.getUserid(), preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getFontsize(), preferences.getImagesize(), preferences.getVideosize(), preferences.getLabels());
+                preferences.getUserid(), preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getFontsize(), preferences.getImagesize(), preferences.getVideosize());
 
       return preferencesDTO;
     }
@@ -83,20 +85,45 @@ public class PreferencesService {
     public preferencesDTO getPreferences(Long userId) {
         preferences preferences = preferencesRepository.findByuserid(userId);
 
-        return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getFontsize(), preferences.getImagesize(), preferences.getVideosize(), preferences.getLabels());
+        return new preferencesDTO(userId, preferences.getRemove(), preferences.isMotion(), preferences.isDark(), preferences.getFontsize(), preferences.getImagesize(), preferences.getVideosize());
 
     }
 
-    public String getLabels() {
-        String labels = getPreferences(authService.getLoggedInUser().getId()).getLabels();
+    public List<Label> getLabels() {
+        Long userid = authService.getLoggedInUser().getId();
+
+        List<Label> labels = labelRepository.findAllByUserid(userid);
 
         return labels;
-
     }
 
-    public void editLabels(String newlabels) {
-        preferences preferences = preferencesRepository.findByuserid(authService.getLoggedInUser().getId());
-        preferences.setLabels(newlabels);
-        preferencesRepository.save(preferences);
+    public void deleteLabel(String text) {
+        Long userid = authService.getLoggedInUser().getId();
+        Label l = labelRepository.findFirstByUseridAndText(userid, text);
+        l.setUserid(0L);
+        labelRepository.save(l);
+        // There's an issue with line below, and stack overflow is down rn
+        // so imma just set the label's userid to 0 until stack is up again
+        // instead of actually deleting it
+        //labelRepository.deleteByUseridAndText(userid,text);
+    }
+
+    public void addLabel(String text) {
+        Long userid = authService.getLoggedInUser().getId();
+
+        Label l = new Label(userid, text);
+        labelRepository.save(l);
+    }
+
+    public String getLabelsList() {
+        List<Label> labels = this.getLabels();
+
+        List<String> a = new ArrayList<String>();
+
+        for (Label l: labels){
+            a.add(l.getText());
+        }
+
+        return String.join(",", a);
     }
 }

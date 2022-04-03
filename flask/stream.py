@@ -175,7 +175,7 @@ def notify_user(labels):
                 'Access-Control-Allow-Origin': 'localhost'
             }
 
-    response = requests.get('http://localhost:8080/api/preferences/getLabels', headers=HEADERS)
+    response = requests.get('http://localhost:8080/api/preferences/getLabelsList', headers=HEADERS)
     
     print("USER LABELS")
     userlabels = response.content.decode('utf-8').split(",")

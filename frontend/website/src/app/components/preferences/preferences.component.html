@@ -137,9 +137,17 @@
 <br><br>
 
 <div class="motion-preference">
-  <label for="labelsToNotifyFor">Things to Notify Me About</label>
-  <input type="email" class="form-control" id="labelsToNotifyFor" aria-describedby="motionHelp" placeholder="Person, car, dog, etc...">
-  <button class="btn btn-outline-primary" (click)="updateLabels()">Update</button>
+  <h3 class="clear-header">Things to Notify Me About: </h3>
+
+  <input id="addLabel" size=100 class="form-control" aria-describedby="motionHelp" placeholder="Person, car, dog, etc..."><button class="btn btn-outline-primary" (click)="addLabel()" class="submit-btn">Add</button>
+<br><br>
+  <ul *ngFor="let l of listOfLabels; let i = index">
+    
+    <li id="label{{i}}">{{l.text}}<span class="close" 
+      (click)="deleteLabel(l.text,i)">&times;</span></li>
+  
+  </ul>
+  
 </div>
 
 
