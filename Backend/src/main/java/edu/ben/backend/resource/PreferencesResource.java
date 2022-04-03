@@ -68,6 +68,11 @@ class PreferencesResource {
         return this.preferencesService.getLabels();
     }
 
+    @GetMapping(value = "/getLabelsList")
+    public String getLabelsList() {
+        return this.preferencesService.getLabelsList();
+    }
+
     @PostMapping("/addLabel")
     public void addLabel(@RequestBody String text) {
         System.out.println("ADDDDDINNNNGGGGG");

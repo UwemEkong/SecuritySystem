@@ -8,7 +8,6 @@ import edu.ben.backend.repository.PreferencesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -116,4 +115,15 @@ public class PreferencesService {
         labelRepository.save(l);
     }
 
+    public String getLabelsList() {
+        List<Label> labels = this.getLabels();
+
+        List<String> a = new ArrayList<String>();
+
+        for (Label l: labels){
+            a.add(l.getText());
+        }
+
+        return String.join(",", a);
+    }
 }

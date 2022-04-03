@@ -79,7 +79,9 @@ def apply_timestamp(fram):
 
     return fram
 
-camera = cv2.VideoCapture("http://10.100.212.46:8000")
+camera = cv2.VideoCapture(0)
+
+# camera = cv2.VideoCapture("http://10.100.212.46:8000")
 def gen_frames():
  global prevtime
  global toggle_motion
@@ -152,7 +154,7 @@ def notify_user(labels):
                 'Access-Control-Allow-Origin': 'localhost'
             }
 
-    response = requests.get('http://localhost:8080/api/preferences/getLabels', headers=HEADERS)
+    response = requests.get('http://localhost:8080/api/preferences/getLabelsList', headers=HEADERS)
     
     print("USER LABELS")
     userlabels = response.content.decode('utf-8').split(",")
