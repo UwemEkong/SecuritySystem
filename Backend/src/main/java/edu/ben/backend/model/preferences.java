@@ -25,8 +25,6 @@ public class preferences {
     boolean motion;
     @Column(name = "dark")
     boolean dark;
-    @Column(name = "labels")
-    String labels;
     @Column(name = "fontsize")
     int fontsize;
     @Column(name = "imagesize")
@@ -39,7 +37,6 @@ public class preferences {
         this.remove = remove;
         this.motion = motion;
         this.dark = dark;
-        this.labels = "person,car";
         this.fontsize = fontsize;
         this.imagesize = imagesize;
         this.videosize = videosize;

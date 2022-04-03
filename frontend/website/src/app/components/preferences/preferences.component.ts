@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import { Preferences } from 'src/app/interfaces/Preferences';
 import { PreferencesService } from 'src/app/services/preferences.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Label } from '../../interfaces/Label';
 
 @Component({
   providers:[NavigationBarComponent],
@@ -18,6 +19,8 @@ export class PreferencesComponent implements OnInit {
 
   constructor(public preferencesServices: PreferencesService, public authService: AuthService, private navigation: NavigationBarComponent, private router: Router) { }
 
+  listOfLabels: Label[] = [];
+
 
   ngOnInit(): void {
     document.body.style.fontSize = this.fontSize + 'px';
@@ -26,21 +29,19 @@ export class PreferencesComponent implements OnInit {
     this.preferencesServices.getPreferences().subscribe((response: { dark: boolean; }) => {
       this.darkMode = response.dark;
     })
+    this.getAllLabels();
+    // this.preferencesServices.getPreferences().subscribe((response: { dark: boolean; }) => {
+    //   this.darkMode = response.dark;
+    // })
   }
 
   removePeriod = this.preferencesServices.removePeriod;
   fontSizeSetting = this.preferencesServices.fontSizeSetting;
   imageSizeSetting = this.preferencesServices.imageSizeSetting;
   videoSizeSetting = this.preferencesServices.videoSizeSetting;
-  deletePeriod = this.preferencesServices.currentUserPrefences.remove
-  motionSetting = this.preferencesServices.currentUserPrefences.motion
+  deletePeriod = this.preferencesServices.currentUserPrefences.remove;
+  motionSetting = this.preferencesServices.currentUserPrefences.motion;
 
-  
-  updateLabels(){
-    console.log($("#labelsToNotifyFor").val());
-      let preferences:Preferences = {userid: this.authService.loggedInUser.id, labels: String($("#labelsToNotifyFor").val())};
-      this.preferencesServices.editPreferences(preferences);
-  }
   
   editPreferences(){
     if (this.deletePeriod != undefined)
@@ -101,4 +102,28 @@ export class PreferencesComponent implements OnInit {
 
     this.router.navigateByUrl('/home');
   }
+
+  getAllLabels() {
+    this.preferencesServices.getLabels().subscribe((data: Label[]) => {
+      this.listOfLabels = data;
+    });
+  }
+
+  addLabel(){
+    let text = $("#addLabel").val();
+    console.log(text);
+            
+    this.preferencesServices.addLabel(text+"");
+    // if(/^[a-zA-Z]+$/.test(text+"")){
+    //   this.preferencesServices.addLabel(text+"");
+    // } else {
+    //   console.log("bad input");
+    // }
+  }
+
+  deleteLabel(text:string,id:number){
+    this.preferencesServices.deleteLabel(text);
+    $("#label"+id).remove();
+  }
+
 }

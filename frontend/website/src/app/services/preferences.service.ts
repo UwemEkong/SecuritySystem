@@ -5,11 +5,13 @@ import {Preferences} from "../interfaces/Preferences";
 import {Observable} from "rxjs";
 import { AuthService } from './auth.service';
 import { User } from '../interfaces/User';
+import { Label } from '../interfaces/Label';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreferencesService {
+  
   
 
   constructor(private httpClient: HttpClient, private router: Router) { }
@@ -19,6 +21,23 @@ export class PreferencesService {
   imageSizeSetting = 300;
   videoSizeSetting = 300;
 
+
+  getLabels():Observable<Label[]>{
+    return this.httpClient.get<Label[]>('api/preferences/getLabels')
+  }
+
+  addLabel(text:string) {
+    let l: Label = {userid:0,text:text};
+    this.httpClient.post<string>('api/preferences/addLabel',text).subscribe();
+    console.log("addding");
+    this.router.navigateByUrl('/preferences');
+  }
+
+
+  deleteLabel(text:string) {
+    this.httpClient.post<string>('api/preferences/deleteLabel',text).subscribe();
+    
+  }
 
   editPreferencesRemove(preferences:Preferences) {
     this.httpClient.post<Preferences>('api/preferences/editPreferencesRemove', preferences).subscribe(() => {
@@ -89,7 +108,7 @@ export class PreferencesService {
 
   public getCurrentUserPreferences()
   {
-    this.getPreferences().subscribe(response =>{
+    this.getPreferences().subscribe((response: { remove: number; fontsize: number; imagesize: number; videosize: number; dark: boolean; }) =>{
       this.removePeriod = response.remove;
       this.fontSizeSetting = response.fontsize;
       this.imageSizeSetting = response.imagesize;

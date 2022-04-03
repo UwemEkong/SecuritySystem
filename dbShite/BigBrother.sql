@@ -55,6 +55,16 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`image` (
                                                            UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `BigBroSecurity`.`Label`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`label` (
+                                                           `id` INT NOT NULL auto_increment,
+                                                           `userid` INT NULL,
+                                                           `text` VARCHAR(50) NULL,
+                                                           PRIMARY KEY (`id`),
+                                                           UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `BigBroSecurity`.`Preferences`
@@ -65,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`preferences` (
                                                         `remove` INT NULL,
                                                         `motion` boolean NULL,
                                                         `dark` boolean NULL,
-                                                        `labels` VARCHAR(255) NULL,
                                                         `fontsize` INT NULL,
                                                         `imagesize` INT NULL,
                                                         `videosize` INT NULL,

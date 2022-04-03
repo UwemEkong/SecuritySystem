@@ -6,5 +6,4 @@ export interface Preferences {
   fontsize?: number;
   imagesize?: number;
   videosize?: number;
-  labels?:string;
 }

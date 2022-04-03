@@ -1,5 +1,8 @@
 package edu.ben.backend.resource;
 
+import edu.ben.backend.model.Label;
+import edu.ben.backend.model.dto.LabelDTO;
+import edu.ben.backend.model.dto.MediaxDTO;
 import edu.ben.backend.model.dto.preferencesDTO;
 import edu.ben.backend.service.PreferencesService;
 import org.springframework.web.bind.annotation.*;
@@ -61,13 +64,19 @@ class PreferencesResource {
     }
 
     @GetMapping(value = "/getLabels")
-    public String getLabels() {
+    public List<Label> getLabels() {
         return this.preferencesService.getLabels();
     }
 
-    @PostMapping("/editPreferencesLabels")
-    public void editLabels(@RequestBody String newlabels) {
-        this.preferencesService.editLabels(newlabels);
+    @PostMapping("/addLabel")
+    public void addLabel(@RequestBody String text) {
+        System.out.println("ADDDDDINNNNGGGGG");
+        this.preferencesService.addLabel(text);
+    }
+
+    @PostMapping("/deleteLabel")
+    public void deleteLabel(@RequestBody String text) {
+        this.preferencesService.deleteLabel(text);
     }
 
 }

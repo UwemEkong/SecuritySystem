@@ -143,9 +143,18 @@
 </div>
 
 <div class="motion-preference">
-  <h3 class="clear-header">Thing to Notify Me About: </h3>
+  <h3 class="clear-header">Things to Notify Me About: </h3>
 
-  <input id="labelsToNotifyFor" size="100" value="{{this.preferencesServices.currentUserPrefences.labels}}"/>
-  <button (click)="updateLabels()">Update</button>
+  <input id="addLabel" size=100><button (click)="addLabel()" class="submit-btn">Add</button>
+<br><br>
+  <ul *ngFor="let l of listOfLabels; let i = index">
+    
+    <li id="label{{i}}">{{l.text}}<span class="close" 
+      (click)="deleteLabel(l.text,i)">&times;</span></li>
+  
+  </ul>
+  
+  <!-- <input id="labelsToNotifyFor" size="100" value="{{this.preferencesServices.currentUserPrefences.labels}}"/>
+  <button (click)="updateLabels()">Update</button> -->
 </div>
 
