@@ -157,15 +157,14 @@
             </td>
 
             <td style="width:35em;">
-              <p>{{mxdto.location}}</p>
+              <p>{{mxdto.location | location}}</p>
             </td>
 
-
             <td>
-              <!-- <img id="img{{i}}" src="{{mxdto.url}}" height="200px;" style="visibility: hidden"/>
-                <button id="sh{{i}}" (click)="showhide(mxdto,i)">Show</button> -->
               <button *ngIf="!mxdto.isvideo" class="btn btn-outline-primary"
-                      (click)="open(imagemodal, videomodal, mxdto)">Show
+
+                      (click)="open(imagemodal,mxdto)">
+                Show
               </button>
             </td>
 
@@ -181,6 +180,20 @@
 
             <td>
               <button class="btn btn-outline-danger" (click)="deleteMediax(mxdto)">Delete</button>
+            </td>
+
+
+
+            <td *ngIf="mxdto.shared == false" style="margin:10px;">
+              <button title="Make public" class ="btn btn-light" (click)="openShareModal(sharemodal, mxdto)">
+                <mat-icon>share</mat-icon>
+              </button>
+            </td>
+
+            <td *ngIf="mxdto.shared == true" style="margin:10px;">
+              <button title="Make private" class ="btn btn-light" (click)="unshareMedia(mxdto)">
+                <mat-icon>lock</mat-icon>
+              </button>
             </td>
 
           </div>
@@ -202,16 +215,37 @@
         </div>
       </ng-template>
 
-      <ng-template #videomodal let-modal>
+      <ng-template #sharemodal let-modal>
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">{{currentmx.filename}}</h4>
           <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
-          <embed [src]="safeUrl">
+          <form #mediaData="ngForm" (ngSubmit)="updateShared(currentmx, mediaData)" novalidate>
+            
+            <input (click)="clearTitle()" class="form-control login-input" name="title" value="title" id="title" ngModel="{{titlePlaceholder}}"><br>
+        
+           
+            <div class="dropdown dropdown-cont">
+              <button class="btn btn-secondary dropdown-toggle dropdown-cstm-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{categoryPlaceholder}}
+              </button>
+              <div class="dropdown-menu dropdown-cstm" aria-labelledby="dropdownMenuButton">
+                <a (click)="setCategory('Crime')" class="dropdown-item">Crime</a>
+                <a (click)="setCategory('Safety')" class="dropdown-item">Safety</a>
+                <a (click)="setCategory('Animal')" class="dropdown-item">Animal</a>
+                <a (click)="setCategory('Environmental')" class="dropdown-item">Environmental</a>
+                <a (click)="setCategory('Community')" class="dropdown-item">Community</a>
+              </div>
+            </div>
+          
+              <div class="container-fluid submit-cont">
+                <button class="btn btn-primary share-btn">Share Media</button>
+              </div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Alright</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
         </div>
       </ng-template>
 

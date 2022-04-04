@@ -21,8 +21,12 @@ public class MediaxDTO {
     String timestamp;
     String url;
     boolean isfavorite;
+    boolean shared;
+    String title;
+    String category;
+    int views;
 
-    public MediaxDTO(Long userid, boolean islocal, boolean isvideo, String pathorkey, String filename, String location, String timestamp, boolean isfavorite) {
+    public MediaxDTO(Long userid, boolean islocal, boolean isvideo, String pathorkey, String filename, String location, String timestamp, boolean isfavorite, boolean shared, String title, String category, int views) {
         this.userid = userid;
         this.islocal = islocal;
         this.isvideo = isvideo;
@@ -31,7 +35,10 @@ public class MediaxDTO {
         this.location = location;
         this.timestamp = timestamp;
         this.isfavorite = isfavorite;
-
+        this.shared= shared;
+        this.title = title;
+        this.category = category;
+        this.views = views;
     }
 
     public MediaxDTO(Long userid, boolean islocal, boolean isvideo, String pathorkey, String filename, String location, String timestamp, String url, boolean isfavorite) {
@@ -57,6 +64,11 @@ public class MediaxDTO {
         this.timestamp = mx.getTimestamp();
         this.url = path;
         this.isfavorite = mx.isIsfavorite();
+        this.shared = mx.isShared();
+        this.title = mx.getTitle();
+        this.category = mx.getCategory();
+        this.views = mx.getViews();
+        this.id = mx.getId();
     }
 
     public MediaxDTO(){}

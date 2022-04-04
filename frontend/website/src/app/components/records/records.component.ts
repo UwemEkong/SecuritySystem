@@ -111,6 +111,7 @@ export class RecordsComponent implements OnInit {
 
       this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
         let listOfMediaxTemp1 = data;
+        console.log(listOfMediaxTemp1)
         let listOfMediaxTemp2: Mediax[] = [];
         let listOfMediaxFavoritesTemp3: Mediax[] = [];
 
@@ -178,15 +179,35 @@ export class RecordsComponent implements OnInit {
 
   updateFavorite(mx: Mediax) {
     mx.isfavorite = !mx.isfavorite;
-    this.mediaxServ.editMediaxFavorite(mx);
+    this.mediaxServ.editMediax(mx);
     alert("Favorite Setting Changed Successfully!!");
 
     this.startFilter()
   }
 
+  updateShared(mx: Mediax, mediaData: any) {
+    mx.shared = !mx.shared;
+    mx.title = mediaData.value.title;
+    mx.category = this.selectedCategory
+    this.mediaxServ.editShared(mx);
+    this.getAllMedia();
+    this.startFilter();
+    this.titlePlaceholder = "Enter Title...";
+    this.categoryPlaceholder = "Choose a Category";
+  }
+
+  unshareMedia(mx: Mediax) {
+    mx.shared = !mx.shared;
+    this.mediaxServ.unshareMedia(mx).subscribe((data: Mediax) =>{
+      this.getAllMedia();
+      this.startFilter();
+    })
+  }
+
   getAllMedia() {
     this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
       this.listOfMediax = data;
+      console.log(this.listOfMediax)
     });
   }
 
@@ -213,23 +234,43 @@ export class RecordsComponent implements OnInit {
     // a.remove();
   }
 
-  open(imagemodal: any, videomodal: any, mxdto: Mediax) {
+  open(imagemodal: any, mxdto: Mediax) {
     this.currentmx = mxdto;
-    if (this.currentmx.isvideo) {
-      console.log(mxdto.url)
-      this.safeUrl = this._sanitizer.bypassSecurityTrustResourceUrl(this.currentmx.url as string)
-      this.modalService.open(videomodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
-    } else {
+    this.titlePlaceholder = this.currentmx.title!
+    this.categoryPlaceholder = this.currentmx.category!
       this.modalService.open(imagemodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
-    }
+    
+  }
+
+  openShareModal(sharemodal: any,mxdto: Mediax) {
+    this.currentmx = mxdto;
+    // this.titlePlaceholder = this.currentmx.title!
+    // this.categoryPlaceholder = this.currentmx.category!
+      this.modalService.open(sharemodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+  }
+  titlePlaceholder = "Enter Title...";
+  categoryPlaceholder = "Choose a Category";
+  selectedCategory = ""
+
+  setCategory(category:string) {
+    this.categoryPlaceholder = category
+    this.selectedCategory = category
+  }
+
+  clearTitle() {
+    this.titlePlaceholder = ""
+  }
+
+  clearCategory() {
+    this.categoryPlaceholder = ""
   }
 
   private getDismissReason(reason: any): string {
@@ -252,11 +293,6 @@ export class RecordsComponent implements OnInit {
 
     console.log($("#img" + i).is(":hidden"));
 
-    //elem.css('visibility', 'visible'); //to show
-    //elem.css('visibility', 'hidden');
-
-    // $("#img" + i).show();
-    //
 
     if (elem.css("visibility") == "hidden") {
       elem.css("visibility", "visible");
@@ -264,11 +300,6 @@ export class RecordsComponent implements OnInit {
       elem.css("visibility", "hidden");
     }
 
-    // if(elem.is(":hidden")) {
-    //   elem.css("display","block");
-    // } else {
-    //   elem.hide();
-    // }
 
   }
 }

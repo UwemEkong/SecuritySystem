@@ -15,6 +15,7 @@ import {EnterTokenComponent} from "./components/enter-token/enter-token.componen
 import {PreferencesComponent} from "./components/preferences/preferences.component";
 import {PathGuard} from "./components/guards/path.guard";
 import { NeighborsComponent } from './components/neighbors/neighbors.component';
+import { MediaInfoComponent } from './components/media-info/media-info.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'preferences', component: PreferencesComponent, canActivate: [PathGuard]},
   {path: 'home', component: HomeComponent},
   {path: 'neighbors', component: NeighborsComponent, canActivate: [PathGuard]},
+  {path: 'media-info/:id', component: MediaInfoComponent, canActivate: [PathGuard]},
   {path: '**', component: HomeComponent},
 
 

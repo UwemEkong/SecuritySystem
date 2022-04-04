@@ -96,8 +96,26 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`mediax` (
                                                               `timestamp` VARCHAR(255) NULL,
                                                               `userid` INT NULL,
                                                               `isfavorite` boolean NULL,
+															  `shared` boolean NULL,
+                                                              `title` VARCHAR(255) NULL,
+                                                              `category` VARCHAR(255) NULL,
+                                                              `views` INT NULL,
                                                               PRIMARY KEY (`id`),
                                                               UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `BigBroSecurity`.`comment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`comment` (
+                                                           `id` INT NOT NULL auto_increment,
+                                                           `mediaid` INT NULL,
+                                                           `content` VARCHAR(500) NULL,
+                                                           `username` VARCHAR(45) NULL,
+                                                           `date` VARCHAR(250) NULL,
+                                                           PRIMARY KEY (`id`),
+                                                           UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 

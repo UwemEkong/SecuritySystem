@@ -1,1 +1,19 @@
-<p>shared-media works!</p>
+<div class="card custom-card">
+    <img src="{{category_image}}" class="card-img-top card-cover-img" alt="...">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+            <p class="card-text">{{timestamp | date }}</p>
+        </div>
+        <div class="col">
+            <p class="card-text">{{location! | location}}</p>
+        </div>
+        <div class="col">
+            <p class="card-text">{{views}} views</p>
+        </div>
+      </div>
+      <h5 class="card-title cstm-card-title">{{title}}</h5>
+      <div class="cstm-card-category">Category: <b class="category-bubble">{{category}}</b></div>
+      <a (click)="openMediaInfo()" class="btn btn-primary">More Info</a>
+    </div>
+  </div>

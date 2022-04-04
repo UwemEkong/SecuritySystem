@@ -8,4 +8,9 @@ export interface Mediax {
     timestamp:string;
     url?:string;
     isfavorite:boolean;
+    shared?:boolean;
+    title?:string;
+    category?:string;
+    views?:number;
+    id?:number;
 }

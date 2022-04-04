@@ -1,7 +1,6 @@
 .custom-card {
     width:80%;
-    margin-left:10%;
-    margin-right:10%;
+    margin-left:20%;
     margin-top:20px;
 }
 
@@ -20,4 +19,16 @@
     height:15px;
     background-color:#eff5fc;
     border-radius:5px;
+}
+
+.mini-map {
+    margin-top:20px;
+    width:70%;
+    height:50vh;
+    text-align:left;
+    margin-right:100px;
+}
+
+.info-cont {
+    width:100%;
 }

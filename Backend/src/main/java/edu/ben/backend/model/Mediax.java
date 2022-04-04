@@ -36,8 +36,16 @@ public class Mediax {
     String timestamp;
     @Column(name = "isfavorite")
     boolean isfavorite;
+    @Column(name= "shared")
+    boolean shared;
+    @Column(name = "title")
+    String title;
+    @Column(name = "category")
+    String category;
+    @Column(name = "views")
+    int views;
 
-    public Mediax(Long userid, boolean islocal, boolean isvideo, String pathorkey, String filename, String location, String timestamp, boolean isfavorite) {
+    public Mediax(Long userid, boolean islocal, boolean isvideo, String pathorkey, String filename, String location, String timestamp, boolean isfavorite, boolean shared, String title, String category, int views) {
         this.userid = userid;
         this.islocal = islocal;
         this.isvideo = isvideo;
@@ -46,6 +54,10 @@ public class Mediax {
         this.location = location;
         this.timestamp = timestamp;
         this.isfavorite = isfavorite;
+        this.shared = shared;
+        this.title = title;
+        this.category = category;
+        this.views = views;
     }
 
 }
