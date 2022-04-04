@@ -24,6 +24,16 @@ public class MediaxResource {
         return this.mediaxService.getAllMediax();
     }
 
+    @GetMapping("/getAllSharedMediax")
+    public List<MediaxDTO> getSharedMediax() {
+        return this.mediaxService.getAllSharedMediax();
+    }
+
+    @GetMapping("/getAllSharedMediaxFiltered/{mileRadiusFilter}")
+    public List<MediaxDTO> getSharedMediaxFiltered(@PathVariable int mileRadiusFilter) {
+        return this.mediaxService.getAllSharedMediaxFiltered(mileRadiusFilter);
+    }
+
     @GetMapping("/getUserMediax")
     public List<MediaxDTO> getUserMediax() {
         return this.mediaxService.getUserMediax();
@@ -45,8 +55,15 @@ public class MediaxResource {
         this.mediaxService.editMediax(mediaxDTO);
     }
 
-    @PostMapping("/editMediaxFavorite")
-    public void editMediaxFavorite(@RequestBody MediaxDTO mediaxDTO) {
-        this.mediaxService.editMediaxFavorite(mediaxDTO);
+    @PostMapping("/editShared")
+    public void editShared(@RequestBody MediaxDTO mediaxDTO) {
+        this.mediaxService.editShared(mediaxDTO);
     }
+
+    @PostMapping("/editViews")
+    public void editViews(@RequestBody MediaxDTO mediaxDTO) {
+        this.mediaxService.editViews(mediaxDTO);
+    }
+
+
 }

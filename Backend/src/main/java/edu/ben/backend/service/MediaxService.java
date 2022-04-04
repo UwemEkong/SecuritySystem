@@ -18,11 +18,13 @@ public class MediaxService {
 
     MediaxRepository mediaxRepository;
     AuthService authService;
+    LocationService locationService;
 
-    public MediaxService(MediaxRepository mediaxRepository, AuthService authService) {
+    public MediaxService(MediaxRepository mediaxRepository, AuthService authService, LocationService locationService) {
 
         this.mediaxRepository = mediaxRepository;
         this.authService = authService;
+        this.locationService = locationService;
     }
 
     private ArrayList<MediaxDTO> assignAWSURLs( List<Mediax> listOfMediax){
@@ -58,11 +60,19 @@ public class MediaxService {
 
     public List<MediaxDTO> getAllMediax(){
         List<Mediax> listOfMediax = mediaxRepository.findAll();
-        System.out.println(listOfMediax);
+        System.out.println(listOfMediax.toString());
 
         ArrayList<MediaxDTO> listofMediaxDTO = assignAWSURLs(listOfMediax);
 
         return listofMediaxDTO;
+    }
+
+    public List<MediaxDTO> getAllSharedMediax() {
+        return assignAWSURLs(mediaxRepository.findAllBySharedTrue());
+    }
+
+    public List<MediaxDTO> getAllSharedMediaxFiltered(int mileRadiusFilter) {
+        return assignAWSURLs(locationService.filterByMileRadius(mediaxRepository.findAllBySharedTrue(), mileRadiusFilter));
     }
 
     public ArrayList<MediaxDTO> getUserMediax(){
@@ -71,7 +81,7 @@ public class MediaxService {
 
     public void createMediax(MediaxDTO mediaxDTO) {
         System.out.println(mediaxDTO);
-        mediaxRepository.save(new Mediax(authService.loggedInUser.getId(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp(), mediaxDTO.isIsfavorite()));
+        mediaxRepository.save(new Mediax(authService.loggedInUser.getId(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp(), mediaxDTO.isIsfavorite(), mediaxDTO.isShared(), mediaxDTO.getTitle(), mediaxDTO.getCategory(), mediaxDTO.getViews()));
     }
 
     public void deleteMediax(MediaxDTO mediaxDTO) {
@@ -86,14 +96,31 @@ public class MediaxService {
         System.out.println("editing mediax");
         Mediax mx = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
         mx.setFilename(mediaxDTO.getFilename());
-        mediaxRepository.save(mx);
-
-    }
-
-    public void editMediaxFavorite(MediaxDTO mediaxDTO) {
-        Mediax mx = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
         mx.setIsfavorite(mediaxDTO.isIsfavorite());
         mediaxRepository.save(mx);
+
     }
+
+    public void editShared(MediaxDTO mediaxDTO) {
+        System.out.println("editing mediax");
+        Mediax mx = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
+        mx.setShared(!mx.isShared());
+        mx.setShared(mediaxDTO.isShared());
+        mx.setTitle(mediaxDTO.getTitle());
+        mx.setCategory(mediaxDTO.getCategory());
+        System.out.println("category" + mediaxDTO.getCategory());
+        System.out.println("title" + mediaxDTO.getTitle());
+        System.out.println("Shared dto" + mediaxDTO.isShared());
+        System.out.println("Shared regular" + mx.isShared());
+        mediaxRepository.save(mx);
+    }
+
+    public void editViews(MediaxDTO mediaxDTO) {
+        System.out.println("editing mediax");
+        Mediax mx = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
+        mx.setViews(mx.getViews() + 1);
+        mediaxRepository.save(mx);
+    }
+
 
 }

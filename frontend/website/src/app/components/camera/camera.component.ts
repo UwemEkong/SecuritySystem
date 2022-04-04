@@ -4,6 +4,7 @@ import { MediaxService } from 'src/app/services/mediax.service';
 import {Mediax} from "../../interfaces/Mediax"
 import { AuthService } from 'src/app/services/auth.service';
 import {PreferencesService} from "../../services/preferences.service";
+import { LocationService } from 'src/app/services/location.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import {PreferencesService} from "../../services/preferences.service";
 })
 export class CameraComponent implements OnInit {
 
-  constructor(public mediaxServ: MediaxService, private http: HttpClient, public authService: AuthService, private pref: PreferencesService) { }
+  constructor(public mediaxServ: MediaxService, private http: HttpClient, public authService: AuthService, private pref: PreferencesService, public locationService: LocationService) { }
 
   videoSize = this.pref.videoSizeSetting;
   videoRef:any;
@@ -28,7 +29,7 @@ export class CameraComponent implements OnInit {
     this.http.get(`http://localhost:4200/flsk/save_snap_to_cloud`).subscribe((data: any) =>  {
       console.log(data);
       let namekey = data["namekey"];
-      let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location: "In Lisle, IL", timestamp:(new Date().toLocaleString()), isfavorite: false}
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location:this.locationService.formattedLocation, timestamp:(new Date().toLocaleString()), isfavorite: false}
       this.mediaxServ.createMediax(mx);
     });
   }
@@ -36,7 +37,7 @@ export class CameraComponent implements OnInit {
   record() {
     this.http.get(`http://localhost:4200/flsk/record`).subscribe((data: any) =>  {
       let namekey = data["namekey"];
-      let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location: "In Lisle, IL", timestamp:(new Date().toLocaleString()), isfavorite: false}
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location:this.locationService.formattedLocation , timestamp:(new Date().toLocaleString()), isfavorite: false, shared:false,title:"",category:"",views:0 }
       this.mediaxServ.createMediax(mx);
   });
   }

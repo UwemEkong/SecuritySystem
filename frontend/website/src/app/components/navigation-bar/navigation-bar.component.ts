@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {PreferencesService} from "../../services/preferences.service";
+import { LocationService } from 'src/app/services/location.service';
+import { MediaxService } from 'src/app/services/mediax.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -16,7 +18,7 @@ export class NavigationBarComponent implements OnInit {
   loggedFirstname: any
 
   constructor(
-    private router: Router, private auth: AuthService, private pref: PreferencesService) {
+    private router: Router, private auth: AuthService, private pref: PreferencesService, public locationService: LocationService, private mediaxService: MediaxService) {
   }
 
   ngDoCheck() {
@@ -30,6 +32,7 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit() {
     this.auth.getLoggedInUser()
     this.loggedIn = this.auth.authenticated
+    this.locationService.initializeUserPosition()
   }
 
   logout() {
