@@ -19,6 +19,8 @@ import os
 import tarfile
 import urllib.request
 import json
+import subprocess
+import sys
 
 ACCESS_KEY = 'AKIA2X357CBVPHQAVH2E'
 SECRET_KEY = '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'
@@ -90,18 +92,58 @@ def check_socket(host, port):
         else:
             print("Port is not open")
             return False
-            
+
+def scan_for_cam():
+    # scan for all devices on network
+    addresses = subprocess.check_output(['arp', '-a'])
+    print("Addresses")
+    print(addresses)
+    # decode 
+    # jetson unique part of mac
+    addresses = addresses.decode("utf-8")
+    print("Addresses decoded")
+    print(addresses)
+    #mac address of jetson...will be changed to just first 4 digits so all jetsons can be recognized as if they were cameras only
+    jetsonMacID = '34:13:e8:63:59:7a'
+    flaskStream = ''
+
+    networkAdds = addresses.splitlines()
+    print("Network add splitlines")
+    print(networkAdds)
+
+    # networkAdds = set(add.split(None,2)[1] for add in networkAdds if add.strip())
+
+    for add in networkAdds:
+        splitAdds = add.split()
+        print("ADD")
+        print(add)
+        print("SPLIT")
+        print(splitAdds)
+
+        # macID = macArr[0] + ':' + macArr[1]
+        if len(splitAdds) > 3 and splitAdds[3] == jetsonMacID:
+            # ip = splitting[1]
+            flaskStream = splitAdds[1].replace('(', '')
+            finFlaskStream = flaskStream.replace(')', '')
+            print(finFlaskStream)
+            return finFlaskStream
+        
+
 def get_camera():
     global camera
-    is_port_open = check_socket("10.100.212.46", 8080)
+    
+    # is_port_open = check_socket('10.100.212.46', 8000)
+    device_address = scan_for_cam()
 
-    if is_port_open == True:
-        camera = cv2.VideoCapture("http://10.100.212.46:8000")
-    else:
+    if device_address is not None:
+        camera = cv2.VideoCapture("http://" + device_address + ':8000')
+
+    if not camera.isOpened():
         camera = cv2.VideoCapture(0)
 
 camera = cv2.VideoCapture(0)
 get_camera()
+
 
 def gen_frames():
  global prevtime
@@ -117,7 +159,6 @@ def gen_frames():
 
     # to convert the frame to grayscale
     diff_gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
-
     # apply some blur to smoothen the frame
     diff_blur = cv2.GaussianBlur(diff_gray, (5, 5), 0)
 
@@ -143,9 +184,7 @@ def gen_frames():
                 PIL_image.save("snapshot_" + timetaken + ".png")
                 labels = get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
                 notify_user(labels)
-
-
-
+    img_1 = apply_timestamp(img_1)
     ret, buffer = cv2.imencode(".jpg", img_1)
     img_1 = buffer.tobytes()
     yield (b'--frame\r\n'
