@@ -117,7 +117,10 @@ def scan_for_cam():
             finFlaskStream = flaskStream.replace(')', '')
             print(finFlaskStream)
             return finFlaskStream
-            
+        else :
+            print('Camera MAC not found')
+            # just returning ip of current device instead if our port is not open
+            return socket.gethostname()   
             # print(add)
             # print(MacID)
 
