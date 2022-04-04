@@ -109,7 +109,7 @@ def scan_for_cam():
     for add in networkAdds:
         splitAdds = add.split()
         mac = splitAdds[3]
-        
+        # macID = macArr[0] + ':' + macArr[1]
         if mac == jetsonMacID:
             print(mac)
             # ip = splitting[1]
@@ -117,20 +117,15 @@ def scan_for_cam():
             finFlaskStream = flaskStream.replace(')', '')
             print(finFlaskStream)
             return finFlaskStream
-        else :
-            print('Camera MAC not found')
-            # just returning ip of current device instead if our port is not open
-            return socket.gethostname()   
-            # print(add)
-            # print(MacID)
+        
 
 def get_camera():
     global camera
     
-    is_port_open = check_socket(scan_for_cam(), 8000)
-
-    if is_port_open == True:
-        camera = cv2.VideoCapture("http://10.100.212.46:8000")
+    # is_port_open = check_socket('10.100.212.46', 8000)
+    camera = cv2.VideoCapture("http://" + scan_for_cam() + ':8000')
+    if camera.isOpened():
+        camera = cv2.VideoCapture("http://" + scan_for_cam() + ':8000')
     else:
         camera = cv2.VideoCapture(0)
 
@@ -152,7 +147,6 @@ def gen_frames():
 
     # to convert the frame to grayscale
     diff_gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
-
     # apply some blur to smoothen the frame
     diff_blur = cv2.GaussianBlur(diff_gray, (5, 5), 0)
 
@@ -178,8 +172,7 @@ def gen_frames():
                 PIL_image.save("snapshot_" + timetaken + ".png")
                 labels = get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
                 notify_user(labels)
-
-
+    img_1 = apply_timestamp(img_1)
     ret, buffer = cv2.imencode(".jpg", img_1)
     img_1 = buffer.tobytes()
     yield (b'--frame\r\n'
