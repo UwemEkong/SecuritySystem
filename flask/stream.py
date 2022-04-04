@@ -19,6 +19,8 @@ import os
 import tarfile
 import urllib.request
 import json
+import subprocess
+import sys
 
 ACCESS_KEY = 'AKIA2X357CBVPHQAVH2E'
 SECRET_KEY = '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'
@@ -90,10 +92,39 @@ def check_socket(host, port):
         else:
             print("Port is not open")
             return False
+
+def scan_for_cam():
+    # scan for all devices on network
+    addresses = subprocess.check_output(['arp', '-a'])
+    # decode 
+    # jetson unique part of mac
+    addresses = addresses.decode("utf-8")
+    #mac address of jetson...will be changed to just first 4 digits so all jetsons can be recognized as if they were cameras only
+    jetsonMacID = '34:13:e8:63:59:7a'
+    flaskStream = ''
+
+    networkAdds = addresses.splitlines()
+    # networkAdds = set(add.split(None,2)[1] for add in networkAdds if add.strip())
+
+    for add in networkAdds:
+        splitAdds = add.split()
+        mac = splitAdds[3]
+        
+        if mac == jetsonMacID:
+            print(mac)
+            # ip = splitting[1]
+            flaskStream = splitAdds[1].replace('(', '')
+            finFlaskStream = flaskStream.replace(')', '')
+            print(finFlaskStream)
+            return finFlaskStream
             
+            # print(add)
+            # print(MacID)
+
 def get_camera():
     global camera
-    is_port_open = check_socket("10.100.212.46", 8080)
+    
+    is_port_open = check_socket(scan_for_cam(), 8000)
 
     if is_port_open == True:
         camera = cv2.VideoCapture("http://10.100.212.46:8000")
@@ -102,6 +133,7 @@ def get_camera():
 
 camera = cv2.VideoCapture(0)
 get_camera()
+
 
 def gen_frames():
  global prevtime
@@ -143,7 +175,6 @@ def gen_frames():
                 PIL_image.save("snapshot_" + timetaken + ".png")
                 labels = get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
                 notify_user(labels)
-
 
 
     ret, buffer = cv2.imencode(".jpg", img_1)
