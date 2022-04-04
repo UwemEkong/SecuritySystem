@@ -124,6 +124,9 @@
       <br>
       <br>
 
+      <p *ngIf="listOfMediax.length==0">
+        No Results!
+      </p>
 
       <br><br><br><br>
       <table class="fixed">
@@ -131,7 +134,7 @@
         <col width="100px"/>
         <col>
         <col>
-        <tr *ngFor="let mxdto of listOfMediax; let i = index">
+        <tr *ngFor="let mxdto of listOfMediax | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index">
           <div class="recordrow">
 
 
@@ -183,15 +186,14 @@
             </td>
 
 
-
             <td *ngIf="mxdto.shared == false" style="margin:10px;">
-              <button title="Make public" class ="btn btn-light" (click)="openShareModal(sharemodal, mxdto)">
+              <button title="Make public" class="btn btn-light" (click)="openShareModal(sharemodal, mxdto)">
                 <mat-icon>share</mat-icon>
               </button>
             </td>
 
             <td *ngIf="mxdto.shared == true" style="margin:10px;">
-              <button title="Make private" class ="btn btn-light" (click)="unshareMedia(mxdto)">
+              <button title="Make private" class="btn btn-light" (click)="unshareMedia(mxdto)">
                 <mat-icon>lock</mat-icon>
               </button>
             </td>
@@ -222,12 +224,14 @@
         </div>
         <div class="modal-body">
           <form #mediaData="ngForm" (ngSubmit)="updateShared(currentmx, mediaData)" novalidate>
-            
-            <input (click)="clearTitle()" class="form-control login-input" name="title" value="title" id="title" ngModel="{{titlePlaceholder}}"><br>
-        
-           
+
+            <input (click)="clearTitle()" class="form-control login-input" name="title" value="title" id="title"
+                   ngModel="{{titlePlaceholder}}"><br>
+
+
             <div class="dropdown dropdown-cont">
-              <button class="btn btn-secondary dropdown-toggle dropdown-cstm-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle dropdown-cstm-toggle" type="button"
+                      id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{categoryPlaceholder}}
               </button>
               <div class="dropdown-menu dropdown-cstm" aria-labelledby="dropdownMenuButton">
@@ -238,10 +242,10 @@
                 <a (click)="setCategory('Community')" class="dropdown-item">Community</a>
               </div>
             </div>
-          
-              <div class="container-fluid submit-cont">
-                <button class="btn btn-primary share-btn">Share Media</button>
-              </div>
+
+            <div class="container-fluid submit-cont">
+              <button class="btn btn-primary share-btn">Share Media</button>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -253,4 +257,7 @@
   </div>
 </div>
 
+<div class="container3">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
 <br><br>

@@ -140,9 +140,9 @@ ngb-timepicker {
 
 .vl {
   border-left: 6px solid blue;
-  height: 1100px;
-  left: 50%;
-  margin-left: 30px;
+  height: 1200px;
+  left: 100%;
+  margin-left: 100px;
   margin-right: 100px;
   top: 0;
 }
@@ -180,4 +180,12 @@ ngb-timepicker {
     margin-left: -4px;
     margin-top: -10px;
   }
+}
+
+pagination-controls{
+  alignment: right;
+}
+
+.container3 {
+  margin-left: 900px;
 }
