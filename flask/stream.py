@@ -96,22 +96,32 @@ def check_socket(host, port):
 def scan_for_cam():
     # scan for all devices on network
     addresses = subprocess.check_output(['arp', '-a'])
+    print("Addresses")
+    print(addresses)
     # decode 
     # jetson unique part of mac
     addresses = addresses.decode("utf-8")
+    print("Addresses decoded")
+    print(addresses)
     #mac address of jetson...will be changed to just first 4 digits so all jetsons can be recognized as if they were cameras only
     jetsonMacID = '34:13:e8:63:59:7a'
     flaskStream = ''
 
     networkAdds = addresses.splitlines()
+    print("Network add splitlines")
+    print(networkAdds)
+
     # networkAdds = set(add.split(None,2)[1] for add in networkAdds if add.strip())
 
     for add in networkAdds:
         splitAdds = add.split()
-        mac = splitAdds[3]
+        print("ADD")
+        print(add)
+        print("SPLIT")
+        print(splitAdds)
+
         # macID = macArr[0] + ':' + macArr[1]
-        if mac == jetsonMacID:
-            print(mac)
+        if len(splitAdds) > 3 and splitAdds[3] == jetsonMacID:
             # ip = splitting[1]
             flaskStream = splitAdds[1].replace('(', '')
             finFlaskStream = flaskStream.replace(')', '')
@@ -123,10 +133,12 @@ def get_camera():
     global camera
     
     # is_port_open = check_socket('10.100.212.46', 8000)
-    camera = cv2.VideoCapture("http://" + scan_for_cam() + ':8000')
-    if camera.isOpened():
-        camera = cv2.VideoCapture("http://" + scan_for_cam() + ':8000')
-    else:
+    device_address = scan_for_cam()
+
+    if device_address is not None:
+        camera = cv2.VideoCapture("http://" + device_address + ':8000')
+
+    if not camera.isOpened():
         camera = cv2.VideoCapture(0)
 
 camera = cv2.VideoCapture(0)
