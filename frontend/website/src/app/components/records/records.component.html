@@ -56,20 +56,21 @@
                           type="button"></button>
                 </div>
               </div>
-            </div>
 
 
-            <div class="col-12">
-              <p>
-                TO DATE:
-              </p>
-              <div class="input-group">
-                <input #dpToDate
-                       class="form-control" placeholder="yyyy-mm-dd"
-                       name="dpToDate"
-                       [value]="formatter.format(toDate)"
-                       (input)="toDate = validateInput(toDate, dpToDate.value)">
-                <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+              <div class="col-12">
+                <p>
+                  TO DATE:
+                </p>
+                <div class="input-group">
+                  <input #dpToDate
+                         class="form-control" placeholder="yyyy-mm-dd"
+                         name="dpToDate"
+                         [value]="formatter.format(toDate)"
+                         (input)="toDate = validateInput(toDate, dpToDate.value)">
+                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()"
+                          type="button"></button>
+                </div>
               </div>
             </div>
           </form>
@@ -94,28 +95,31 @@
           <br><br>
 
 
-          <div class="container">
-            <div class="_ul_checkbox">
-              <ul>
-                <li>
-                  <input [(ngModel)]="favorites" type="checkbox" name="favorites"/>Favorites Only
-                </li>
-                <li>
-                  <input [(ngModel)]="videos" type="checkbox" name="videos"/>Show Videos
-                </li>
-                <li>
-                  <input [(ngModel)]="images" type="checkbox" name="images"/>Show Images
-                </li>
-              </ul>
-            </div>
+          <div class="_ul_checkbox">
+            <ul>
+              <li>
+                <input [(ngModel)]="favorites" type="checkbox" name="favorites"/>Favorites Only
+              </li>
+              <li>
+                <input [(ngModel)]="videos" type="checkbox" name="videos"/>Show Videos
+              </li>
+              <li>
+                <input [(ngModel)]="images" type="checkbox" name="images"/>Show Images
+              </li>
+            </ul>
+            <br><br>
+
+            <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="startFilter()">Filter
+            </button>
+
+            <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="resetFilter()">Reset</button>
+
           </div>
-
-          <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="startFilter()">Filter</button>
-
-          <button class="btn btn-sm btn-outline-primary display: inline-block;" (click)="resetFilter()">Reset</button>
-
         </div>
       </div>
+
+      <div class="vl"></div>
+
       <br>
       <br>
       <br>
@@ -132,18 +136,20 @@
 
 
             <td *ngIf="mxdto.isfavorite" style="margin:10px;">
-              <button mat-icon-button color="warn" (click)="updateFavorite(mxdto)">
-                <mat-icon>favorite</mat-icon>
+              <button mat-icon-button color="danger" (click)="updateFavorite(mxdto)">
+                <mat-icon class="red-icon">favorite</mat-icon>
               </button>
             </td>
 
             <td *ngIf="!mxdto.isfavorite" style="margin:10px;">
               <button mat-icon-button color="disabled" (click)="updateFavorite(mxdto)">
-                <mat-icon>favorite</mat-icon>
+                <mat-icon class="disabled-icon">favorite</mat-icon>
               </button>
             </td>
 
-            <td style="width:100em;">  {{mxdto.filename}}</td>
+            <td style="width:100em;">
+              {{mxdto.filename}}
+            </td>
 
 
             <td style="width:35em;">
@@ -159,8 +165,7 @@
               <!-- <img id="img{{i}}" src="{{mxdto.url}}" height="200px;" style="visibility: hidden"/>
                 <button id="sh{{i}}" (click)="showhide(mxdto,i)">Show</button> -->
               <button *ngIf="!mxdto.isvideo" class="btn btn-outline-primary"
-                      (click)="open(imagemodal, videomodal, mxdto)">
-                Show
+                      (click)="open(imagemodal, videomodal, mxdto)">Show
               </button>
             </td>
 
@@ -211,3 +216,7 @@
       </ng-template>
 
     </div>
+  </div>
+</div>
+
+<br><br>

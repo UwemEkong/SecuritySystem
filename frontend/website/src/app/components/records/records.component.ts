@@ -93,6 +93,9 @@ export class RecordsComponent implements OnInit {
     this.toDate = null;
     this.fromTime = {hour: 0, minute: 0};
     this.toTime = {hour: 23, minute: 59};
+    this.favorites = false;
+    this.videos = true;
+    this.images = true;
     this.getAllMedia();
   }
 
