@@ -27,6 +27,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PreferencesComponent } from './components/preferences/preferences.component';
 import { NeighborsComponent } from './components/neighbors/neighbors.component';
 import { SharedMediaComponent } from './components/shared-media/shared-media.component';
+import { LocationPipe } from './pipes/location.pipe';
+import { MediaInfoComponent } from './components/media-info/media-info.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { UserCommentComponent } from './components/user-comment/user-comment.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import { SharedMediaComponent } from './components/shared-media/shared-media.com
     EnterTokenComponent,
     PreferencesComponent,
     NeighborsComponent,
-    SharedMediaComponent
+    SharedMediaComponent,
+    LocationPipe,
+    MediaInfoComponent,
+    CommentsComponent,
+    UserCommentComponent
   ],
   imports: [
     FormsModule,

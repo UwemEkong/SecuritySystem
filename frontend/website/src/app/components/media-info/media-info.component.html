@@ -1,0 +1,27 @@
+<div class="row info-cont">
+    <div class="col-7 card-col">
+        <div class="card custom-card">
+            <img src="{{category_image}}" class="card-img-top card-cover-img" alt="...">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                    <p class="card-text">{{mediaInfo!.timestamp | date }}</p>
+                </div>
+                <div class="col">
+                    <p class="card-text">{{mediaInfo!.location! | location}}</p>
+                </div>
+                <div class="col">
+                    <p class="card-text">{{mediaInfo!.views}} views</p>
+                </div>
+              </div>
+              <h5 class="card-title cstm-card-title">{{mediaInfo!.title}}</h5>
+              <div class="cstm-card-category">Category: <b class="category-bubble">{{mediaInfo!.category}}</b></div>
+              <a href="{{mediaInfo!.url}}" target="_blank" (click)="downloadMedia()" class="btn btn-primary">Download</a>
+            </div>
+          </div>
+          <app-comments [mediaxId]="queryParamId"></app-comments>
+    </div>
+    <div class="col-5 map-col">
+        <div class="mini-map" id="map-small"></div>
+    </div>
+</div>
