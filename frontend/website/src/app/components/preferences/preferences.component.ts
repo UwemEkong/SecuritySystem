@@ -95,7 +95,7 @@ export class PreferencesComponent implements OnInit {
 
     alert("Dark Mode Setting Changed Successfully!!");
 
-    this.router.navigateByUrl('/home');
+    // this.router.navigateByUrl('/home');
   }
 
   getAllLabels() {
@@ -107,7 +107,7 @@ export class PreferencesComponent implements OnInit {
   addLabel(){
     let text = $("#addLabel").val();
     console.log(text);
-            
+
     this.preferencesServices.addLabel(text+"");
     // if(/^[a-zA-Z]+$/.test(text+"")){
     //   this.preferencesServices.addLabel(text+"");

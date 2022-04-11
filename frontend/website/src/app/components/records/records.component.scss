@@ -1,13 +1,12 @@
 .container2 {
   display: flex;
-  padding: 20px;
-  margin: 20px;
+  padding: 10px;
+  margin: 10px;
   display: inline-block;
 }
 
 button {
-  margin: 20px;
-  alignment: center;
+  margin: 10px;
 }
 
 select {
@@ -26,8 +25,10 @@ p {
 
 .recordrow {
 
-  padding: 10px;
-  margin: 10px;
+  padding: 20px;
+  margin: 20px;
+  width: 125%;
+  height: 150px;
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
@@ -131,34 +132,60 @@ ngb-timepicker {
 }
 
 .container {
-  padding: 20px;
-  margin: 20px;
+  padding: 30px;
+  margin: 30px;
   display: flex;
 }
 
-.share-btn-highlight {
-  background:blue;
+
+.vl {
+  border-left: 6px solid blue;
+  height: 1200px;
+  left: 100%;
+  margin-left: 100px;
+  margin-right: 100px;
+  top: 0;
 }
 
-
-.share-btn {
-  margin:-10px;
-  margin-top:20px;
+.red-icon {
+  color: red;
 }
 
-.dropdown-cstm {
-  margin:0px;
+.disabled-icon {
+  color: black;
+
+  .share-btn-highlight {
+    background: blue;
+  }
+
+
+  .share-btn {
+    margin: -10px;
+    margin-top: 20px;
+  }
+
+  .dropdown-cstm {
+    margin: 0px;
+  }
+
+  .login-input {
+    width: 80%;
+  }
+
+  .dropdown-cont {
+    margin: 0px;
+  }
+
+  .dropdown-cstm-toggle {
+    margin-left: -4px;
+    margin-top: -10px;
+  }
 }
 
-.login-input {
-  width: 80%;
+pagination-controls{
+  alignment: right;
 }
 
-.dropdown-cont {
-  margin:0px;
-}
-
-.dropdown-cstm-toggle {
-  margin-left:-4px;
-  margin-top:-10px;
+.container3 {
+  margin-left: 900px;
 }

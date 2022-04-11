@@ -29,6 +29,8 @@ export class RecordsComponent implements OnInit {
   safeUrl: SafeResourceUrl | undefined;
   currentmx: Mediax = {} as Mediax;
 
+  p: number = 1;
+
   constructor(public mediaxServ: MediaxService,
               public authServ: AuthService,
               private router: Router,
@@ -93,10 +95,16 @@ export class RecordsComponent implements OnInit {
     this.toDate = null;
     this.fromTime = {hour: 0, minute: 0};
     this.toTime = {hour: 23, minute: 59};
+    this.favorites = false;
+    this.videos = true;
+    this.images = true;
+    this.p = 1;
     this.getAllMedia();
   }
 
   startFilter() {
+    this.p = 1;
+
     let fromDate: Date = new Date(Number(this.fromDate?.year), Number(this.fromDate?.month) - 1, this.fromDate?.day);
     let toDate: Date = new Date(Number(this.toDate?.year), Number(this.toDate?.month) - 1, this.toDate?.day);
 
@@ -240,7 +248,7 @@ export class RecordsComponent implements OnInit {
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
-    
+
   }
 
   openShareModal(sharemodal: any,mxdto: Mediax) {
