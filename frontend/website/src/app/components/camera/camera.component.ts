@@ -65,6 +65,12 @@ export class CameraComponent implements OnInit {
   });
   }
 
+  thermal() {
+    this.http.get(`http://localhost:4200/flsk/togglethermal`).subscribe((data: any) =>  {
+      console.log(data)
+  });
+  }
+
   setupCamera(){
     //navigator.mediaDevices.getUserMedia({
       //video:{width:500, height:500},

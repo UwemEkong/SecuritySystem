@@ -9,6 +9,8 @@ from botocore.exceptions import NoCredentialsError
 from io import BytesIO
 from PIL import Image
 from matplotlib import cm
+import matplotlib as mpl
+import matplotlib.cm as mtpltcm
 import numpy as np
 import time
 
@@ -184,6 +186,7 @@ def gen_frames():
                 PIL_image.save("snapshot_" + timetaken + ".png")
                 labels = get_aws_rekognition_labels("snapshot_" + timetaken + ".png")
                 notify_user(labels)
+    img_1 = thermalizeFrame(img_1)
     img_1 = apply_timestamp(img_1)
     ret, buffer = cv2.imencode(".jpg", img_1)
     img_1 = buffer.tobytes()
@@ -359,6 +362,35 @@ def updatePreferences():
         print(toggle_motion)
         return '', 200
     
+toggle_thermal = True
+@app.route('/flsk/togglethermal', methods=['GET'])
+def toggleThermalPreference():
+    global toggle_thermal
+    toggle_thermal = not toggle_thermal
+    return '',200
+
+# Frame should be np array
+def thermalizeFrame(frame):
+    global toggle_thermal
+    if (not toggle_thermal):
+        return frame
+    # Our operations on the frame come here
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    
+    #initialize the colormap (jet)
+    # colormap = mpl.cm.jet
+
+    # print(colormap)
+    # #add a normalization
+    # cNorm = mpl.colors.Normalize(vmin=0, vmax=255)
+    # #init the mapping
+    # scalarMap = mtpltcm.ScalarMappable(norm=cNorm, cmap=colormap)
+    
+    # colors = scalarMap.to_rgba(frame)
+    blur = cv2.GaussianBlur(gray,(15,15),0)
+    colormapped_image = cv2.applyColorMap(blur, cv2.COLORMAP_JET)
+
+    return colormapped_image
 
 
 if __name__ == "__main__":
