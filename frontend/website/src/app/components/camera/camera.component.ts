@@ -5,6 +5,8 @@ import {Mediax} from "../../interfaces/Mediax"
 import { AuthService } from 'src/app/services/auth.service';
 import {PreferencesService} from "../../services/preferences.service";
 import { LocationService } from 'src/app/services/location.service';
+import { DeviceService } from 'src/app/services/device.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,15 +16,29 @@ import { LocationService } from 'src/app/services/location.service';
 })
 export class CameraComponent implements OnInit {
 
-  constructor(public mediaxServ: MediaxService, private http: HttpClient, public authService: AuthService, private pref: PreferencesService, public locationService: LocationService) { }
+  constructor(public mediaxServ: MediaxService, private http: HttpClient, public authService: AuthService, private pref: PreferencesService, public locationService: LocationService, public deviceService:DeviceService, private router:ActivatedRoute) { }
 
   videoSize = this.pref.videoSizeSetting;
   videoRef:any;
+  videoAddress = ""
+  queryParamId = ""
   ngOnInit(): void {
-    // this.videoRef = document.getElementById('video');
-    // console.log(this.videoRef);
-    // this.setupCamera();
+    this.queryParamId = this.router.snapshot.paramMap.get('id')!;
+   this.deviceService.getAllUserDevicesObservable().subscribe((userDevices)=>{
     this.authService.getLoggedInUser();
+     this.deviceService.allUserDevices = userDevices
+     console.log(userDevices)
+     this.deviceService.currentDevice = userDevices[0]
+     console.log(this.deviceService.currentDevice)
+      this.deviceService.getJetsonIPObservablePerDevice(this.queryParamId).subscribe((jetsonIP)=>{
+        console.log(jetsonIP)
+        this.deviceService.currentDevice.ip = jetsonIP
+        this.videoAddress = "http://" + jetsonIP + ":8000"
+      })
+   })
+
+    this.authService.getLoggedInUser();
+    console.log(JSON.stringify(this.deviceService.currentDevice))
   }
 
   saveImageToCloud(){

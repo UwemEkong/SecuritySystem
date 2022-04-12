@@ -1,0 +1,31 @@
+<div class="devices-list-cont">
+    <app-device *ngFor="let device of deviceService.allUserDevices" [deviceID]="device.id" [macaddress]="device.macaddress" [name]="device.name" [location]="device.location" [active]="device.active"></app-device>
+</div>
+<div class="devices-container">
+    <button (click)="open(createdevicemodal)" class="btn btn-primary btn-cont">
+        <div class="create-device-btn">+</div>
+    </button>
+</div>
+<ng-template #createdevicemodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add New Device</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form #deviceData="ngForm" (ngSubmit)="createDevice(deviceData)" novalidate>
+
+        <input (click)="clearMacAddPlaceholder()" class="form-control login-input" name="macaddress" value="macaddress" id="macaddress"
+               ngModel="{{macAddPlaceholder}}"><br>
+
+        <input (click)="clearNamePlaceholder()" class="form-control login-input" name="name" value="name" id="name"
+               ngModel="{{namePlaceholder}}"><br>
+
+        <div class="container-fluid submit-cont">
+          <button (click)="modal.close('Save click')" class="btn btn-primary share-btn">Create Device</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+  </ng-template>

@@ -1,4 +1,3 @@
-
 package edu.ben.backend.model.dto;
 
 import lombok.AllArgsConstructor;
@@ -10,13 +9,15 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
-public class CommentDTO {
-    Long id;
-    Long mediaid;
-    String content;
-    String username;
-    String date;
+public class DeviceDTO {
 
-    public CommentDTO(){}
+    Long id;
+    Long userid;
+    String macaddress;
+    String name;
+    String location;
+    boolean active;
+
+    public DeviceDTO(){}
 
 }

@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class LocationPipe implements PipeTransform {
 
-  transform(locationStr: string) {
-    let strArr = locationStr.split(",")
+  transform(locationStr: string | undefined) {
+    let strArr = locationStr!.split(",")
     return strArr[0] + ", " + strArr[1]
   }
 
