@@ -36,28 +36,24 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  bool admin = true;
-  checkUser() async {
+  getUsername() async {
+    var usernam = "guest";
     var url = Platform.isAndroid
         ? 'http://10.0.2.2:8080/api/auth/getloggedinuser'
         : 'http://localhost:8080/api/auth/getloggedinuser';
     var res = await http.get(Uri.parse(url));
     var body = res.body;
     if (body.length > 1) {
-      if (json.decode(body)["username"] == "admin") {
-        admin = true;
-        return admin;
-      }
-      admin = false;
-      return admin;
+      usernam = json.decode(body)["username"];
     }
+    return usernam;
   }
 
   login(String userName, String password, BuildContext context) async {
     String url = getUrlForDevice(userName, password);
     var res = await http.get(Uri.parse(url));
     var body = res.body;
-    await checkUser();
+    //await checkUser();
     if (attempts! <= 0) {
       setState(() => _isEnabled = false);
     }
