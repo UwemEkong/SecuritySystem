@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    public List<Comment> findAllByMediaid(Long mediaId);
+    List<Comment> findAllByMediaid(Long mediaId);
 }

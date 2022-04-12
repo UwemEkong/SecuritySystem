@@ -1,7 +1,5 @@
 package edu.ben.backend.resource;
 
-
-import edu.ben.backend.model.Comment;
 import edu.ben.backend.model.dto.CommentDTO;
 import edu.ben.backend.service.CommentService;
 import org.springframework.web.bind.annotation.*;

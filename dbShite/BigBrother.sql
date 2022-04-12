@@ -119,6 +119,21 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`comment` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `BigBroSecurity`.`device`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`device` (
+                                                           `id` INT NOT NULL auto_increment,
+                                                           `userid` INT NULL,
+                                                           `macaddress` VARCHAR(50) NULL,
+                                                           `name` VARCHAR(500) NULL,
+                                                           `location` VARCHAR(50) NULL,
+														   `active` boolean NULL,
+                                                           PRIMARY KEY (`id`),
+                                                           UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

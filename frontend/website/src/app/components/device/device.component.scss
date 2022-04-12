@@ -1,0 +1,84 @@
+.device-cont {
+    border:solid gray;
+    border-radius:10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    width:50%;
+    margin-left:25%;
+    margin-right:25%;
+    margin-top:50px;
+}
+
+.device-info {
+    width:100%;
+}
+
+.device-image {
+    width:150px;
+}
+
+.device-image-col {
+    border-radius:20px;
+    text-align:center;
+    width:100px;
+}
+
+.device-details {
+    margin-left:20px;
+}
+
+.device-name {
+    font-size:20px;
+}
+
+.device-id {
+    font-size:16px;
+}
+
+.health-image {
+    width:30px;
+}
+
+.motion-image {
+    width:30px;
+}
+
+.device-actions {
+    padding-top:50px;
+    padding-right:30px;
+}
+
+.history-btn {
+    margin-right:30px;
+}
+
+.divider {
+    border-bottom:solid gray;
+    width:50%;
+}
+
+.health-header {
+    font-size:24px;
+    margin-left:20px;
+}
+
+.network-header {
+    margin-left:10px;
+    font-weight:bold;
+    color:#424242;
+}
+
+.status-header {
+    margin-left:10px;
+    color:#424242; 
+    font-size:16px;
+}
+
+.status-offline {
+    color:red;
+    font-weight:bold;
+}
+
+.status-online {
+    color:green;
+    font-weight:bold;
+}

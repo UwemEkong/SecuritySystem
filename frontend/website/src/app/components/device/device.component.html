@@ -1,0 +1,24 @@
+<div class="device-cont">
+    <div class="row device-info">
+        <div class="device-image-col">
+            <img class="device-image" src="https://d39xvdj9d5ntm1.cloudfront.net/images/devices/device_cam_cocoa-battery_white_FV-CS_375x375px-5efda8a7134373bada82b9e3aa1bcf09.png">
+        </div>
+        <div class="col device-details">
+            {{location | location}} <br>
+            <span class="device-name">{{name}}</span><br>
+            <span class="device-id">Device ID: {{macaddress}}</span>
+        </div>
+        <div class="col device-actions">
+            <button (click)="navigateToRecordsPage()" type="button" class="btn btn-secondary history-btn">History</button>
+            <button (click)="navigateToCamera()" type="button" class="btn btn-primary">Live Feed</button>
+        </div>
+    </div>
+    <div class="row device-status">
+        <div class="col device-health">
+            <span class="health-header"><img class="health-image" src="https://cdn-icons-png.flaticon.com/512/809/809957.png"> Device Health for {{name}}</span><br>
+            <span class="network-header">Network</span><br>
+            <div *ngIf="active == false"><span class="status-header">Status: </span><span class="status-offline">Offline</span></div>
+            <div *ngIf="active == true"><span class="status-header">Status: </span><span class="status-online">Online</span></div>
+        </div>
+    </div>
+</div>
