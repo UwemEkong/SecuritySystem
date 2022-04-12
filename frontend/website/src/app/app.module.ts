@@ -32,6 +32,8 @@ import { MediaInfoComponent } from './components/media-info/media-info.component
 import { CommentsComponent } from './components/comments/comments.component';
 import { UserCommentComponent } from './components/user-comment/user-comment.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { MyDevicesComponent } from './components/my-devices/my-devices.component';
+import { DeviceComponent } from './components/device/device.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     LocationPipe,
     MediaInfoComponent,
     CommentsComponent,
-    UserCommentComponent
+    UserCommentComponent,
+    MyDevicesComponent,
+    DeviceComponent
   ],
   imports: [
     FormsModule,

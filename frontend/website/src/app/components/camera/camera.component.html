@@ -1,13 +1,18 @@
 <br><br><br>
-<div class="container">
+<div class="container camera-cont">
 <h1>Live Camera Feed</h1>
 <br><br><br>
-<p>
 <!--  <video id="video" autoplay></video>-->
-  <img height="{{videoSize}}" src="http://127.0.0.1:5000/video_feed" alt="Cannot connect to camera feed server! It is possible your internet is not working, or our servers are currently down. Big Brother Inc apologizes for the inconvenience."/>
+
+  <div *ngIf="this.deviceService.currentDevice.ip != undefined && this.deviceService.currentDevice.ip!.length > 0" class="camera-active">
+    <img height="{{videoSize}}" src="{{videoAddress}}" alt="Cannot connect to camera feed server! It is possible your internet is not working, or our servers are currently down. Big Brother Inc apologizes for the inconvenience."/>
+  </div>
+
+  <div *ngIf="this.deviceService.currentDevice.ip == undefined || this.deviceService.currentDevice.ip!.length == 0" class="camera-inactive">
+    <img src="https://www.netrafficcams.co.uk/sites/default/files/images/cameras//PS196.jpg">
+  </div>
   <br/>
   <button class="btn btn-outline-primary" (click)="saveImage()">Take Snapshot</button>
   <button class="btn btn-outline-primary" (click)="saveImageToCloud()">Take Snapshot & Save to Cloud</button>
   <button class="btn btn-outline-danger" (click)="record()">Record</button>
-</p>
 </div>

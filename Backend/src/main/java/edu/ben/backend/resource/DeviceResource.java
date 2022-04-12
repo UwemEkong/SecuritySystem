@@ -20,6 +20,7 @@ public class DeviceResource {
 
     @GetMapping("/getJetsonIP/{macAddress}")
     public String getJetsonIP(@PathVariable String macAddress) throws IOException {
+        System.out.println("MAC:" + macAddress);
         return this.deviceService.getJetsonIP(macAddress);
     }
 
