@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                     //For reload on button click
                     if (snapshot.connectionState == ConnectionState.done) {
                       // If JSON data has not arrived yet show loading
-                      if (snapshot.data == null) {
+                      if (snapshot.data == "sup") {
                         return Container(
                           child: Center(
                             child: Text("Loading..."),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sour_notes/models/loginmessage.dart';
-import 'package:sour_notes/pages/auth_page.dart';
-import 'package:sour_notes/pages/home_page.dart';
-import 'package:sour_notes/widgets/form_input.dart';
+import '../models/loginmessage.dart';
+import '../pages/home_page.dart';
+import '../widgets/form_input.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
