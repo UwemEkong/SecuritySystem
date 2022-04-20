@@ -22,8 +22,9 @@ export class CameraComponent implements OnInit {
   videoRef:any;
   videoAddress = ""
   queryParamId = ""
+  deviceIp = ""
   ngOnInit(): void {
-    this.queryParamId = this.router.snapshot.paramMap.get('id')!;
+  this.queryParamId = this.router.snapshot.paramMap.get('id')!;
    this.deviceService.getAllUserDevicesObservable().subscribe((userDevices)=>{
     this.authService.getLoggedInUser();
      this.deviceService.allUserDevices = userDevices
@@ -34,6 +35,7 @@ export class CameraComponent implements OnInit {
         console.log(jetsonIP)
         this.deviceService.currentDevice.ip = jetsonIP
         this.videoAddress = "http://" + jetsonIP + ":8000"
+        this.deviceIp = jetsonIP
       })
    })
 
@@ -42,7 +44,7 @@ export class CameraComponent implements OnInit {
   }
 
   saveImageToCloud(){
-    this.http.get(`http://localhost:4200/flsk/save_snap_to_cloud`).subscribe((data: any) =>  {
+    this.http.get(`http://${this.deviceIp}:8000/flsk/save_snap_to_cloud`).subscribe((data: any) =>  {
       console.log(data);
       let namekey = data["namekey"];
       let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location:this.locationService.formattedLocation, timestamp:(new Date().toLocaleString()), isfavorite: false}
@@ -51,7 +53,7 @@ export class CameraComponent implements OnInit {
   }
 
   record() {
-    this.http.get(`http://localhost:4200/flsk/record`).subscribe((data: any) =>  {
+    this.http.get(`http://${this.deviceIp}:8000/flsk/record`).subscribe((data: any) =>  {
       let namekey = data["namekey"];
       let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location:this.locationService.formattedLocation , timestamp:(new Date().toLocaleString()), isfavorite: false, shared:false,title:"",category:"",views:0 }
       this.mediaxServ.createMediax(mx);
