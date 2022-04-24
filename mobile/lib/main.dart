@@ -3,6 +3,7 @@ import 'package:mobile/pages/aboutus.dart';
 import 'package:mobile/pages/faq.dart';
 import 'package:mobile/pages/login.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile/pages/requestresettoken.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,8 +35,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -57,7 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ListTile(
-
               tileColor: Colors.white,
               title: Text("Login Here"),
               onTap: () {
@@ -67,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-
               tileColor: Colors.white,
               title: Text("About Us"),
               onTap: () {
@@ -77,13 +74,21 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-
               tileColor: Colors.white,
               title: Text("FAQ"),
               onTap: () {
                 //When user clicks the row/tile they go to the song's detail page
                 Navigator.push(context,
                     new MaterialPageRoute(builder: (context) => FaqPage()));
+              },
+            ),
+            ListTile(
+              tileColor: Colors.white,
+              title: Text("Request Password Reset Token"),
+              onTap: () {
+                //When user clicks the row/tile they go to the song's detail page
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => RequestResetTokenPage()));
               },
             )
           ],
