@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/aboutus.dart';
+import 'package:mobile/pages/faq.dart';
 import 'package:mobile/pages/login.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,18 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,29 +56,38 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
             ListTile(
+
               tileColor: Colors.white,
-              title: Text("yo"),
+              title: Text("Login Here"),
               onTap: () {
                 //When user clicks the row/tile they go to the song's detail page
                 Navigator.push(context,
                     new MaterialPageRoute(builder: (context) => LoginPage()));
               },
+            ),
+            ListTile(
+
+              tileColor: Colors.white,
+              title: Text("About Us"),
+              onTap: () {
+                //When user clicks the row/tile they go to the song's detail page
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => AboutUsPage()));
+              },
+            ),
+            ListTile(
+
+              tileColor: Colors.white,
+              title: Text("FAQ"),
+              onTap: () {
+                //When user clicks the row/tile they go to the song's detail page
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => FaqPage()));
+              },
             )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
