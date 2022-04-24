@@ -15,25 +15,12 @@ class _RecordTileState extends State<RecordTile> {
     return Card(
         color: Colors.blueAccent,
         child: Column(children: <Widget>[
-          FutureBuilder(
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-            // If JSON data has not arrived yet show loading
-            if (snapshot.data == null) {
-              return Container(
-                child: const Center(
-                  child: Text("Loading Image..."),
-                ),
-              );
-            } else {
-              //Once the JSON Data has arrived build the list
-              return Padding(
-                  padding: EdgeInsets.only(top: 25),
-                  child: Image.network(
-                    snapshot.data.toString(),
-                  ));
-            }
-          }),
-          Text(widget.snapshot.data[widget.index].title),
+          Padding(
+              padding: EdgeInsets.only(top: 25),
+              child: Image.network(
+                widget.snapshot.data[widget.index].url.toString(),
+              )),
+          Text(widget.snapshot.data[widget.index].filename),
           Text(widget.snapshot.data[widget.index].timestamp),
         ]));
   }

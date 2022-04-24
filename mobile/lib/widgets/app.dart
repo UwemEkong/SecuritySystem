@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/registration_page.dart';
 import '../models/navigation_item.dart';
 import '../pages/home_page.dart';
 import '../pages/login.dart';
@@ -21,6 +22,11 @@ class AppState extends State<App> {
         icon: const Icon(Icons.music_note),
         title: const Text("Login"),
         widget: LoginPage(),
+        NavigationItemKey: GlobalKey<NavigatorState>()),
+    NavigationItem(
+        icon: const Icon(Icons.music_note),
+        title: const Text("Sign Up"),
+        widget: RegistrationPage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
   ];
 

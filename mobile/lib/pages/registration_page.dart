@@ -33,6 +33,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
     // Clean up the controller when the widget is disposed.
     passwordController.dispose();
     userNameController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+
     super.dispose();
   }
 
@@ -47,9 +51,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
         'username': username,
         'password': password,
         'email': email,
-        'firstName': firstName,
-        'lastName': lastName,
-        'type': 'member',
+        'firstname': firstName,
+        'lastname': lastName,
       }),
     );
 

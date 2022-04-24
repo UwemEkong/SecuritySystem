@@ -3,6 +3,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
+import 'package:mobile/models/user.dart';
+// import 'package:flutter_vlc_player/flutter_vlc_controller.dart';
 import '../models/loginmessage.dart';
 import '../models/mediax.dart';
 import '../widgets/RecordTile.dart';
@@ -17,11 +20,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? _fullname = "";
+  String _streamUrl = "http://127.0.0.1:5000/video_feed";
+  //late VlcPlayerController _videoPlayerController;
   @override
   @protected
   @mustCallSuper
   void initState() {
     getAuthedUser();
+    super.initState();
+    // _videoPlayerController = VlcPlayerController.network(
+    //   'https://media.w3.org/2010/05/sintel/trailer.mp4',
+    //   autoPlay: false,
+    //   options: VlcPlayerOptions(),
+    // );
   }
 
   getAuthedUser() async {
@@ -43,6 +54,10 @@ class _HomePageState extends State<HomePage> {
     } else {
       return 'http://localhost:8080/api/';
     }
+  }
+
+  String getCameraUrl() {
+    return "http://127.0.0.1:5000/video_feed";
   }
 
   Future<List<Mediax>> _getAllMediax() async {
@@ -78,6 +93,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() async {
+    super.dispose();
+    //await _videoPlayerController.stopRendererScanning();
+    //await _videoViewController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -88,7 +110,17 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color(0xFF303030),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
-          //Header(),
+          Text(_fullname!, style: TextStyle(color: Colors.white)),
+          // Camera feed
+          //new VlcPlayer(controller: _vlcViewController, aspectRatio: 1),
+          // VlcPlayer(
+          //   controller: _videoPlayerController,
+          //   aspectRatio: 16 / 9,
+          //   placeholder: Center(child: CircularProgressIndicator()),
+          // ),
+          Divider(color: Colors.black),
+
+          //Mediax list
           Container(
               padding: EdgeInsets.fromLTRB(60, 10, 60, 0),
               child: FutureBuilder(
@@ -97,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                     //For reload on button click
                     if (snapshot.connectionState == ConnectionState.done) {
                       // If JSON data has not arrived yet show loading
-                      if (snapshot.data == "sup") {
+                      if (snapshot.data == null) {
                         return Container(
                           child: Center(
                             child: Text("Loading..."),
