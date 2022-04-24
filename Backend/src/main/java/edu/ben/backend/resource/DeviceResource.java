@@ -24,6 +24,11 @@ public class DeviceResource {
         return this.deviceService.getJetsonIP(macAddress);
     }
 
+    @GetMapping("/getJetsonIPWithId/{deviceId}")
+    public String getJetsonIPWithId(@PathVariable Long deviceId) throws IOException {
+        return this.deviceService.getJetsonIP(deviceId);
+    }
+
     @GetMapping("/getAllUserDevices")
     public List<DeviceDTO> getAllUserDevices()  {
         return this.deviceService.getAllUserDevices();

@@ -36,6 +36,19 @@ public class DeviceService {
         return "";
     }
 
+    public String getJetsonIP(Long deviceId) throws IOException {
+        Device device = deviceRepository.getById(deviceId);
+        Scanner s = new Scanner(Runtime.getRuntime().exec(ARP_GET_IP_HW).getInputStream()).useDelimiter("\\A");
+        String jetsonIP = "";
+        while(s.hasNext()) {
+            jetsonIP = processIP(s.nextLine().split(" "), device.getMacaddress());
+            if (!jetsonIP.equals("")) {
+                return jetsonIP;
+            }
+        }
+        return "";
+    }
+
     public void createDevice(DeviceDTO deviceDTO) {
         this.deviceRepository.save(new Device(this.authService.loggedInUser.getId(), deviceDTO.getMacaddress(), deviceDTO.getName(), deviceDTO.getLocation(), deviceDTO.isActive()));
     }
