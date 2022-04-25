@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/aboutus.dart';
+import 'package:mobile/pages/faq.dart';
+import 'package:mobile/pages/neighbors.dart';
 import 'package:mobile/pages/registration_page.dart';
+import 'package:mobile/pages/requestresettoken.dart';
 import '../models/navigation_item.dart';
 import '../pages/home_page.dart';
 import '../pages/login.dart';
@@ -19,14 +23,34 @@ class AppState extends State<App> {
         widget: HomePage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
     NavigationItem(
-        icon: const Icon(Icons.music_note),
+        icon: const Icon(Icons.person),
         title: const Text("Login"),
         widget: LoginPage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
     NavigationItem(
-        icon: const Icon(Icons.music_note),
+        icon: const Icon(Icons.person),
         title: const Text("Sign Up"),
         widget: RegistrationPage(),
+        NavigationItemKey: GlobalKey<NavigatorState>()),
+    NavigationItem(
+        icon: const Icon(Icons.info),
+        title: const Text("FAQ"),
+        widget: FaqPage(),
+        NavigationItemKey: GlobalKey<NavigatorState>()),
+    NavigationItem(
+        icon: const Icon(Icons.info),
+        title: const Text("About Us"),
+        widget: AboutUsPage(),
+        NavigationItemKey: GlobalKey<NavigatorState>()),
+    NavigationItem(
+        icon: const Icon(Icons.person),
+        title: const Text("Neighbors"),
+        widget: NeighborsPage(),
+        NavigationItemKey: GlobalKey<NavigatorState>()),
+    NavigationItem(
+        icon: const Icon(Icons.password),
+        title: const Text("Reset Password"),
+        widget: RequestResetTokenPage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
   ];
 
