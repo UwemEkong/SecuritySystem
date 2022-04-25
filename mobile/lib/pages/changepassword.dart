@@ -9,8 +9,10 @@ import 'package:http/http.dart' as http;
 
 class ChangePasswordPage extends StatefulWidget {
   final username;
-  ChangePasswordPage({this.username}) : super();
+  final token;
+  final email;
 
+  ChangePasswordPage({this.username, this.token, this.email}) : super();
 
   @override
   _ChangePasswordPage createState() => _ChangePasswordPage();
@@ -18,7 +20,6 @@ class ChangePasswordPage extends StatefulWidget {
 
 class _ChangePasswordPage extends State<ChangePasswordPage> {
   String? _errorText = "";
-
   final passwordController = TextEditingController();
 
   @override
@@ -67,7 +68,23 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              FormInput(passwordController, 'New Password', 'Enter New Password'),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                    "Username: " +
+                        widget.username +
+                        "\n\nE-Mail: " +
+                        widget.email +
+                        "\n\nReset Token: " +
+                        widget.token + "\n",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        height: 1.25,
+                        fontSize: 25,
+                        color: Colors.black)),
+              ),
+              FormInput(
+                  passwordController, 'New Password', 'Enter New Password'),
               ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:

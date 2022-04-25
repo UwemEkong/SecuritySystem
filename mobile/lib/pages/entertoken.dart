@@ -7,6 +7,10 @@ import 'package:http/http.dart' as http;
 import 'changepassword.dart';
 
 class EnterTokenPage extends StatefulWidget {
+  final email;
+  EnterTokenPage({this.email}) : super();
+
+
   @override
   _EnterTokenPage createState() => _EnterTokenPage();
 }
@@ -37,7 +41,7 @@ class _EnterTokenPage extends State<EnterTokenPage> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ChangePasswordPage(username: username)));
+            builder: (context) => ChangePasswordPage(username: username, token: token, email: widget.email)));
     }
   }
 

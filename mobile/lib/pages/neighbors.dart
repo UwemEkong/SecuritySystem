@@ -1,27 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:mobile/widgets/form_input.dart';
-import '../widgets/form_input.dart';
 import 'dart:io' show Platform;
 import 'package:http/http.dart' as http;
 
 import 'entertoken.dart';
 
-class RequestResetTokenPage extends StatefulWidget {
+class NeighborsPage extends StatefulWidget {
   @override
-  _RequestResetTokenPage createState() => _RequestResetTokenPage();
+  _NeighborsPage createState() => _NeighborsPage();
 }
 
-class _RequestResetTokenPage extends State<RequestResetTokenPage> {
+class _NeighborsPage extends State<NeighborsPage> {
   String? _errorText = "";
-  final emailController = TextEditingController();
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    super.dispose();
-  }
 
   send(String email, BuildContext context) async {
     final response = await http.get(
@@ -34,16 +24,15 @@ class _RequestResetTokenPage extends State<RequestResetTokenPage> {
     if (response.statusCode != 200) {
       setState(() => _errorText = response.body);
     } else {
-      Navigator.push(context,
-          new MaterialPageRoute(builder: (context) => EnterTokenPage(email: email)));
+
     }
   }
 
   String getUrlForDevice(String email) {
     if (Platform.isAndroid) {
-      return 'http://10.0.2.2:8080/api/auth/forgot-password/$email';
+      return 'http://10.0.2.2:8080/api/mediax/getAllSharedMediax';
     } else {
-      return 'http://localhost:8080/api/auth/forgot-password/$email';
+      return 'http://localhost:8080/api/mediax/getAllSharedMediax';
     }
   }
 
@@ -52,13 +41,13 @@ class _RequestResetTokenPage extends State<RequestResetTokenPage> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFFFF),
       appBar: AppBar(
-        title: Text('Request Password Reset Token'),
+        title: const Text('Neighbors'),
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
-              const Padding(
+            children: const <Widget>[
+              Padding(
                 padding: EdgeInsets.all(10),
                 child: Text("Enter a valid email to receive reset token!\n\n",
                     style: TextStyle(
@@ -67,13 +56,6 @@ class _RequestResetTokenPage extends State<RequestResetTokenPage> {
                         fontSize: 25,
                         color: Colors.black)),
               ),
-              FormInput(emailController, 'E-Mail', 'Enter E-Mail'),
-              ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black)),
-                  child: const Text('Request Reset Token'),
-                  onPressed: () => send(emailController.text, context)),
             ],
           ),
         ),

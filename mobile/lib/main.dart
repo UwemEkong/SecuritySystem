@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/Neighbors.dart';
 import 'package:mobile/pages/aboutus.dart';
 import 'package:mobile/pages/faq.dart';
 import 'package:mobile/pages/login.dart';
@@ -84,11 +85,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               tileColor: Colors.white,
-              title: Text("Request Password Reset Token"),
+              title: Text("Reset Password"),
               onTap: () {
                 //When user clicks the row/tile they go to the song's detail page
                 Navigator.push(context,
                     new MaterialPageRoute(builder: (context) => RequestResetTokenPage()));
+              },
+            ),
+            ListTile(
+              tileColor: Colors.white,
+              title: const Text("Neighbors"),
+              onTap: () {
+                //When user clicks the row/tile they go to the song's detail page
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => NeighborsPage()));
               },
             )
           ],
