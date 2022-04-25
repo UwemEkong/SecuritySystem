@@ -3,15 +3,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:mobile/models/user.dart';
-// import 'package:flutter_vlc_player/flutter_vlc_controller.dart';
 import '../models/loginmessage.dart';
 import '../models/mediax.dart';
 import '../widgets/RecordTile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-// import 'package:sour_notes/widgets/header.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,18 +18,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? _fullname = "";
   String _streamUrl = "http://127.0.0.1:5000/video_feed";
-  //late VlcPlayerController _videoPlayerController;
   @override
   @protected
   @mustCallSuper
   void initState() {
     getAuthedUser();
     super.initState();
-    // _videoPlayerController = VlcPlayerController.network(
-    //   'https://media.w3.org/2010/05/sintel/trailer.mp4',
-    //   autoPlay: false,
-    //   options: VlcPlayerOptions(),
-    // );
   }
 
   getAuthedUser() async {

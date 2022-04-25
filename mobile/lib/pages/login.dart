@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/home_page.dart';
+import 'package:mobile/pages/profile_page.dart';
 import '../models/loginmessage.dart';
 // import '../pages/admin.dart';
 // import 'package:sour_notes/pages/home_page.dart';
@@ -71,7 +73,12 @@ class _LoginPageState extends State<LoginPage> {
       setState(() => _errorText = "Incorrect Password");
       setState(() => attempts = attempts! - 1);
     } else {
-      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => profile_page(),
+        ),
+      );
     }
   }
 

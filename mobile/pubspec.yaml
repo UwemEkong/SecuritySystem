@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_vlc_player: ^7.1.1
 
   splashscreen:
 
