@@ -6,6 +6,8 @@ import '../widgets/form_input.dart';
 import 'dart:io' show Platform;
 import 'package:http/http.dart' as http;
 
+import 'entertoken.dart';
+
 class RequestResetTokenPage extends StatefulWidget {
   @override
   _RequestResetTokenPage createState() => _RequestResetTokenPage();
@@ -32,7 +34,8 @@ class _RequestResetTokenPage extends State<RequestResetTokenPage> {
     if (response.statusCode != 200) {
       setState(() => _errorText = response.body);
     } else {
-      Navigator.pop(context, true);
+      Navigator.push(context,
+          new MaterialPageRoute(builder: (context) => EnterTokenPage()));
     }
   }
 
