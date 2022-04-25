@@ -17,6 +17,7 @@ public class DeviceDTO {
     String name;
     String location;
     boolean active;
+    boolean defaultdevice;
 
     public DeviceDTO(){}
 

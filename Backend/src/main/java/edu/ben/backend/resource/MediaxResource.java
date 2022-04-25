@@ -39,6 +39,11 @@ public class MediaxResource {
         return this.mediaxService.getUserMediax();
     }
 
+    @GetMapping("/getUserMediaxByDeviceId/{deviceId}")
+    public List<MediaxDTO> getUserMediaxByDeviceId(@PathVariable String deviceId) {
+        return this.mediaxService.getUserMediaxBydeviceId(deviceId);
+    }
+
     @PostMapping("/createMediax")
     public void createMediax(@RequestBody MediaxDTO mediaxDTO) {
 

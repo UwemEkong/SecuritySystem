@@ -30,13 +30,18 @@ export class MediaxService {
     return this.httpClient.get<Mediax[]>('api/mediax/getAllMediax')
   }
 
-  getUserMediax(): Observable<Mediax[]> {
-    return this.httpClient.get<Mediax[]>('api/mediax/getUserMediax')
+  getUserMediax(deviceId: string): Observable<Mediax[]> {
+    console.log(deviceId)
+    if (deviceId == "" || deviceId == null) {
+      return this.httpClient.get<Mediax[]>(`api/mediax/getUserMediax`)
+    } else {
+      return this.httpClient.get<Mediax[]>(`api/mediax/getUserMediaxByDeviceId/${deviceId}`)
+    }
   }
 
   listOfMediax: Mediax[] = [];
   updateUserMediax() {
-    this.httpClient.get<Mediax[]>('api/mediax/getUserMediax').subscribe((data) => {
+    this.httpClient.get<Mediax[]>(`api/mediax/getUserMediax`).subscribe((data) => {
       this.listOfMediax = data
     })
   }
@@ -47,9 +52,13 @@ export class MediaxService {
     })
   }
 
-  editShared(mediax: Mediax) {
+  editShared(mediax: Mediax, deviceId:string) {
     this.httpClient.post<Mediax>('api/mediax/editShared', mediax).subscribe(() => {
-      this.router.navigateByUrl('/records');
+      if (!deviceId) {
+        this.router.navigateByUrl('/records');
+      } else {
+        this.router.navigateByUrl(`/records/${deviceId}`);
+      }
     })
   }
 

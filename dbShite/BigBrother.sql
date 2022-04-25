@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `BigBroSecurity`.`mediax` (
                                                               `title` VARCHAR(255) NULL,
                                                               `category` VARCHAR(255) NULL,
                                                               `views` INT NULL,
+                                                              `deviceid` INT NULL,
                                                               PRIMARY KEY (`id`),
                                                               UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;

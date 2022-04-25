@@ -67,6 +67,13 @@ public class MediaxService {
         return listofMediaxDTO;
     }
 
+    public List<MediaxDTO> getUserMediaxBydeviceId(String deviceId) {
+        Long id = Long.parseLong(deviceId);
+        List<Mediax> listOfMediax = mediaxRepository.findAllByDeviceid(id);
+        ArrayList<MediaxDTO> listofMediaxDTO = assignAWSURLs(listOfMediax);
+        return listofMediaxDTO;
+    }
+
     public List<MediaxDTO> getAllSharedMediax() {
         return assignAWSURLs(mediaxRepository.findAllBySharedTrue());
     }
@@ -81,7 +88,7 @@ public class MediaxService {
 
     public void createMediax(MediaxDTO mediaxDTO) {
         System.out.println(mediaxDTO);
-        mediaxRepository.save(new Mediax(authService.loggedInUser.getId(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp(), mediaxDTO.isIsfavorite(), mediaxDTO.isShared(), mediaxDTO.getTitle(), mediaxDTO.getCategory(), mediaxDTO.getViews()));
+        mediaxRepository.save(new Mediax(authService.loggedInUser.getId(), mediaxDTO.isIslocal(), mediaxDTO.isIsvideo(), mediaxDTO.getPathorkey(), mediaxDTO.getFilename(), mediaxDTO.getLocation(), mediaxDTO.getTimestamp(), mediaxDTO.isIsfavorite(), mediaxDTO.isShared(), mediaxDTO.getTitle(), mediaxDTO.getCategory(), mediaxDTO.getViews(), mediaxDTO.getDeviceid()));
     }
 
     public void deleteMediax(MediaxDTO mediaxDTO) {
@@ -121,6 +128,4 @@ public class MediaxService {
         mx.setViews(mx.getViews() + 1);
         mediaxRepository.save(mx);
     }
-
-
 }

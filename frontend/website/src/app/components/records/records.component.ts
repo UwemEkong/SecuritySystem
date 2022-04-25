@@ -3,7 +3,7 @@ import {MediaxService} from "../../services/mediax.service";
 import {Mediax} from "../../interfaces/Mediax";
 import * as $ from 'jquery';
 import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
@@ -37,7 +37,8 @@ export class RecordsComponent implements OnInit {
               private modalService: NgbModal,
               private _sanitizer: DomSanitizer,
               private calendar: NgbCalendar,
-              public formatter: NgbDateParserFormatter) {
+              public formatter: NgbDateParserFormatter,
+              private activatedRouter:ActivatedRoute) {
   }
 
   listOfMediax: Mediax[] = [];
@@ -48,14 +49,12 @@ export class RecordsComponent implements OnInit {
   favorites = false;
   videos = true;
   images = true;
-
+  deviceId = ""
   ngOnInit(): void {
-
-    if (this.authServ.getLoggedInUser() == null) {
-      this.router.navigateByUrl('/records');
-    }
     this.getAllMedia();
     this.resetFilter();
+    this.deviceId = this.activatedRouter.snapshot.paramMap.get('deviceId')!;
+    console.log("Device Id:", this.deviceId)
   }
 
   isHovered(date: NgbDate) {
@@ -114,7 +113,7 @@ export class RecordsComponent implements OnInit {
         toDate = fromDate;
       }
 
-      this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
+      this.mediaxServ.getUserMediax(this.activatedRouter.snapshot.paramMap.get('deviceId')!).subscribe((data: Mediax[]) => {
         let listOfMediaxTemp1 = data;
         console.log(listOfMediaxTemp1)
         let listOfMediaxTemp2: Mediax[] = [];
@@ -194,7 +193,7 @@ export class RecordsComponent implements OnInit {
     mx.shared = !mx.shared;
     mx.title = mediaData.value.title;
     mx.category = this.selectedCategory
-    this.mediaxServ.editShared(mx);
+    this.mediaxServ.editShared(mx, this.activatedRouter.snapshot.paramMap.get('deviceId')!);
     this.getAllMedia();
     this.startFilter();
     this.titlePlaceholder = "Enter Title...";
@@ -210,7 +209,7 @@ export class RecordsComponent implements OnInit {
   }
 
   getAllMedia() {
-    this.mediaxServ.getUserMediax().subscribe((data: Mediax[]) => {
+    this.mediaxServ.getUserMediax(this.activatedRouter.snapshot.paramMap.get('deviceId')!).subscribe((data: Mediax[]) => {
       this.listOfMediax = data;
       console.log(this.listOfMediax)
     });

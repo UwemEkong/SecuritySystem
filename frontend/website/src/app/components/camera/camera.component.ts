@@ -21,17 +21,21 @@ export class CameraComponent implements OnInit {
   videoSize = this.pref.videoSizeSetting;
   videoRef:any;
   videoAddress = ""
-  queryParamId = ""
+  currentDeviceId = ""
   deviceIp = ""
   ngOnInit(): void {
-  this.queryParamId = this.router.snapshot.paramMap.get('id')!;
+  if (!this.router.snapshot.paramMap.get('id')!) {
+    this.currentDeviceId = this.deviceService.defaultDevice.id?.toString()!;
+  } else {
+    this.currentDeviceId = this.router.snapshot.paramMap.get('id')!;
+  }
    this.deviceService.getAllUserDevicesObservable().subscribe((userDevices)=>{
     this.authService.getLoggedInUser();
      this.deviceService.allUserDevices = userDevices
      console.log(userDevices)
      this.deviceService.currentDevice = userDevices[0]
      console.log(this.deviceService.currentDevice)
-      this.deviceService.getJetsonIPObservablePerDevice(this.queryParamId).subscribe((jetsonIP)=>{
+      this.deviceService.getJetsonIPObservablePerDevice(parseInt(this.currentDeviceId)).subscribe((jetsonIP)=>{
         console.log(jetsonIP)
         this.deviceService.currentDevice.ip = jetsonIP
         this.videoAddress = "http://" + jetsonIP + ":8000"
@@ -47,7 +51,7 @@ export class CameraComponent implements OnInit {
     this.http.get(`http://${this.deviceIp}:8000/flsk/save_snap_to_cloud`).subscribe((data: any) =>  {
       console.log(data);
       let namekey = data["namekey"];
-      let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location:this.locationService.formattedLocation, timestamp:(new Date().toLocaleString()), isfavorite: false}
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: false, pathorkey: namekey, userid: 1, location:this.locationService.formattedLocation, timestamp:(new Date().toLocaleString()), isfavorite: false, deviceid:parseInt(this.currentDeviceId)}
       this.mediaxServ.createMediax(mx);
     });
   }
@@ -55,7 +59,7 @@ export class CameraComponent implements OnInit {
   record() {
     this.http.get(`http://${this.deviceIp}:8000/flsk/record`).subscribe((data: any) =>  {
       let namekey = data["namekey"];
-      let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location:this.locationService.formattedLocation , timestamp:(new Date().toLocaleString()), isfavorite: false, shared:false,title:"",category:"",views:0 }
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location:this.locationService.formattedLocation , timestamp:(new Date().toLocaleString()), isfavorite: false, shared:false,title:"",category:"",views:0, deviceid:parseInt(this.currentDeviceId) }
       this.mediaxServ.createMediax(mx);
   });
   }

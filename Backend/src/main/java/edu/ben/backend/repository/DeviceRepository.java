@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface DeviceRepository  extends JpaRepository<Device, Long> {
     List<Device> findAllByUserid(Long userid);
+    Device findByDefaultdevice(boolean isDefault);
 }

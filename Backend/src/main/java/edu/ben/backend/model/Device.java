@@ -26,12 +26,15 @@ public class Device {
     String location;
     @Column(name = "active")
     boolean active;
+    @Column(name = "defaultdevice")
+    boolean defaultdevice;
 
-    public Device(Long userId, String macaddress, String name, String location, boolean active) {
+    public Device(Long userId, String macaddress, String name, String location, boolean active, boolean defaultdevice) {
         this.userid = userId;
         this.macaddress = macaddress;
         this.name = name;
         this.location = location;
         this.active = active;
+        this.defaultdevice = defaultdevice;
     }
 }
