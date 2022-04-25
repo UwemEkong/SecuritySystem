@@ -1,5 +1,5 @@
 <div class="devices-list-cont">
-    <app-device *ngFor="let device of deviceService.allUserDevices" [deviceID]="device.id" [macaddress]="device.macaddress" [name]="device.name" [location]="device.location" [active]="device.active"></app-device>
+    <app-device *ngFor="let device of deviceService.allUserDevices" [deviceID]="device.id" [macaddress]="device.macaddress" [name]="device.name" [location]="device.location" [active]="device.active" [defaultdevice]="device.defaultdevice"></app-device>
 </div>
 <div class="devices-container">
     <button (click)="open(createdevicemodal)" class="btn btn-primary btn-cont">

@@ -28,7 +28,7 @@ export class MyDevicesComponent implements OnInit {
     this.namePlaceholder = ""
   }
   createDevice(deviceData:any) {
-    this.deviceService.createDevice({userid:this.authService.loggedInUser.id, macaddress: deviceData.value.macaddress, name: deviceData.value.name, location: this.locationService.formattedLocation, active:false}).subscribe((data)=>{
+    this.deviceService.createDevice({userid:this.authService.loggedInUser.id, macaddress: deviceData.value.macaddress, name: deviceData.value.name, location: this.locationService.formattedLocation, active:false, defaultdevice:false}).subscribe((data)=>{
       this.deviceService.getAllUserDevices()
     })
   }

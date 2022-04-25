@@ -50,24 +50,30 @@ public class DeviceService {
     }
 
     public void createDevice(DeviceDTO deviceDTO) {
-        this.deviceRepository.save(new Device(this.authService.loggedInUser.getId(), deviceDTO.getMacaddress(), deviceDTO.getName(), deviceDTO.getLocation(), deviceDTO.isActive()));
+        this.deviceRepository.save(new Device(this.authService.loggedInUser.getId(), deviceDTO.getMacaddress(), deviceDTO.getName(), deviceDTO.getLocation(), deviceDTO.isActive(), deviceDTO.isDefaultdevice()));
     }
 
     public List<DeviceDTO> getAllUserDevices() {
         List<Device> userDevices = this.deviceRepository.findAllByUserid(this.authService.loggedInUser.getId());
         List<DeviceDTO> userDevicesDTO = new ArrayList();
         for (Device d: userDevices) {
-            userDevicesDTO.add(new DeviceDTO(d.getId(),d.getUserid(), d.getMacaddress(), d.getName(), d.getLocation(), d.isActive()));
+            userDevicesDTO.add(new DeviceDTO(d.getId(),d.getUserid(), d.getMacaddress(), d.getName(), d.getLocation(), d.isActive(), d.isDefaultdevice()));
         }
         return userDevicesDTO;
     }
 
     public void editDevice(DeviceDTO deviceDTO) {
+        System.out.println("EDITING DEVICE");
+        System.out.println(deviceDTO.toString());
         Device device = deviceRepository.getById(deviceDTO.getId());
         device.setName(deviceDTO.getName());
         device.setActive(deviceDTO.isActive());
         device.setMacaddress(deviceDTO.getMacaddress());
         device.setLocation(deviceDTO.getLocation());
+        device.setDefaultdevice(deviceDTO.isDefaultdevice());
+        Device oldDefault = deviceRepository.findByDefaultdevice(true);
+        oldDefault.setDefaultdevice(false);
+        deviceRepository.save(oldDefault);
         deviceRepository.save(device);
     }
 
@@ -110,5 +116,27 @@ public class DeviceService {
     }
 
 
+    public void deleteDevice(Long deviceId) {
+        System.out.println("DELETING");
+        deviceRepository.deleteById(deviceId);
+    }
 
+    public DeviceDTO getDefaultDevice() {
+        List<Device> allDevices = deviceRepository.findAll();
+
+        // Check if a default device has been set
+        for (Device device: allDevices) {
+            if (device.isDefaultdevice()) {
+                return new DeviceDTO(device.getId(),device.getUserid(), device.getMacaddress(), device.getName(), device.getLocation(), device.isActive(), device.isDefaultdevice());
+            }
+        }
+
+        // If no default device has been set then set the first device in the list as the default device.
+        Device defaultDevice = allDevices.get(0);
+        defaultDevice.setDefaultdevice(true);
+        deviceRepository.save(defaultDevice);
+
+        // finally, return the default device
+        return new DeviceDTO(defaultDevice.getId(), defaultDevice.getUserid(), defaultDevice.getMacaddress(), defaultDevice.getName(), defaultDevice.getLocation(), defaultDevice.isActive(), defaultDevice.isDefaultdevice());
+    }
 }

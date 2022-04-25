@@ -24,8 +24,8 @@ public class DeviceResource {
         return this.deviceService.getJetsonIP(macAddress);
     }
 
-    @GetMapping("/getJetsonIPWithId/{deviceId}")
-    public String getJetsonIPWithId(@PathVariable Long deviceId) throws IOException {
+    @GetMapping("/getJetsonIpByDeviceId/{deviceId}")
+    public String getJetsonIpByDeviceId(@PathVariable Long deviceId) throws IOException {
         return this.deviceService.getJetsonIP(deviceId);
     }
 
@@ -40,7 +40,17 @@ public class DeviceResource {
     }
 
     @PutMapping("/editDevice")
-    public void editDevice(DeviceDTO deviceDTO)  {
+    public void editDevice(@RequestBody DeviceDTO deviceDTO)  {
         this.deviceService.editDevice(deviceDTO);
+    }
+
+    @DeleteMapping("/deleteDevice/{deviceId}")
+    public void deleteDevice(@PathVariable Long deviceId)  {
+        this.deviceService.deleteDevice(deviceId);
+    }
+
+    @GetMapping("/getDefaultDevice")
+    public DeviceDTO getDefaultDevice()  {
+        return this.deviceService.getDefaultDevice();
     }
 }

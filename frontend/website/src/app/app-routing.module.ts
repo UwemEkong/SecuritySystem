@@ -21,13 +21,14 @@ import { MyDevicesComponent } from './components/my-devices/my-devices.component
 
 const routes: Routes = [
 
-  
+  {path: 'camera', component: CameraComponent, canActivate: [PathGuard]},
   {path: 'camera/:id', component: CameraComponent, canActivate: [PathGuard]},
   {path: 'faq', component: FaqComponent},
   {path: 'about-us', component: AboutUsComponent},
   {path: 'login', component:  LoginComponent},
   {path:'register', component: RegisterComponent},
   {path:'records', component: RecordsComponent, canActivate: [PathGuard]},
+  {path:'records/:deviceId', component: RecordsComponent, canActivate: [PathGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [PathGuard]},
   {path:'password-reset', component: PasswordResetComponent},
   {path: 'enter-token', component: EnterTokenComponent},

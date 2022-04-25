@@ -4,6 +4,7 @@ export interface Device{
     macaddress:string,
     name:string,
     location:string,
-    active:boolean,
+    active?:boolean,
     ip?:string // Field only exists on frontend since the jetson ip is not static.
+    defaultdevice?:boolean
 }

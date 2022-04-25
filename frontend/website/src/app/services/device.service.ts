@@ -9,22 +9,23 @@ export class DeviceService {
 
   constructor(public httpClient: HttpClient) {}
 
+  defaultDevice = <Device>{};
   currentDevice = <Device>{};
   allUserDevices = new Array<Device>();
 
   getJetsonIP() {
-    this.httpClient.get(`api/device/getJetsonIP/${this.currentDevice.macaddress}`, {responseType:'text'}).subscribe(data => {
+    this.httpClient.get(`api/device/getJetsonIP/${this.defaultDevice.macaddress}`, {responseType:'text'}).subscribe(data => {
       console.log("DEVICE IP:" + JSON.stringify(data))
-      this.currentDevice.ip = data
+      this.defaultDevice.ip = data
     });
   }
 
   getJetsonIPObservable() {
-    return this.httpClient.get(`api/device/getJetsonIP/${this.currentDevice.macaddress}`, {responseType:'text'});
+    return this.httpClient.get(`api/device/getJetsonIP/${this.defaultDevice.macaddress}`, {responseType:'text'});
   }
 
-  getJetsonIPObservablePerDevice(mac:String | undefined) {
-    return this.httpClient.get(`api/device/getJetsonIP/${mac}`, {responseType:'text'});
+  getJetsonIPObservablePerDevice(deviceID:Number) {
+    return this.httpClient.get(`api/device/getJetsonIpByDeviceId/${deviceID}`, {responseType:'text'});
   }
 
   getAllUserDevices() {
@@ -44,5 +45,16 @@ export class DeviceService {
 
   editDevice(device:Device) {
     return this.httpClient.put<Device>('api/device/editDevice', device)
+  }
+
+  deleteDevice(deviceId:Number) {
+    return this.httpClient.delete(`api/device/deleteDevice/${deviceId}`)
+  }
+
+  initializeDefaultDevice() {
+    this.httpClient.get<Device>(`api/device/getDefaultDevice`).subscribe((data)=>{
+      this.defaultDevice = data;
+      console.log("Default device", this.defaultDevice)
+    })
   }
 }

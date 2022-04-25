@@ -1,24 +1,77 @@
 <div class="device-cont">
     <div class="row device-info">
         <div class="device-image-col">
-            <img class="device-image" src="https://d39xvdj9d5ntm1.cloudfront.net/images/devices/device_cam_cocoa-battery_white_FV-CS_375x375px-5efda8a7134373bada82b9e3aa1bcf09.png">
+            <img class="device-image"
+                src="https://d39xvdj9d5ntm1.cloudfront.net/images/devices/device_cam_cocoa-battery_white_FV-CS_375x375px-5efda8a7134373bada82b9e3aa1bcf09.png">
         </div>
-        <div class="col device-details">
+        <div class="col-4 device-details">
             {{location | location}} <br>
             <span class="device-name">{{name}}</span><br>
             <span class="device-id">Device ID: {{macaddress}}</span>
         </div>
-        <div class="col device-actions">
-            <button (click)="navigateToRecordsPage()" type="button" class="btn btn-secondary history-btn">History</button>
+        <div class="col-4 device-actions">
+            <button (click)="navigateToRecordsPage()" type="button"
+                class="btn btn-secondary history-btn">History</button>
             <button (click)="navigateToCamera()" type="button" class="btn btn-primary">Live Feed</button>
+        </div>
+        <div class="col device-settings">
+            <div class="settings-cont" (click)="openSettingsModal(settingsModal)">
+                <mat-icon>settings</mat-icon>
+            </div>
         </div>
     </div>
     <div class="row device-status">
         <div class="col device-health">
-            <span class="health-header"><img class="health-image" src="https://cdn-icons-png.flaticon.com/512/809/809957.png"> Device Health for {{name}}</span><br>
+            <span class="health-header"><img class="health-image"
+                    src="https://cdn-icons-png.flaticon.com/512/809/809957.png"> Device Health for {{name}}</span><br>
             <span class="network-header">Network</span><br>
-            <div *ngIf="active == false"><span class="status-header">Status: </span><span class="status-offline">Offline</span></div>
-            <div *ngIf="active == true"><span class="status-header">Status: </span><span class="status-online">Online</span></div>
+            <div *ngIf="active == false"><span class="status-header">Status: </span><span
+                    class="status-offline">Offline</span></div>
+            <div *ngIf="active == true"><span class="status-header">Status: </span><span
+                    class="status-online">Online</span></div>
         </div>
     </div>
 </div>
+
+<ng-template #settingsModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{name}} Settings</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form #deviceData="ngForm" (ngSubmit)="updateDevice(deviceData)" novalidate>
+            <label class="form-label" for="name">Device Name</label>
+            <input class="form-control login-input" name="name" value="name" id="name" ngModel="{{name}}"><br>
+            <label class="form-label" for="macaddress">Device ID</label>
+            <input class="form-control login-input" name="macaddress" value="macaddress" id="macaddress"
+                ngModel="{{macaddress}}"><br>
+            <label class="form-label" for="location">Device Location</label>
+            <input class="form-control login-input" name="location" value="location" id="location"
+                ngModel="{{location}}"><br>
+            
+            <input (click)="updateDefaultDevice()" class="form-check-input check-input" type="checkbox" value="" id="flexCheckChecked" [checked] = "defaultdevice">
+            <label class="form-check-label check-label" for="flexCheckChecked">Default Device
+            </label>
+
+            <div class="container-fluid submit-cont">
+                <button class="btn btn-primary settings-btn">Save</button>
+                <button class="btn btn-danger settings-btn" (click)="openDeletionModal(deletionModal)">Delete</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #deletionModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Are you sure?</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="deleteDevice(deletionModal)">Confirm</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>

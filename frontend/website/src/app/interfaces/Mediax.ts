@@ -13,4 +13,5 @@ export interface Mediax {
     category?:string;
     views?:number;
     id?:number;
+    deviceid:number;
 }

@@ -6,7 +6,7 @@
   <div>
 
 
-    <div class="container">
+    <div class="container records-cont">
       <br>
       <div>
         <div>
@@ -134,72 +134,73 @@
         <col width="100px"/>
         <col>
         <col>
-        <tr *ngFor="let mxdto of listOfMediax | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index">
-          <div class="recordrow">
-
-
-            <td *ngIf="mxdto.isfavorite" style="margin:10px;">
-              <button mat-icon-button color="danger" (click)="updateFavorite(mxdto)">
-                <mat-icon class="red-icon">favorite</mat-icon>
-              </button>
-            </td>
-
-            <td *ngIf="!mxdto.isfavorite" style="margin:10px;">
-              <button mat-icon-button color="disabled" (click)="updateFavorite(mxdto)">
-                <mat-icon class="disabled-icon">favorite</mat-icon>
-              </button>
-            </td>
-
-            <td style="width:100em;">
-              {{mxdto.filename}}
-            </td>
-
-
-            <td style="width:35em;">
-              <p>{{mxdto.timestamp}}</p>
-            </td>
-
-            <td style="width:35em;">
-              <p>{{mxdto.location | location}}</p>
-            </td>
-
-            <td>
-              <button *ngIf="!mxdto.isvideo" class="btn btn-outline-primary"
-
-                      (click)="open(imagemodal,mxdto)">
-                Show
-              </button>
-            </td>
-
-            <td>
-              <button class="btn btn-outline-primary" (click)="rename(mxdto)">Rename</button>
-            </td>
-
-
-            <td>
-              <a class="btn btn-outline-primary" href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer"
-                 download="{{mxdto.url}}">Download</a>
-            </td>
-
-            <td>
-              <button class="btn btn-outline-danger" (click)="deleteMediax(mxdto)">Delete</button>
-            </td>
-
-
-            <td *ngIf="mxdto.shared == false" style="margin:10px;">
-              <button title="Make public" class="btn btn-light" (click)="openShareModal(sharemodal, mxdto)">
-                <mat-icon>share</mat-icon>
-              </button>
-            </td>
-
-            <td *ngIf="mxdto.shared == true" style="margin:10px;">
-              <button title="Make private" class="btn btn-light" (click)="unshareMedia(mxdto)">
-                <mat-icon>lock</mat-icon>
-              </button>
-            </td>
-
+        <div>
+          <div *ngFor="let mxdto of listOfMediax | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index">
+            <tr>
+              <td *ngIf="mxdto.isfavorite" >
+                <button mat-icon-button color="danger" (click)="updateFavorite(mxdto)">
+                  <mat-icon class="red-icon">favorite</mat-icon>
+                </button>
+              </td>
+  
+              <td *ngIf="!mxdto.isfavorite" >
+                <button mat-icon-button color="disabled" (click)="updateFavorite(mxdto)">
+                  <mat-icon class="disabled-icon">favorite</mat-icon>
+                </button>
+              </td>
+  
+              <td style="width:100em;">
+                {{mxdto.filename}}
+              </td>
+  
+  
+              <td style="width:35em;">
+                <p>{{mxdto.timestamp}}</p>
+              </td>
+  
+              <td style="width:35em;">
+                <p>{{mxdto.location | location}}</p>
+              </td>
+  
+              <td>
+                <button *ngIf="!mxdto.isvideo" class="btn btn-outline-primary"
+  
+                        (click)="open(imagemodal,mxdto)">
+                  Show
+                </button>
+              </td>
+  
+              <td>
+                <button class="btn btn-outline-primary" (click)="rename(mxdto)">Rename</button>
+              </td>
+  
+  
+              <td>
+                <a class="btn btn-outline-primary" href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer"
+                   download="{{mxdto.url}}">Download</a>
+              </td>
+  
+              <td>
+                <button class="btn btn-outline-danger" (click)="deleteMediax(mxdto)">Delete</button>
+              </td>
+  
+  
+              <td *ngIf="mxdto.shared == false">
+                <button title="Make public" class="btn btn-light" (click)="openShareModal(sharemodal, mxdto)">
+                  <mat-icon>share</mat-icon>
+                </button>
+              </td>
+  
+              <td *ngIf="mxdto.shared == true">
+                <button title="Make private" class="btn btn-light" (click)="unshareMedia(mxdto)">
+                  <mat-icon>lock</mat-icon>
+                </button>
+              </td>
+          </tr>
+          <div class="divider"></div>
           </div>
-        </tr>
+        
+      </div>
         </tbody>
       </table>
 

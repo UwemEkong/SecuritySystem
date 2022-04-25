@@ -34,6 +34,7 @@ import { UserCommentComponent } from './components/user-comment/user-comment.com
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MyDevicesComponent } from './components/my-devices/my-devices.component';
 import { DeviceComponent } from './components/device/device.component';
+import { RecordComponent } from './components/record/record.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { DeviceComponent } from './components/device/device.component';
     CommentsComponent,
     UserCommentComponent,
     MyDevicesComponent,
-    DeviceComponent
+    DeviceComponent,
+    RecordComponent
   ],
   imports: [
     FormsModule,
