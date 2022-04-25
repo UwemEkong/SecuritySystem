@@ -55,6 +55,11 @@ public class MediaxResource {
         this.mediaxService.deleteMediax(mediaxDTO);
     }
 
+    @DeleteMapping("/deleteMediaxById/{mediaxId}")
+    public void deleteMediaxById(@PathVariable Long mediaxId) {
+        this.mediaxService.deleteMediaxById(mediaxId);
+    }
+
     @PostMapping("/editMediax")
     public void editMediax(@RequestBody MediaxDTO mediaxDTO) {
         this.mediaxService.editMediax(mediaxDTO);

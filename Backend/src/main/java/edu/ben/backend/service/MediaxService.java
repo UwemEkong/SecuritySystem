@@ -99,6 +99,9 @@ public class MediaxService {
         GeneratePresignedURL.deleteFromS3("mainmediabucket", mediaxDTO.getPathorkey());
     }
 
+    public void deleteMediaxById(Long mediaxId) {
+    }
+
     public void editMediax(MediaxDTO mediaxDTO) {
         System.out.println("editing mediax");
         Mediax mx = mediaxRepository.findByPathorkey(mediaxDTO.getPathorkey());
@@ -128,4 +131,6 @@ public class MediaxService {
         mx.setViews(mx.getViews() + 1);
         mediaxRepository.save(mx);
     }
+
+
 }
