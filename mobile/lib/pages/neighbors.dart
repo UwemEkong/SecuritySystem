@@ -43,6 +43,8 @@ class NeighborsPage extends StatefulWidget {
 
 class _NeighborsPage extends State<NeighborsPage> {
   String? _errorText = "";
+  String? _fullname = "";
+
   late Future<List<Mediax>> mediax;
 
   @override
@@ -96,9 +98,9 @@ class _NeighborsPage extends State<NeighborsPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          backgroundColor: Color(0xFF303030),
+      backgroundColor: Color(0xFF303030),
       appBar: AppBar(
-        title: const Text('Media Shared By Neighbors'),
+        title: const Text('Media Shared By Others'),
         backgroundColor: Color(0xFF303030),
         centerTitle: true,
       ),
@@ -111,27 +113,27 @@ class _NeighborsPage extends State<NeighborsPage> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(snapshot.data![index].title,
-                            style: const TextStyle(
-                            fontFamily: "Trajan Pro",
-                            height: 1.0,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFFFFFF))),
-                        subtitle: Text(snapshot.data![index].location,
-                            style: const TextStyle(
-                                fontFamily: "Trajan Pro",
-                                height: 1.0,
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Color(0xFFFFFFFF))),
-                        trailing: Text(snapshot.data![index].timestamp,
+                        title: Text(
+                            "\n\nTitle: " +
+                                snapshot.data![index].title +
+                                "\nDate: " +
+                                snapshot.data![index].timestamp +
+                                "\nLocation: " +
+                                snapshot.data![index].location,
                             style: const TextStyle(
                                 fontFamily: "Trajan Pro",
                                 height: 1.0,
-                                fontSize: 10,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFFFFFFFF))),
+                        subtitle: Image.network(snapshot.data![index].url),
+                        // trailing: Text(snapshot.data![index].timestamp,
+                        //     style: const TextStyle(
+                        //         fontFamily: "Trajan Pro",
+                        //         height: 1.0,
+                        //         fontSize: 10,
+                        //         fontWeight: FontWeight.bold,
+                        //         color: Color(0xFFFFFFFF))),
                       );
                     });
               } else if (snapshot.hasError) {
