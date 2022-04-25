@@ -53,4 +53,9 @@ public class DeviceResource {
     public DeviceDTO getDefaultDevice()  {
         return this.deviceService.getDefaultDevice();
     }
+
+    @GetMapping("/getDeviceById/{deviceId}")
+    public DeviceDTO getDeviceById(@PathVariable Long deviceId) {
+        return this.deviceService.getDeviceById(deviceId);
+    }
 }

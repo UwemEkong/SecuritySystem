@@ -2,7 +2,7 @@ import cv2
 import time
 import io
 import threading
-from flask import Response, Flask, send_file, jsonify, redirect, url_for
+from flask import Response, Flask, request, send_file, jsonify, redirect, url_for
 import datetime
 import boto3
 from botocore.exceptions import NoCredentialsError
@@ -84,6 +84,7 @@ cap.set(4,480)
 net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.5)
 
 def captureFrames():
+    global capture_motion
 
     global prevtime
    
@@ -93,11 +94,10 @@ def captureFrames():
         rgb_img = jetson.utils.cudaAllocMapped(width=bgr_img.width, height=bgr_img.height, format='rgb8')
         jetson.utils.cudaConvertColor(bgr_img, rgb_img)
        
-        if allow_motion_detection() == True:
             prevtime = time.time()
             detections = net.Detect(rgb_img)
             for detection in detections:
-                if (detection.ClassID ==1):
+                if (detection.ClassID ==1 and capture_motion == True):
                     print("PERSON DETECTED")
                     notify_users()
                
@@ -205,6 +205,20 @@ def save_snap_to_cloud():
             return response
 
     return "failed", 200
+
+capture_motion = True
+@app.route('/flsk/setMotionCapture', methods=['POST', 'GET'])
+def updatePreferences():
+    global capture_motion 
+    if request.method == 'GET':
+        pass
+    if request.method == 'POST':
+        print(type(request.data))
+        print(type(request.json))
+        print(request.json)
+        capture_motion  = request.json["motionactive"]
+        print(capture_motion )
+        return '', 200
 
 
 if __name__ == '__main__':

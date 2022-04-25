@@ -25,24 +25,38 @@ export class CameraComponent implements OnInit {
   deviceIp = ""
   ngOnInit(): void {
   if (!this.router.snapshot.paramMap.get('id')!) {
-    this.currentDeviceId = this.deviceService.defaultDevice.id?.toString()!;
+    this.deviceService.initializeDefaultDeviceObservable().subscribe((data)=>{
+      this.deviceService.defaultDevice = data
+      this.deviceService.currentDevice = data
+      this.currentDeviceId = this.deviceService.defaultDevice.id?.toString()!;
+      console.log("current device id", this.currentDeviceId)
+
+      this.deviceService.getAllUserDevicesObservable().subscribe((userDevices)=>{
+        this.authService.getLoggedInUser();
+         this.deviceService.allUserDevices = userDevices
+         console.log(userDevices)
+         console.log(this.deviceService.currentDevice)
+          this.deviceService.getJetsonIPObservablePerDevice(parseInt(this.currentDeviceId)).subscribe((jetsonIP)=>{
+            console.log(jetsonIP)
+            this.deviceService.currentDevice.ip = jetsonIP
+            this.videoAddress = "http://" + jetsonIP + ":8000"
+            this.deviceIp = jetsonIP
+            this.deviceService.setJetsonMotionCapture(jetsonIP, this.currentDeviceId)
+          })
+       })
+    })
   } else {
     this.currentDeviceId = this.router.snapshot.paramMap.get('id')!;
+      this.authService.getLoggedInUser();
+        this.deviceService.getJetsonIPObservablePerDevice(parseInt(this.currentDeviceId)).subscribe((jetsonIP)=>{
+          console.log(jetsonIP)
+          this.deviceService.currentDevice.ip = jetsonIP
+          this.videoAddress = "http://" + jetsonIP + ":8000"
+          this.deviceIp = jetsonIP
+          this.deviceService.setJetsonMotionCapture(jetsonIP, this.currentDeviceId)
+        })
+    
   }
-   this.deviceService.getAllUserDevicesObservable().subscribe((userDevices)=>{
-    this.authService.getLoggedInUser();
-     this.deviceService.allUserDevices = userDevices
-     console.log(userDevices)
-     this.deviceService.currentDevice = userDevices[0]
-     console.log(this.deviceService.currentDevice)
-      this.deviceService.getJetsonIPObservablePerDevice(parseInt(this.currentDeviceId)).subscribe((jetsonIP)=>{
-        console.log(jetsonIP)
-        this.deviceService.currentDevice.ip = jetsonIP
-        this.videoAddress = "http://" + jetsonIP + ":8000"
-        this.deviceIp = jetsonIP
-      })
-   })
-
     this.authService.getLoggedInUser();
     console.log(JSON.stringify(this.deviceService.currentDevice))
   }

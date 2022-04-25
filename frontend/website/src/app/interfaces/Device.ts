@@ -7,4 +7,5 @@ export interface Device{
     active?:boolean,
     ip?:string // Field only exists on frontend since the jetson ip is not static.
     defaultdevice?:boolean
+    motionactive?:boolean
 }

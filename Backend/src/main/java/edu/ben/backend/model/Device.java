@@ -28,13 +28,16 @@ public class Device {
     boolean active;
     @Column(name = "defaultdevice")
     boolean defaultdevice;
+    @Column(name = "motionactive")
+    boolean motionactive;
 
-    public Device(Long userId, String macaddress, String name, String location, boolean active, boolean defaultdevice) {
+    public Device(Long userId, String macaddress, String name, String location, boolean active, boolean defaultdevice, boolean motionactive) {
         this.userid = userId;
         this.macaddress = macaddress;
         this.name = name;
         this.location = location;
         this.active = active;
         this.defaultdevice = defaultdevice;
+        this.motionactive = motionactive;
     }
 }
