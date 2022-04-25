@@ -100,7 +100,7 @@ class _NeighborsPage extends State<NeighborsPage> {
         home: Scaffold(
       backgroundColor: Color(0xFF303030),
       appBar: AppBar(
-        title: const Text('Media Shared By Others'),
+        title: const Text('Neighborhood Media'),
         backgroundColor: Color(0xFF303030),
         centerTitle: true,
       ),
@@ -119,7 +119,9 @@ class _NeighborsPage extends State<NeighborsPage> {
                                 "\nDate: " +
                                 snapshot.data![index].timestamp +
                                 "\nLocation: " +
-                                snapshot.data![index].location,
+                                snapshot.data![index].location +
+                                "\nUser Id: " +
+                                snapshot.data![index].userid.toString(),
                             style: const TextStyle(
                                 fontFamily: "Trajan Pro",
                                 height: 1.0,
