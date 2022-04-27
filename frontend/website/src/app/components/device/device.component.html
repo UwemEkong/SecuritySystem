@@ -21,14 +21,25 @@
         </div>
     </div>
     <div class="row device-status">
-        <div class="col device-health">
+        <div class="row device-health">
             <span class="health-header"><img class="health-image"
                     src="https://cdn-icons-png.flaticon.com/512/809/809957.png"> Device Health for {{name}}</span><br>
-            <span class="network-header">Network</span><br>
-            <div *ngIf="active == false"><span class="status-header">Status: </span><span
-                    class="status-offline">Offline</span></div>
-            <div *ngIf="active == true"><span class="status-header">Status: </span><span
-                    class="status-online">Online</span></div>
+            <div class="col-3">
+                <span class="network-header"><img class="network-image"
+                    src="https://cdn-icons-png.flaticon.com/512/748/748151.png">Network</span><br>
+                <div *ngIf="active == false"><span class="status-header">Status: </span><span
+                        class="status-offline">Offline</span></div>
+                <div *ngIf="active == true"><span class="status-header">Status: </span><span
+                        class="status-online">Online</span></div>
+            </div>
+            <div class="col-9">
+                <span class="network-header"><img class="motion-image"
+                    src="../../../assets/motion_icon.png">Motion Detection</span><br>
+                <div *ngIf="motionactive == false"><span class="status-header">Status: </span><span
+                    class="status-offline">Inactive</span></div>
+            <div *ngIf="motionactive == true"><span class="status-header">Status: </span><span
+                    class="status-online">Active</span></div>
+            </div>
         </div>
     </div>
 </div>
@@ -51,6 +62,10 @@
             
             <input (click)="updateDefaultDevice()" class="form-check-input check-input" type="checkbox" value="" id="flexCheckChecked" [checked] = "defaultdevice">
             <label class="form-check-label check-label" for="flexCheckChecked">Default Device
+            </label>
+
+            <input (click)="updateMotionCapture()" class="form-check-input check-input" type="checkbox" value="" id="flexCheckChecked" [checked] = "motionactive">
+            <label class="form-check-label check-label" for="flexCheckChecked">Motion Capture
             </label>
 
             <div class="container-fluid submit-cont">

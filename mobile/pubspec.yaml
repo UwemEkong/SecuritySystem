@@ -31,6 +31,8 @@ dependencies:
     sdk: flutter
 
 
+  video_player:
+
   splashscreen:
 
   http: ^0.13.4

@@ -2,7 +2,7 @@ import cv2
 import time
 import io
 import threading
-from flask import Response, Flask, send_file, jsonify, redirect, url_for
+from flask import Response, Flask, request, send_file, jsonify, redirect, url_for
 import datetime
 import boto3
 from botocore.exceptions import NoCredentialsError
@@ -61,6 +61,20 @@ def upload_to_aws(pil_image, bucket, s3_file_name):
         print("Credentials not available")
         return False
 
+def notify_users():
+    print("user notified")
+    send_email_report("a person")
+
+
+
+
+def send_email_report(report):
+    HEADERS = {
+                  'Access-Control-Allow-Origin': '*'
+             }  
+    response = requests.get('http://10.0.0.203:8080/api/auth/report/{}'.format(report), headers=HEADERS)
+
+
 
 # Create the Flask object for the application
 app = Flask(__name__)
@@ -70,7 +84,9 @@ cap.set(4,480)
 net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.5)
 
 def captureFrames():
-   
+    global capture_motion
+
+    global prevtime
    
     while True and cap.isOpened():
         return_key, frame = cap.read()
@@ -78,11 +94,13 @@ def captureFrames():
         rgb_img = jetson.utils.cudaAllocMapped(width=bgr_img.width, height=bgr_img.height, format='rgb8')
         jetson.utils.cudaConvertColor(bgr_img, rgb_img)
        
-
-        detections = net.Detect(rgb_img)
-        for detection in detections:
-            if (detection.ClassID ==1):
-                print("PERSON DETECTED")
+            prevtime = time.time()
+            detections = net.Detect(rgb_img)
+            for detection in detections:
+                if (detection.ClassID ==1 and capture_motion == True):
+                    print("PERSON DETECTED")
+                    notify_users()
+               
        
         if not return_key:
             break
@@ -106,7 +124,17 @@ def captureFrames():
         key = cv2.waitKey(30) & 0xff
         if key == 27:
             break
-   
+
+prevtime = time.time()
+first_detection = True
+
+def allow_motion_detection():
+    global first_detection
+    global prevtime
+    if time.time() - prevtime > 30:
+        first_detection = False
+        return True
+    return False  
              
 
 @app.route("/")
@@ -177,6 +205,20 @@ def save_snap_to_cloud():
             return response
 
     return "failed", 200
+
+capture_motion = True
+@app.route('/flsk/setMotionCapture', methods=['POST', 'GET'])
+def updatePreferences():
+    global capture_motion 
+    if request.method == 'GET':
+        pass
+    if request.method == 'POST':
+        print(type(request.data))
+        print(type(request.json))
+        print(request.json)
+        capture_motion  = request.json["motionactive"]
+        print(capture_motion )
+        return '', 200
 
 
 if __name__ == '__main__':

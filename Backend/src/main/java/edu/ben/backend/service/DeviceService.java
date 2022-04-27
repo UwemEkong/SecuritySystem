@@ -18,6 +18,7 @@ public class DeviceService {
     private final String ARP_GET_IP_HW = "arp -a";
     private final DeviceRepository deviceRepository;
     private final AuthService authService;
+    private Device defaultDevice;
     //private static String JETSON_MAC_ID = "34:13:e8:63:59:7a";
 
     public DeviceService(DeviceRepository deviceRepository, AuthService authService) {
@@ -50,14 +51,14 @@ public class DeviceService {
     }
 
     public void createDevice(DeviceDTO deviceDTO) {
-        this.deviceRepository.save(new Device(this.authService.loggedInUser.getId(), deviceDTO.getMacaddress(), deviceDTO.getName(), deviceDTO.getLocation(), deviceDTO.isActive(), deviceDTO.isDefaultdevice()));
+        this.deviceRepository.save(new Device(this.authService.loggedInUser.getId(), deviceDTO.getMacaddress(), deviceDTO.getName(), deviceDTO.getLocation(), deviceDTO.isActive(), deviceDTO.isDefaultdevice(), deviceDTO.isDefaultdevice()));
     }
 
     public List<DeviceDTO> getAllUserDevices() {
         List<Device> userDevices = this.deviceRepository.findAllByUserid(this.authService.loggedInUser.getId());
         List<DeviceDTO> userDevicesDTO = new ArrayList();
         for (Device d: userDevices) {
-            userDevicesDTO.add(new DeviceDTO(d.getId(),d.getUserid(), d.getMacaddress(), d.getName(), d.getLocation(), d.isActive(), d.isDefaultdevice()));
+            userDevicesDTO.add(new DeviceDTO(d.getId(),d.getUserid(), d.getMacaddress(), d.getName(), d.getLocation(), d.isActive(), d.isDefaultdevice(), d.isMotionactive()));
         }
         return userDevicesDTO;
     }
@@ -71,9 +72,14 @@ public class DeviceService {
         device.setMacaddress(deviceDTO.getMacaddress());
         device.setLocation(deviceDTO.getLocation());
         device.setDefaultdevice(deviceDTO.isDefaultdevice());
-        Device oldDefault = deviceRepository.findByDefaultdevice(true);
-        oldDefault.setDefaultdevice(false);
-        deviceRepository.save(oldDefault);
+        device.setMotionactive(deviceDTO.isMotionactive());
+
+        if (deviceDTO.isDefaultdevice() && deviceDTO.getId() != defaultDevice.getId()) {
+            defaultDevice.setDefaultdevice(false);
+            deviceRepository.save(defaultDevice);
+            defaultDevice = device;
+        }
+
         deviceRepository.save(device);
     }
 
@@ -127,16 +133,22 @@ public class DeviceService {
         // Check if a default device has been set
         for (Device device: allDevices) {
             if (device.isDefaultdevice()) {
-                return new DeviceDTO(device.getId(),device.getUserid(), device.getMacaddress(), device.getName(), device.getLocation(), device.isActive(), device.isDefaultdevice());
+                defaultDevice = device;
+                return new DeviceDTO(device.getId(),device.getUserid(), device.getMacaddress(), device.getName(), device.getLocation(), device.isActive(), device.isDefaultdevice(), device.isMotionactive());
             }
         }
 
         // If no default device has been set then set the first device in the list as the default device.
-        Device defaultDevice = allDevices.get(0);
+        defaultDevice = allDevices.get(0);
         defaultDevice.setDefaultdevice(true);
         deviceRepository.save(defaultDevice);
 
         // finally, return the default device
-        return new DeviceDTO(defaultDevice.getId(), defaultDevice.getUserid(), defaultDevice.getMacaddress(), defaultDevice.getName(), defaultDevice.getLocation(), defaultDevice.isActive(), defaultDevice.isDefaultdevice());
+        return new DeviceDTO(defaultDevice.getId(), defaultDevice.getUserid(), defaultDevice.getMacaddress(), defaultDevice.getName(), defaultDevice.getLocation(), defaultDevice.isActive(), defaultDevice.isDefaultdevice(), defaultDevice.isMotionactive());
+    }
+
+    public DeviceDTO getDeviceById(Long deviceId) {
+        Device device = deviceRepository.getById(deviceId);
+        return new DeviceDTO(device.getId(),device.getUserid(), device.getMacaddress(), device.getName(), device.getLocation(), device.isActive(), device.isDefaultdevice(), device.isMotionactive());
     }
 }

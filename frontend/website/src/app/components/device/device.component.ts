@@ -13,12 +13,14 @@ import { PreferencesService } from 'src/app/services/preferences.service';
 })
 export class DeviceComponent implements OnInit {
 
-  constructor(public preferencesService: PreferencesService, public authService: AuthService, public router:Router, public deviceService:DeviceService,public modalService: NgbModal ) { }
+  constructor(public preferencesService: PreferencesService, public authService: AuthService, public router: Router, public deviceService: DeviceService, public modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.deviceService.getJetsonIPObservablePerDevice(this.deviceID as Number).subscribe((data) =>{
+    this.deviceService.getJetsonIPObservablePerDevice(this.deviceID as Number).subscribe((data) => {
       if (data != "") {
         this.active = true
+        this.deviceIp = data
+        console.log(this.deviceIp)
       }
     })
   }
@@ -29,76 +31,76 @@ export class DeviceComponent implements OnInit {
   @Input() location: string | undefined
   @Input() active: boolean | undefined
   @Input() defaultdevice: boolean | undefined
-
+  @Input() motionactive: boolean | undefined
+  deviceIp = ""
   deletePeriod = this.preferencesService.currentUserPrefences.remove;
 
-  toggleMotion(newSetting: boolean) {
-
-    let preferences:Preferences = {userid: this.authService.loggedInUser.id, remove: this.deletePeriod, motion: newSetting, dark: false}
-    this.preferencesService.editPreferences(preferences);
-
-  this.preferencesService.getPreferences2(this.authService.loggedInUser.id as number)
-  this.preferencesService.updateFlaskPreferences(preferences)
-}
-
-navigateToRecordsPage() {
-  this.router.navigateByUrl(`/records/${this.deviceID}`)
-}
-
-navigateToCamera() {
-  this.router.navigateByUrl((`/camera/${this.deviceID}`))
-}
-closeResult = '';
-
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return `with: ${reason}`;
+  navigateToRecordsPage() {
+    this.router.navigateByUrl(`/records/${this.deviceID}`)
   }
-}
 
-openSettingsModal(settingsModal: any) {
-    this.modalService.open(settingsModal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  navigateToCamera() {
+    this.router.navigateByUrl((`/camera/${this.deviceID}`))
+  }
+  closeResult = '';
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  openSettingsModal(settingsModal: any) {
+    this.modalService.open(settingsModal, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-}
+  }
 
-openDeletionModal(deletionModal: any) {
-  this.modalService.open(deletionModal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
-}
+  openDeletionModal(deletionModal: any) {
+    this.modalService.open(deletionModal, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
-updateDevice(deviceData: any) {
-  console.log(this.deviceID)
-  this.deviceService.editDevice({
-    id:this.deviceID, 
-    userid:this.authService.loggedInUser.id, 
-    macaddress:deviceData.value.macaddress, 
-    name: deviceData.value.name, 
-    location:deviceData.value.location,
-    active:this.active,
-    defaultdevice:this.defaultdevice}).subscribe((data)=>{
+  updateDevice(deviceData: any) {
+    console.log(this.deviceID)
+    this.deviceService.editDevice({
+      id: this.deviceID,
+      userid: this.authService.loggedInUser.id,
+      macaddress: deviceData.value.macaddress,
+      name: deviceData.value.name,
+      location: deviceData.value.location,
+      active: this.active,
+      defaultdevice: this.defaultdevice,
+      motionactive: this.motionactive
+    }).subscribe((data) => {
       this.deviceService.getAllUserDevices()
+      this.deviceService.initializeDefaultDevice()
+      this.deviceService.setJetsonMotionCapture(this.deviceIp, this.deviceID?.toString() as string)
     })
-}
+  }
 
-deleteDevice(deletionModal:any) {
-  this.deviceService.deleteDevice(this.deviceID as number).subscribe((data)=>{
-    this.deviceService.getAllUserDevices()
-    deletionModal.dismiss('Cross click')
-  })
-}
+  deleteDevice(deletionModal: any) {
+    this.deviceService.deleteDevice(this.deviceID as number).subscribe((data) => {
+      this.deviceService.getAllUserDevices()
+      deletionModal.dismiss('Cross click')
+    })
+  }
 
-updateDefaultDevice() {
-  this.defaultdevice = !this.defaultdevice
-}
+  updateDefaultDevice() {
+    this.defaultdevice = !this.defaultdevice
+  }
+
+  updateMotionCapture() {
+    this.motionactive = !this.motionactive
+  }
 
 }

@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:mobile/models/user.dart';
+import 'package:flutter/services.dart';
+import 'package:mobile/models/user.dart';
+import 'package:video_player/video_player.dart';
 import '../models/loginmessage.dart';
 import '../models/mediax.dart';
 import '../widgets/RecordTile.dart';
@@ -17,13 +21,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? _fullname = "";
-  String _streamUrl = "http://127.0.0.1:5000/video_feed";
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+  
   @override
   @protected
   @mustCallSuper
   void initState() {
     getAuthedUser();
     super.initState();
+
+    // _videoPlayerController = VlcPlayerController.network(
+    //   'https://media.w3.org/2010/05/sintel/trailer.mp4',
+    //   autoPlay: false,
+    //   options: VlcPlayerOptions(),
+    // );
+    _controller = VideoPlayerController.network(
+      // https://10.100.211.233/
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    );
+
+    _initializeVideoPlayerFuture = _controller.initialize();
+
   }
 
   getAuthedUser() async {
@@ -48,7 +67,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   String getCameraUrl() {
-    return "http://127.0.0.1:5000/video_feed";
+    return "http://10.100.211.233:8000/";
   }
 
   Future<List<Mediax>> _getAllMediax() async {
@@ -58,6 +77,7 @@ class _HomePageState extends State<HomePage> {
     var body = res.body;
     print(body);
     var jsonData = json.decode(body);
+    Widget _pic;
 
     List<Mediax> mediaxList = [];
 
@@ -85,6 +105,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() async {
+    _controller.dispose();
+
     super.dispose();
     //await _videoPlayerController.stopRendererScanning();
     //await _videoViewController.dispose();
@@ -103,12 +125,48 @@ class _HomePageState extends State<HomePage> {
             child: Column(children: <Widget>[
           Text(_fullname!, style: TextStyle(color: Colors.white)),
           // Camera feed
-          //new VlcPlayer(controller: _vlcViewController, aspectRatio: 1),
-          // VlcPlayer(
-          //   controller: _videoPlayerController,
-          //   aspectRatio: 16 / 9,
-          //   placeholder: Center(child: CircularProgressIndicator()),
-          // ),
+          /*
+          FutureBuilder(
+            future: _initializeVideoPlayerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                // If the VideoPlayerController has finished initialization, use
+                // the data it provides to limit the aspect ratio of the video.
+                return AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  // Use the VideoPlayer widget to display the video.
+                  child: VideoPlayer(_controller),
+                );
+              } else {
+                // If the VideoPlayerController is still initializing, show a
+                // loading spinner.
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              // Wrap the play or pause in a call to `setState`. This ensures the
+              // correct icon is shown.
+              setState(() {
+                // If the video is playing, pause it.
+                if (_controller.value.isPlaying) {
+                  _controller.pause();
+                } else {
+                  // If the video is paused, play it.
+                  _controller.play();
+                }
+              });
+            },
+            // Display the correct icon depending on the state of the player.
+            child: Icon(
+              _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+            ),
+          ),
+          */
+
           Divider(color: Colors.black),
 
           //Mediax list
@@ -135,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
                               //List tile / Song row
-                              return RecordTile(snapshot, index);
+                              return RecordTile(snapshot.data[index]);
                             });
                       }
                     } else {
