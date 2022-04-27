@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:mobile/pages/aboutus.dart';
 import 'package:mobile/pages/faq.dart';
 import 'package:mobile/pages/neighbors.dart';
+
+import 'package:mobile/models/profile.dart';
+import 'package:mobile/models/user.dart';
+import 'package:mobile/pages/profile_page.dart';
 import 'package:mobile/pages/registration_page.dart';
 import 'package:mobile/pages/requestresettoken.dart';
 import '../models/navigation_item.dart';
@@ -23,12 +28,12 @@ class AppState extends State<App> {
         widget: HomePage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
     NavigationItem(
-        icon: const Icon(Icons.person),
+        icon: const Icon(Icons.login),
         title: const Text("Login"),
         widget: LoginPage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
     NavigationItem(
-        icon: const Icon(Icons.person),
+        icon: const Icon(Icons.app_registration),
         title: const Text("Sign Up"),
         widget: RegistrationPage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
@@ -51,6 +56,10 @@ class AppState extends State<App> {
         icon: const Icon(Icons.password),
         title: const Text("Reset Password"),
         widget: RequestResetTokenPage(),
+    NavigationItem(
+        icon: Icon(Icons.person),
+        title: _isAuthed ? Text("Profile") : Text("Account"),
+        widget: profile_page(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
   ];
 
@@ -81,9 +90,9 @@ class AppState extends State<App> {
 
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: Colors.grey.shade900,
-      selectedItemColor: Colors.deepOrangeAccent[400],
-      unselectedItemColor: Colors.white,
+      backgroundColor: Colors.white70,
+      selectedItemColor: Colors.blue[500],
+      unselectedItemColor: Colors.grey.shade900,
       type: BottomNavigationBarType.fixed,
       currentIndex: _currentPage,
       onTap: (int index) {

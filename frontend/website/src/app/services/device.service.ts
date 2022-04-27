@@ -57,4 +57,19 @@ export class DeviceService {
       console.log("Default device", this.defaultDevice)
     })
   }
+
+  initializeDefaultDeviceObservable() {
+    return this.httpClient.get<Device>(`api/device/getDefaultDevice`);
+  }
+
+  getDeviceById(deviceId: Number) {
+    return this.httpClient.get<Device>(`api/device/getDeviceById/${deviceId}`)
+  }
+
+  setJetsonMotionCapture(jetsonIP:string, currentDeviceId: string) {
+    this.getDeviceById(parseInt(currentDeviceId)).subscribe((data)=> {
+      this.httpClient.get(`http://${jetsonIP}:8000/flsk/setMotionCapture/${data.motionactive}`).subscribe(() => {
+    })
+    })
+  }
 }

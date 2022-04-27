@@ -18,6 +18,7 @@ public class DeviceDTO {
     String location;
     boolean active;
     boolean defaultdevice;
+    boolean motionactive;
 
     public DeviceDTO(){}
 
