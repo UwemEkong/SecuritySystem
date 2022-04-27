@@ -56,6 +56,7 @@ class AppState extends State<App> {
         icon: const Icon(Icons.password),
         title: const Text("Reset Password"),
         widget: RequestResetTokenPage(),
+        NavigationItemKey: GlobalKey<NavigatorState>()),
     NavigationItem(
         icon: Icon(Icons.person),
         title: _isAuthed ? Text("Profile") : Text("Account"),
