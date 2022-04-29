@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/models/user.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/models/user.dart';
-import 'package:video_player/video_player.dart';
+
 import '../models/loginmessage.dart';
 import '../models/mediax.dart';
 import '../widgets/RecordTile.dart';
@@ -21,9 +21,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? _fullname = "";
-  late VideoPlayerController _controller;
+  //late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
-  
+
   @override
   @protected
   @mustCallSuper
@@ -36,13 +36,12 @@ class _HomePageState extends State<HomePage> {
     //   autoPlay: false,
     //   options: VlcPlayerOptions(),
     // );
-    _controller = VideoPlayerController.network(
-      // https://10.100.211.233/
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    );
+    //_controller = VideoPlayerController.network(
+    // https://10.100.211.233/
+    // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    //);
 
-    _initializeVideoPlayerFuture = _controller.initialize();
-
+    //_initializeVideoPlayerFuture = _controller.initialize();
   }
 
   getAuthedUser() async {
@@ -105,7 +104,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() async {
-    _controller.dispose();
+    // _controller.dispose();
 
     super.dispose();
     //await _videoPlayerController.stopRendererScanning();

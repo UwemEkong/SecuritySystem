@@ -4,6 +4,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile/pages/aboutus.dart';
+import 'package:mobile/pages/faq.dart';
+import 'package:mobile/pages/requestresettoken.dart';
 
 import '../models/user.dart';
 
@@ -57,10 +60,13 @@ class _profile_page_state extends State<profile_page> {
           backgroundColor: (Colors.blue[500]),
         ),
         body: SizedBox(
-          height: 210,
+          height: 710,
+          width: 400,
           child: Card(
             child: Column(
               children: [
+                Padding(padding: EdgeInsets.all(10)),
+                //Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
                 ListTile(
                   title: Text(
                     'Welcome ' + firstName! + ' ' + lastName!,
@@ -78,17 +84,53 @@ class _profile_page_state extends State<profile_page> {
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   leading: Icon(
-                    Icons.person_pin,
+                    Icons.person_outline,
                     color: Colors.blue[500],
                   ),
                 ),
                 ListTile(
-                  title: Text('email: ' + email!),
+                  title: Text(
+                    'email: ' + email!,
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
                   leading: Icon(
-                    Icons.contact_mail,
+                    Icons.email,
                     color: Colors.blue[500],
                   ),
                 ),
+                ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue)),
+                    child: Text('Reset Password'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => RequestResetTokenPage()));
+                    }),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (context) => FaqPage()));
+                  },
+                  child: const Text(
+                    'Frequently Asked Questions',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                TextButton(
+                  child: const Text(
+                    'About Us',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => AboutUsPage()));
+                  },
+                )
               ],
             ),
           ),
