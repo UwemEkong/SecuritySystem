@@ -24,44 +24,20 @@ class AppState extends State<App> {
   final List<NavigationItem> _items = [
     NavigationItem(
         icon: const Icon(Icons.home),
-        title: const Text("Home"),
         widget: HomePage(),
-        NavigationItemKey: GlobalKey<NavigatorState>()),
+        NavigationItemKey: GlobalKey<NavigatorState>(),
+        title: Container(height: 0)),
     NavigationItem(
-        icon: const Icon(Icons.login),
-        title: const Text("Login"),
-        widget: LoginPage(),
-        NavigationItemKey: GlobalKey<NavigatorState>()),
-    NavigationItem(
-        icon: const Icon(Icons.app_registration),
-        title: const Text("Sign Up"),
-        widget: RegistrationPage(),
-        NavigationItemKey: GlobalKey<NavigatorState>()),
-    NavigationItem(
-        icon: const Icon(Icons.info),
-        title: const Text("FAQ"),
-        widget: FaqPage(),
-        NavigationItemKey: GlobalKey<NavigatorState>()),
-    NavigationItem(
-        icon: const Icon(Icons.info),
-        title: const Text("About Us"),
-        widget: AboutUsPage(),
-        NavigationItemKey: GlobalKey<NavigatorState>()),
-    NavigationItem(
-        icon: const Icon(Icons.person),
-        title: const Text("Neighbors"),
+        icon: const Icon(Icons.people_rounded),
+        title: Container(height: 0),
         widget: NeighborsPage(),
         NavigationItemKey: GlobalKey<NavigatorState>()),
     NavigationItem(
-        icon: const Icon(Icons.password),
-        title: const Text("Reset Password"),
-        widget: RequestResetTokenPage(),
-        NavigationItemKey: GlobalKey<NavigatorState>()),
-    NavigationItem(
-        icon: Icon(Icons.person),
-        title: _isAuthed ? Text("Profile") : Text("Account"),
-        widget: profile_page(),
-        NavigationItemKey: GlobalKey<NavigatorState>()),
+      icon: Icon(Icons.person),
+      widget: profile_page(),
+      NavigationItemKey: GlobalKey<NavigatorState>(),
+      title: Container(height: 0.0),
+    )
   ];
 
   static var _isAuthed = false;
@@ -91,6 +67,8 @@ class AppState extends State<App> {
 
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       backgroundColor: Colors.white70,
       selectedItemColor: Colors.blue[500],
       unselectedItemColor: Colors.grey.shade900,

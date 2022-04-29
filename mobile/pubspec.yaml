@@ -31,7 +31,6 @@ dependencies:
     sdk: flutter
 
 
-  video_player:
 
   splashscreen:
 

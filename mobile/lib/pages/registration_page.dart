@@ -74,10 +74,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF303030),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Sign Up'),
-        backgroundColor: const Color(0xFF303030),
+        title: const Text('Create an Account'),
+        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -89,16 +89,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
           FormInput(emailController, 'Email', 'Enter valid email'),
           FormInput(userNameController, 'User Name', 'Enter valid user name'),
           FormInput(passwordController, 'Password', 'Enter password'),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(_errorText!,
-                style: TextStyle(
-                    height: 1.25, fontSize: 35, color: Colors.red[500])),
-          ),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black)),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
             child: Text('Register'),
             onPressed: () => register(
                 firstNameController.text,

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/main.dart';
 import 'package:mobile/pages/home_page.dart';
 import 'package:mobile/pages/profile_page.dart';
+import 'package:mobile/pages/registration_page.dart';
+import 'package:mobile/pages/requestresettoken.dart';
 import '../models/loginmessage.dart';
 // import '../pages/admin.dart';
 // import 'package:sour_notes/pages/home_page.dart';
+import '../widgets/app.dart';
 import '../widgets/form_input.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
@@ -74,11 +78,7 @@ class _LoginPageState extends State<LoginPage> {
       setState(() => attempts = attempts! - 1);
     } else {
       Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => profile_page(),
-        ),
-      );
+          context, new MaterialPageRoute(builder: (context) => App()));
     }
   }
 
@@ -93,42 +93,63 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF303030),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Login'),
-        backgroundColor: Color(0xFF303030),
+        title: const Text('Big Brother Security'),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          FormInput(userNameController, 'Username', 'Enter Valid Username'),
-          FormInput(passwordController, 'Password', 'Enter Password'),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text("Attempts left: " "$attempts",
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const Text('Welcome to Big Brother Security',
                 style: TextStyle(
-                    height: 1.25, fontSize: 20, color: Colors.red[500])),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(_errorText!,
-                style: TextStyle(
-                    height: 1.25, fontSize: 35, color: Colors.red[500])),
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black)),
-            child: Text('Login'),
-            onPressed: _isEnabled
-                ? () => login(
-                    userNameController.text, passwordController.text, context)
-                : null,
-          ),
-        ],
-      )),
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 30),
+                textAlign: TextAlign.center),
+            const Padding(padding: EdgeInsets.all(15.0)),
+            FormInput(userNameController, 'Username', 'Enter Valid Username'),
+            FormInput(passwordController, 'Password', 'Enter Password'),
+            ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue)),
+              child: Text('Login'),
+              onPressed: _isEnabled
+                  ? () => login(
+                      userNameController.text, passwordController.text, context)
+                  : null,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => RequestResetTokenPage()));
+              },
+              child: const Text(
+                'Forgot Password',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            const Text("Don't not have account?"),
+            TextButton(
+              child: const Text(
+                'Sign up',
+                style: TextStyle(fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => RegistrationPage()));
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 }
