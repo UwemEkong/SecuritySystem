@@ -67,14 +67,20 @@ class _LoginPageState extends State<LoginPage> {
     if (body == "Incorrect Username") {
       if (attempts! <= 0) {
         setState(() => attempts = attempts! + 1);
+        showAlertDialog(context);
       }
       setState(() => _errorText = "Incorrect Username");
+      showAlertDialog(context);
+
       setState(() => attempts = attempts! - 1);
     } else if (body == "Incorrect Password") {
       if (attempts! <= 0) {
         setState(() => attempts = attempts! + 1);
+        showAlertDialog(context);
       }
       setState(() => _errorText = "Incorrect Password");
+      showAlertDialog(context);
+
       setState(() => attempts = attempts! - 1);
     } else {
       Navigator.push(
@@ -150,6 +156,33 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget button = TextButton(
+      child: Text("Continue"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Incorrect Login Credentials"),
+      content: Text("Your login attempt was incorrect.  Please try again."),
+      actions: [
+        button,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
