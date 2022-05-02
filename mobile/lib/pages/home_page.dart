@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/models/user.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/models/user.dart';
+import 'package:mobile/widgets/Feed.dart';
 
 import '../models/loginmessage.dart';
 import '../models/mediax.dart';
@@ -124,6 +125,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(children: <Widget>[
           Text(_fullname!, style: TextStyle(color: Colors.white)),
           // Camera feed
+          Feed(),
           /*
           FutureBuilder(
             future: _initializeVideoPlayerFuture,

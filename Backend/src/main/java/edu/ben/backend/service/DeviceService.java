@@ -151,4 +151,9 @@ public class DeviceService {
         Device device = deviceRepository.getById(deviceId);
         return new DeviceDTO(device.getId(),device.getUserid(), device.getMacaddress(), device.getName(), device.getLocation(), device.isActive(), device.isDefaultdevice(), device.isMotionactive());
     }
+
+    public String getDefaultIp() throws IOException {
+        String ip = getJetsonIP(getDefaultDevice().getId());
+        return ip;
+    }
 }
