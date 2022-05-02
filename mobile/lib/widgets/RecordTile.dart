@@ -4,7 +4,7 @@ import 'package:mobile/pages/mediax_detail.dart';
 
 class RecordTile extends StatefulWidget {
   final Mediax mediaxObject;
-  RecordTile(this.mediaxObject, {Key? key}) : super(key: key);
+  RecordTile(this.mediaxObject, Divider divider, {Key? key}) : super(key: key);
 
   @override
   State<RecordTile> createState() => _RecordTileState();

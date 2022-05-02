@@ -10,7 +10,6 @@ class EnterTokenPage extends StatefulWidget {
   final email;
   EnterTokenPage({this.email}) : super();
 
-
   @override
   _EnterTokenPage createState() => _EnterTokenPage();
 }
@@ -36,12 +35,14 @@ class _EnterTokenPage extends State<EnterTokenPage> {
     );
 
     if (response.statusCode != 200) {
+      print(response.statusCode);
       setState(() => _errorText = response.body);
     } else {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ChangePasswordPage(username: username, token: token, email: widget.email)));
+              builder: (context) => ChangePasswordPage(
+                  username: username, token: token, email: widget.email)));
     }
   }
 
@@ -49,32 +50,31 @@ class _EnterTokenPage extends State<EnterTokenPage> {
     if (Platform.isAndroid) {
       return 'http://10.0.2.2:8080/api/auth/forgot-password/$username/$token';
     } else {
-      return 'http://localhost:8080/api/auth/forgot-password/$username}/$token';
+      return 'http://localhost:8080/api/auth/forgot-password/$username/$token';
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF303030),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Token Confirmation'),
-        backgroundColor: Color(0xFF303030),
+        backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              FormInput(userNameController, 'Username', 'Enter Username'),
-              FormInput(tokenController, 'Token', 'Enter Token'),
-              ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black)),
-                  child: const Text('Continue to Reset Password!'),
-                  onPressed: () => reset(userNameController.text, tokenController.text, context)),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            FormInput(userNameController, 'Username', 'Enter Username'),
+            FormInput(tokenController, 'Token', 'Enter Token'),
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue)),
+                child: const Text('Continue to Reset Password!'),
+                onPressed: () => reset(
+                    userNameController.text, tokenController.text, context)),
+          ],
         ),
       ),
     );

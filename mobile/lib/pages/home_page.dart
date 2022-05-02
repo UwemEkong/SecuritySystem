@@ -52,10 +52,9 @@ class _HomePageState extends State<HomePage> {
     var res = await http.get(Uri.parse(url));
     var body = res.body;
 
-    if (body.length > 1) {
-      setState(
-          () => _fullname = "Logged in as: " + json.decode(body)["username"]);
-    }
+    // if (body.length > 1) {
+    //   setState(() => _fullname = json.decode(body)["username"]);
+    // }
   }
 
   getUrlForDevice() {
@@ -117,13 +116,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('BigBro Security'),
-          backgroundColor: Color(0xFF303030),
+          backgroundColor: Colors.blue,
         ),
         // const color = const Color(0xFF303030);,
-        backgroundColor: Color(0xFF303030),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
-          Text(_fullname!, style: TextStyle(color: Colors.white)),
+          // Text(_fullname!, style: TextStyle(color: Colors.white)),
           // Camera feed
           Feed(),
           /*
@@ -168,7 +167,7 @@ class _HomePageState extends State<HomePage> {
           ),
           */
 
-          Divider(color: Colors.black),
+          // Divider(color: Colors.black),
 
           //Mediax list
           Container(
@@ -182,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.data == null) {
                         return Container(
                           child: Center(
-                            child: Text("Loading..."),
+                            child: Text("Loading Your Records"),
                           ),
                         );
                       } else {
@@ -194,7 +193,12 @@ class _HomePageState extends State<HomePage> {
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
                               //List tile / Song row
-                              return RecordTile(snapshot.data[index]);
+                              return RecordTile(
+                                snapshot.data[index],
+                                const Divider(
+                                  color: Colors.black,
+                                ),
+                              );
                             });
                       }
                     } else {
