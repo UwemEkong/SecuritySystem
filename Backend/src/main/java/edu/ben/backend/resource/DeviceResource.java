@@ -54,6 +54,11 @@ public class DeviceResource {
         return this.deviceService.getDefaultDevice();
     }
 
+    @GetMapping("/getDefaultIp")
+    public String getDefaultIp() throws IOException {
+        return this.deviceService.getDefaultIp();
+    }
+
     @GetMapping("/getDeviceById/{deviceId}")
     public DeviceDTO getDeviceById(@PathVariable Long deviceId) {
         return this.deviceService.getDeviceById(deviceId);
