@@ -34,8 +34,10 @@ class _RequestResetTokenPage extends State<RequestResetTokenPage> {
     if (response.statusCode != 200) {
       setState(() => _errorText = response.body);
     } else {
-      Navigator.push(context,
-          new MaterialPageRoute(builder: (context) => EnterTokenPage(email: email)));
+      Navigator.push(
+          context,
+          new MaterialPageRoute(
+              builder: (context) => EnterTokenPage(email: email)));
     }
   }
 
@@ -50,33 +52,31 @@ class _RequestResetTokenPage extends State<RequestResetTokenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF303030),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Request Password Reset Token'),
-        backgroundColor: Color(0xFF303030),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: Text("Enter a valid email to receive reset token!\n\n",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        height: 1.25,
-                        fontSize: 25,
-                        color: Colors.white)),
-              ),
-              FormInput(emailController, 'E-Mail', 'Enter E-Mail'),
-              ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black)),
-                  child: const Text('Request Reset Token'),
-                  onPressed: () => send(emailController.text, context)),
-            ],
-          ),
+        child: Column(
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.all(10),
+              child: Text("Enter a valid email to receive reset token!\n\n",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      height: 1.25,
+                      fontSize: 25,
+                      color: Colors.white)),
+            ),
+            FormInput(emailController, 'E-Mail', 'Enter E-Mail'),
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue)),
+                child: const Text('Request Reset Token'),
+                onPressed: () => send(emailController.text, context)),
+          ],
         ),
       ),
     );

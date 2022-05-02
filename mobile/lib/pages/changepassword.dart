@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/pages/profile_page.dart';
 import 'package:mobile/pages/requestresettoken.dart';
 import 'package:mobile/widgets/form_input.dart';
 import '../widgets/form_input.dart';
 import 'dart:io' show Platform;
 import 'package:http/http.dart' as http;
-
 
 class ChangePasswordPage extends StatefulWidget {
   final username;
@@ -51,7 +51,7 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => RequestResetTokenPage(),
+          builder: (context) => profile_page(),
         ),
       );
     }
@@ -68,36 +68,46 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF303030),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Change Password'),
-        backgroundColor: Color(0xFF303030),
+        backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SizedBox(
+        height: 710,
+        width: 400,
+        child: Card(
           child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                    "Username: " +
-                        widget.username +
-                        "\n\nE-Mail: " +
-                        widget.email +
-                        "\n\nReset Token: " +
-                        widget.token + "\n",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        height: 1.25,
-                        fontSize: 25,
-                        color: Colors.white)),
+            children: [
+              Padding(padding: EdgeInsets.all(10)),
+              //Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+
+              ListTile(
+                title: Text(
+                  'Username: ' + widget.username,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                leading: Icon(
+                  Icons.person_outline,
+                  color: Colors.blue[500],
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'email: ' + widget.email,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                leading: Icon(
+                  Icons.email,
+                  color: Colors.blue[500],
+                ),
               ),
               FormInput(
                   passwordController, 'New Password', 'Enter New Password'),
               ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black)),
+                          MaterialStateProperty.all<Color>(Colors.blue)),
                   child: const Text('Reset Password!'),
                   onPressed: () => reset(passwordController.text, context)),
             ],
