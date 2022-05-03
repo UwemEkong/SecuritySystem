@@ -1,18 +1,18 @@
-div{
-  padding-left:30px;
-}
-
-.submit-btn {
-  width:100px;
-  height:45px;
-  background-color: #1877F2;
-  color:white;
-  font-family: "Helvetica", sans-serif;
-  font-size:15px;
-  font-weight:bold;
-  border:none;
-  border-radius:8px;
-}
+//.submit-btn {
+//  width:150px;
+//  margin-top:2%;
+//  margin-bottom:5%;
+//  margin-left:5%;
+//  margin-right:5%;
+//  background-color: #1877F2;
+//  color:white;
+//  font-family: "Helvetica", sans-serif;
+//  font-size:15px;
+//  font-weight:bold;
+//  border: none;
+//  border-radius:5px;
+//  height:50px;
+//}
 
 .typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
@@ -20,12 +20,11 @@ div{
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .15em; /* Adjust as needed */
-  animation:
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
-  display:inline-block;
-  font-size:30px;
-  font-weight:bold;
+  animation: typing 3.5s steps(40, end),
+  blink-caret .75s step-end infinite;
+  display: inline-block;
+  font-size: 210%;
+  font-weight: bold;
 }
 
 .typewriter {
@@ -33,46 +32,46 @@ div{
 }
 
 .gear {
-  width:30px;
-  height:auto;
+  width: 5%;
+  height: auto;
 }
 
 select {
-  height:50px;
+  height: 100%;
   width: 25%;
   text-align: center;
   font-family: "Helvetica", sans-serif;
-  font-size:20px;
-  font-weight:bold;
-  color:            black;
+  font-size: 150%;
+  font-weight: bold;
+  color: black;
   background-color: white;
-  border-radius:     5px;
-  border-color:     blue;
+  border-radius: 1%;
+  border-color: blue;
   //width:8%;
   //margin-right: 46%;
   //margin-left:46%;
 }
 
 .clear-preference {
-  font-size: 1em;
-  text-align:center;
-  width:100%;
+  font-size: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 .clear-header {
-  font-size:24px;
+  font-size: 160%;
 }
 
 .motion-preference {
-  font-size: 1em;
-  text-align:center;
-  margin-top:20px;
+  font-size: 100%;
+  text-align: center;
+  margin-top: 5%;
 }
 
 .switch {
   position: relative;
-  display: inline-block;
-  width: 60px;
+  //display: inline-block;
+  width: 12%;
   height: 34px;
 }
 
@@ -98,10 +97,12 @@ select {
 .slider1:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 30px;
+  width: 40%;
+  left: 5%;
+  right: 5%;
+  top: 5%;
+  bottom: 5%;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -122,19 +123,20 @@ select {
 .slider2:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 30px;
+  width: 40%;
+  left: 5%;
+  right: 5%;
+  top: 5%;
+  bottom: 5%;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 .font-varies {
-  font-size: 1em;
+  font-size: 100%;
 }
-
 
 
 * {
@@ -157,7 +159,7 @@ ul li {
   color: black;
   display: block;
   position: relative;
-  width:15%;
+  width: 15%;
 }
 
 ul li:hover {
@@ -173,11 +175,12 @@ ul li:hover {
   transform: translate(0%, -50%);
 }
 
-.close:hover {background: #bbb;}
+.close:hover {
+  background: #bbb;
+}
 
 button {
-  margin: 10px;
-
-  font-size: 15px;
+  margin: 2%;
+  font-size: 100%;
 }
 

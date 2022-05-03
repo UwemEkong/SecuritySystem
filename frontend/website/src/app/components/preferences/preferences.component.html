@@ -2,7 +2,7 @@
 <br>
 <br>
 
-<div class="typewriter" >
+<div class="typewriter">
   <h1>My Preferences<img class="gear" src="https://cdn-icons-png.flaticon.com/512/446/446085.png"></h1>
 </div>
 <br><br><br>
@@ -10,12 +10,14 @@
 <div class="motion-preference">
   <h3 class="clear-header">Toggle Motion Capture: </h3>
 
-  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == false" class="switch" (click)="toggleMotion(true)">
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == false" class="switch"
+         (click)="toggleMotion(true)">
     <input type="checkbox">
     <span class="slider1 round"></span>
   </label>
 
-  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == true" class="switch" (click)="toggleMotion(false)">
+  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == true" class="switch"
+         (click)="toggleMotion(false)">
     <input type="checkbox">
     <span class="slider2 round"></span>
   </label>
@@ -50,11 +52,6 @@
   <p> What font size would you like?</p>
   <p> Font-Size (Pixels): </p>
   <select [(ngModel)]="fontSizeSetting">
-    <option value="10">10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-    <option value="13">13</option>
-    <option value="14">14</option>
     <option value="15">15</option>
     <option value="16">16</option>
     <option value="17">17</option>
@@ -71,28 +68,8 @@
     <option value="28">28</option>
     <option value="29">29</option>
     <option value="30">30</option>
-    <option value="31">31</option>
-    <option value="32">32</option>
-    <option value="33">33</option>
-    <option value="34">34</option>
-    <option value="35">35</option>
-    <option value="36">36</option>
-    <option value="37">37</option>
-    <option value="38">38</option>
-    <option value="39">39</option>
-    <option value="40">40</option>
-    <option value="41">41</option>
-    <option value="42">42</option>
-    <option value="43">43</option>
-    <option value="44">44</option>
-    <option value="45">45</option>
-    <option value="46">46</option>
-    <option value="47">47</option>
-    <option value="48">48</option>
-    <option value="49">49</option>
-    <option value="50">50</option>
   </select><br><br>
-  <button class="btn btn-outline-primary"  (click)="editPreferencesFontSize()">Submit</button>
+  <button class="btn btn-outline-primary" (click)="editPreferencesFontSize()">Submit</button>
 </div><br><br>
 
 <br><br>
@@ -111,7 +88,7 @@
     <option value="450">450</option>
     <option value="500">500</option>
   </select><br><br>
-  <button class="btn btn-outline-primary"  (click)="editPreferencesImageSize()">Submit</button>
+  <button class="btn btn-outline-primary" (click)="editPreferencesImageSize()">Submit</button>
 </div><br><br>
 
 <br><br>
@@ -130,7 +107,7 @@
     <option value="450">450</option>
     <option value="500">500</option>
   </select><br><br>
-  <button class="btn btn-outline-primary"  (click)="editPreferencesVideoSize()">Submit</button>
+  <button class="btn btn-outline-primary" (click)="editPreferencesVideoSize()">Submit</button>
 </div>
 
 
@@ -139,15 +116,17 @@
 <div class="motion-preference">
   <h3 class="clear-header">Things to Notify Me About: </h3>
 
-  <input id="addLabel" size=100 class="form-control" aria-describedby="motionHelp" placeholder="Person, car, dog, etc..."><button class="btn btn-outline-primary" (click)="addLabel()" class="submit-btn">Add</button>
-<br><br>
+  <input id="addLabel" size=100 class="form-control" aria-describedby="motionHelp"
+         placeholder="Person, car, dog, etc...">
+  <button class="btn btn-outline-primary" (click)="addLabel()" class="btn btn-outline-primary">Add</button>
+  <br><br>
   <ul *ngFor="let l of listOfLabels; let i = index">
-    
-    <li id="label{{i}}">{{l.text}}<span class="close" 
-      (click)="deleteLabel(l.text,i)">&times;</span></li>
-  
+
+    <li id="label{{i}}">{{l.text}}<span class="close"
+                                        (click)="deleteLabel(l.text,i)">&times;</span></li>
+
   </ul>
-  
+
 </div>
 
 
