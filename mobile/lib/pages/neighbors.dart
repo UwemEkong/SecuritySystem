@@ -98,10 +98,10 @@ class _NeighborsPage extends State<NeighborsPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      backgroundColor: Color(0xFF303030),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Neighborhood Media'),
-        backgroundColor: Color(0xFF303030),
+        backgroundColor: Colors.blue,
         centerTitle: true,
       ),
       body: Center(
@@ -112,31 +112,60 @@ class _NeighborsPage extends State<NeighborsPage> {
                 return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                            "\n\nTitle: " +
-                                snapshot.data![index].title +
-                                "\nDate: " +
-                                snapshot.data![index].timestamp +
-                                "\nLocation: " +
-                                snapshot.data![index].location +
-                                "\nUser Id: " +
-                                snapshot.data![index].userid.toString(),
-                            style: const TextStyle(
+                      return Card(
+                          child: Column(children: [
+                        Padding(padding: EdgeInsets.all(10)),
+                        //Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                        ListTile(
+                          title: Text(
+                              "\n\nTitle: " +
+                                  snapshot.data![index].title +
+                                  "\nDate: " +
+                                  snapshot.data![index].timestamp +
+                                  "\nLocation: " +
+                                  snapshot.data![index].location,
+                              style: const TextStyle(
                                 fontFamily: "Trajan Pro",
                                 height: 1.0,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFFFFFFFF))),
-                        subtitle: Image.network(snapshot.data![index].url),
-                        // trailing: Text(snapshot.data![index].timestamp,
-                        //     style: const TextStyle(
-                        //         fontFamily: "Trajan Pro",
-                        //         height: 1.0,
-                        //         fontSize: 10,
-                        //         fontWeight: FontWeight.bold,
-                        //         color: Color(0xFFFFFFFF))),
-                      );
+                                color: Colors.blue,
+                              )),
+                          subtitle: Image.network(snapshot.data![index].url),
+                          trailing: Text(snapshot.data![index].timestamp,
+                              style: const TextStyle(
+                                  fontFamily: "Trajan Pro",
+                                  height: 1.0,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue)),
+
+                          // return ListTile(
+                          //   title: Text(
+                          //       "\n\nTitle: " +
+                          //           snapshot.data![index].title +
+                          //           "\nDate: " +
+                          //           snapshot.data![index].timestamp +
+                          //           "\nLocation: " +
+                          //           snapshot.data![index].location +
+                          //           "\nUser Id: " +
+                          //           snapshot.data![index].userid.toString(),
+                          //       style: const TextStyle(
+                          //           fontFamily: "Trajan Pro",
+                          //           height: 1.0,
+                          //           fontSize: 20,
+                          //           fontWeight: FontWeight.bold,
+                          //           color: Color(0xFFFFFFFF))),
+                          //   subtitle: Image.network(snapshot.data![index].url),
+                          // trailing: Text(snapshot.data![index].timestamp,
+                          //     style: const TextStyle(
+                          //         fontFamily: "Trajan Pro",
+                          //         height: 1.0,
+                          //         fontSize: 10,
+                          //         fontWeight: FontWeight.bold,
+                          //         color: Color(0xFFFFFFFF))),
+                        )
+                      ]));
                     });
               } else if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
