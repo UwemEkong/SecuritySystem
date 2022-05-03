@@ -25,20 +25,56 @@ import subprocess
 import sys
 import websockets
 import asyncio
+import platform
 
 import base64
 
 ACCESS_KEY = 'AKIA2X357CBVPHQAVH2E'
 SECRET_KEY = '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'
 
+def apply_timestamp(fram):
+    font = cv2.FONT_HERSHEY_DUPLEX
+ 
+    #date and time as variable
+    dt = str(datetime.datetime.now())
+    color = (0, 0, 0)
+
+    #lay date and time video frame
+    fram = cv2.putText(fram, dt,
+                    (10, 100),
+                    font, 1,
+                    color,
+                    4, cv2.LINE_8)
+
+    return fram
+
                                                                 
 async def transmit(websocket, path):
     print("Client Connected !")
     try :
+
+        HEADERS = {
+                    'Access-Control-Allow-Origin': '*'
+                    }
+
+        ipurl = 'http://localhost:8080/api/device/getDefaultIp'
+
+
+        if platform.system() == "Windows":
+            ipurl = "http://10.0.2.2:8080/api/device/getDefaultIp"
+
+
+        response = requests.get(ipurl, headers=HEADERS)
+        
+        print("RESPOSONSE")
+        print(response)
+
         cap = cv2.VideoCapture("http://10.100.212.49:8000")
 
         while cap.isOpened():
             _, frame = cap.read()
+
+            frame = apply_timestamp(frame)
             
             encoded = cv2.imencode('.jpg', frame)[1]
 
@@ -58,21 +94,6 @@ asyncio.get_event_loop().run_forever()
 
 
 
-def apply_timestamp(fram):
-    font = cv2.FONT_HERSHEY_DUPLEX
- 
-    #date and time as variable
-    dt = str(datetime.datetime.now())
-    color = (0, 0, 0)
-
-    #lay date and time video frame
-    fram = cv2.putText(fram, dt,
-                    (10, 100),
-                    font, 1,
-                    color,
-                    4, cv2.LINE_8)
-
-    return fram
 
 import socket
 from contextlib import closing
