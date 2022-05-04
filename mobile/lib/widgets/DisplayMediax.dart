@@ -34,7 +34,7 @@ class _DisplayMediaxState extends State<DisplayMediax> {
     _videoPlayerController = VlcPlayerController.network(
       widget.mediax.url,
       hwAcc: HwAcc.auto,
-      autoPlay: false,
+      autoPlay: true,
       options: VlcPlayerOptions(),
     );
   }

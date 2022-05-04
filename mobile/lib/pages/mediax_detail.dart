@@ -120,27 +120,41 @@ class _MediaxDetailPageState extends State<MediaxDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF303030),
-      appBar: AppBar(
-        title: Text(widget.mediax.filename),
-        backgroundColor: Color(0xFF303030),
-      ),
-      body: Container(
-        child: SingleChildScrollView(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(widget.mediax.filename),
+          backgroundColor: Colors.blue,
+        ),
+        body: Container(
+            child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               DisplayMediax(widget.mediax),
-              Text(
-                widget.mediax.location,
-                style: TextStyle(fontSize: 12, color: Colors.white),
-              ),
-              ElevatedButton(
-                  child: Text('Delete'), onPressed: () => deleteMediax()),
+              ListTile(
+                  title: Text(
+                      "\n\nTitle: " +
+                          widget.mediax.title +
+                          "\nDate: " +
+                          widget.mediax.timestamp +
+                          "\nLocation: " +
+                          widget.mediax.location,
+                      style: const TextStyle(
+                        fontFamily: "Trajan Pro",
+                        height: 1.0,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      )),
+                  trailing: Text(widget.mediax.timestamp,
+                      style: const TextStyle(
+                          fontFamily: "Trajan Pro",
+                          height: 1.0,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue)))
             ],
           ),
-        ),
-      ),
-    );
+        )));
   }
 
   void deleteMediax() async {
