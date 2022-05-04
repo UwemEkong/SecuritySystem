@@ -3,7 +3,6 @@ import 'package:mobile/pages/login.dart';
 import 'package:http/http.dart' as http;
 import '../pages/home_page.dart';
 import '../widgets/app.dart';
-import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   runApp(MyApp());
