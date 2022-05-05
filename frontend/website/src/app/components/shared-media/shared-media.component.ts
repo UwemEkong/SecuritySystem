@@ -11,6 +11,7 @@ export class SharedMediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.chooseCategoryImage();
+    console.log(this.mediaURL)
   }
 
   chooseCategoryImage() {
@@ -38,6 +39,7 @@ export class SharedMediaComponent implements OnInit {
   @Input() location: string | undefined
   @Input() path: string | undefined
   @Input() id: number | undefined
+  @Input() mediaURL: string| undefined
 
   category_image = ""
 

@@ -1,9 +1,26 @@
+.register-cont {
+  width:80%;
+  margin-left:10%;
+  margin-right:10%;
+  margin-top:100px;
+}
+
+.form-row {
+  width:100%;
+}
+.email-row{
+  width:100%;
+}
+
 .register-lbl {
   text-align:left;
 }
 
 .register-btn {
-  width:100%;
+  margin-top:20px;
+  width:40%;
+  margin-left:30%;
+  margin-right:30%;
   margin-bottom:10%;
   background-color: #1877F2;
   color:white;
@@ -16,7 +33,9 @@
 }
 
 .login-btn {
-  width:80%;
+  width:40%;
+  margin-left:30%;
+  margin-right:30%;
   background-color: #42B72A;
   color:white;
   font-family: "Helvetica", sans-serif;
@@ -30,9 +49,11 @@
 //700px
 @media (min-width: 43.75em) {
   .register-btn {
-      width:100%;
-      margin-bottom:12%;
-      margin-top:2%;
+    margin-top:20px;
+     width:40%;
+     margin-left:30%;
+     margin-right:30%;
+     margin-bottom:12%;
       background-color: #1877F2;
       color:white;
       font-family: "Helvetica", sans-serif;
@@ -47,9 +68,11 @@
 /* 992px */
 @media (min-width: 62em) {
   .register-btn {
-      width:100%;
+    margin-top:20px;
+    width:40%;
+    margin-left:30%;
+    margin-right:30%;
       margin-bottom:10%;
-      margin-top:10%;
       background-color: #1877F2;
       color:white;
       font-family: "Helvetica", sans-serif;
@@ -65,7 +88,10 @@
   /* 1392px */
   @media (min-width: 87em) {
       .register-btn {
-          width:100%;
+        margin-top:20px;
+        width:40%;
+        margin-left:30%;
+        margin-right:30%;
           background-color: #1877F2;
           color:white;
           font-family: "Helvetica", sans-serif;
@@ -74,13 +100,14 @@
           border: none;
           border-radius:5px;
           height:3rem;
-          margin-top:8%;
           margin-bottom:5%;
       } 
 
       
       .login-btn {
-          width:80%;
+        width:40%;
+        margin-left:30%;
+        margin-right:30%;
           background-color: #42B72A;
           color:white;
           font-family: "Helvetica", sans-serif;

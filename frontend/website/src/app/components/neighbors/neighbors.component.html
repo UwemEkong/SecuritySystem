@@ -16,7 +16,7 @@
                     <div (click)="this.locationService.toggleSearchRadius(0)" [ngStyle]="this.locationService.search_radius == 0?{'background-color': '#dbf1fa'} : {'background-color': '#D3D3D3'}" class="filter">any</div>
                 </div>
             </div>
-            <app-shared-media *ngFor="let media of mediaxService.allSharedMediax" [title]="media.title" [timestamp]="media.timestamp" [category]="media.category" [views]="media.views" [location]="media.location" [path]="media.pathorkey" [id]="media.id"></app-shared-media>
+            <app-shared-media *ngFor="let media of mediaxService.allSharedMediax" [title]="media.title" [timestamp]="media.timestamp" [category]="media.category" [views]="media.views" [location]="media.location" [path]="media.pathorkey" [id]="media.id" [mediaURL]="media.url"></app-shared-media>
         </div>
         <div class="col-8 map-col">
             <div class="full" id="map"></div>
