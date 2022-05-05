@@ -16,38 +16,43 @@ class _RecordTileState extends State<RecordTile> {
     print(widget.mediaxObject);
     print("BIGBROOOOOOO");
     return Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: PhysicalModel(
             color: Colors.white,
             elevation: 18,
             shadowColor: Colors.black,
             borderRadius: BorderRadius.circular(20),
-            child: ListTile(
-              tileColor: Colors.white,
-              title: Text(widget.mediaxObject.filename,
-                  style: TextStyle(
-                      fontFamily: "Trajan Pro",
-                      height: 1.0,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF303030))),
-              subtitle: Text(widget.mediaxObject.location,
-                  style: TextStyle(
-                      fontFamily: "Trajan Pro",
-                      height: 1.0,
-                      fontSize: 8,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF303030))),
-              //trailing: Text(widget.mediaxObject.timestamp),
-              onTap: () {
-                //When user clicks the row/tile they go to the song's detail page
+            child: SizedBox(
 
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) =>
-                            MediaxDetailPage(widget.mediaxObject)));
-              },
-            )));
+                /// Enter your fixed width here, 300.0 ist just an example
+                width: 1020.0,
+                child: ListTile(
+                  minLeadingWidth: 1000,
+                  tileColor: Colors.white,
+                  title: Text(widget.mediaxObject.filename,
+                      style: TextStyle(
+                          fontFamily: "Trajan Pro",
+                          height: 1.0,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF303030))),
+                  subtitle: Text(widget.mediaxObject.location,
+                      style: TextStyle(
+                          fontFamily: "Trajan Pro",
+                          height: 1.0,
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF303030))),
+                  //trailing: Text(widget.mediaxObject.timestamp),
+                  onTap: () {
+                    //When user clicks the row/tile they go to the song's detail page
+
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) =>
+                                MediaxDetailPage(widget.mediaxObject)));
+                  },
+                ))));
   }
 }
