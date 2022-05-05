@@ -37,7 +37,11 @@ export class CameraComponent implements OnInit {
          console.log(userDevices)
          console.log(this.deviceService.currentDevice)
           this.deviceService.getJetsonIPObservablePerDevice(parseInt(this.currentDeviceId)).subscribe((jetsonIP)=>{
+            jetsonIP = jetsonIP.replace("(", "");
+            jetsonIP = jetsonIP.replace(")", "");
+
             console.log(jetsonIP)
+
             this.deviceService.currentDevice.ip = jetsonIP
             this.videoAddress = "http://" + jetsonIP + ":8000"
             this.deviceIp = jetsonIP
@@ -49,13 +53,15 @@ export class CameraComponent implements OnInit {
     this.currentDeviceId = this.router.snapshot.paramMap.get('id')!;
       this.authService.getLoggedInUser();
         this.deviceService.getJetsonIPObservablePerDevice(parseInt(this.currentDeviceId)).subscribe((jetsonIP)=>{
+          jetsonIP = jetsonIP.replace("(", "");
+          jetsonIP = jetsonIP.replace(")", "");
           console.log(jetsonIP)
           this.deviceService.currentDevice.ip = jetsonIP
           this.videoAddress = "http://" + jetsonIP + ":8000"
           this.deviceIp = jetsonIP
           this.deviceService.setJetsonMotionCapture(jetsonIP, this.currentDeviceId)
         })
-    
+
   }
     this.authService.getLoggedInUser();
     console.log(JSON.stringify(this.deviceService.currentDevice))

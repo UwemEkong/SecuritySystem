@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'about-us', component: AboutUsComponent},
   {path: 'login', component:  LoginComponent},
   {path:'register', component: RegisterComponent},
-  {path:'records', component: RecordsComponent, canActivate: [PathGuard]},
+  {path:'records', component: RecordsComponent},
   {path:'records/:deviceId', component: RecordsComponent, canActivate: [PathGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [PathGuard]},
   {path:'password-reset', component: PasswordResetComponent},

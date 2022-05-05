@@ -1,31 +1,31 @@
 package edu.ben.backend.service;
 
 import edu.ben.backend.exceptions.*;
+import edu.ben.backend.model.Device;
 import edu.ben.backend.model.dto.userDTO;
 import edu.ben.backend.model.preferences;
 import edu.ben.backend.model.user;
+import edu.ben.backend.repository.DeviceRepository;
 import edu.ben.backend.repository.PreferencesRepository;
 import edu.ben.backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class AuthService {
     private Environment env;
-
+    DeviceRepository deviceRepository;
     EmailSenderServ emailSenderService;
     UserService userService;
+    //DeviceService deviceService;
     UserRepository userRepository;
     PreferencesRepository preferencesRepository;
     userDTO loggedInUser;
@@ -33,12 +33,14 @@ public class AuthService {
     userDTO userReset;
     String tokenNew;
 
-    public AuthService(UserRepository userRepository, UserService userService, EmailSenderServ emailSenderService, Environment env, PreferencesRepository preferencesRepository) {
+    public AuthService(UserRepository userRepository, UserService userService, EmailSenderServ emailSenderService, Environment env, PreferencesRepository preferencesRepository, DeviceRepository deviceRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.emailSenderService = emailSenderService;
         this.env = env;
         this.preferencesRepository = preferencesRepository;
+        this.deviceRepository = deviceRepository;
+        //this.deviceService = deviceService;
     }
 
     public userDTO login(String username, String password) {
@@ -107,12 +109,17 @@ public class AuthService {
     }
 
     public userDTO passWordReset(String username, String resetToken) {
+        System.out.println("Username: " + username + " reset: " + resetToken);
+
+        System.out.println("Username: " + username + " reset: " + resetToken);
         System.out.println(resetToken);
         user user = userRepository.findByUsername(username);
         System.out.println(user);
         if (user == null) {
+            System.out.println("HELLO");
             throw new UserNotFoundException();
         } else if (!user.getReset_token().equals(resetToken)) {
+            System.out.println("HI");
                 throw new IncorrectTokenException();
         } else {
             resetUser = new userDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getReset_token());
@@ -148,10 +155,18 @@ public class AuthService {
 
     }
 
-    public void emailWhatHasBeenDetected(String report){
+    public void emailWhatHasBeenDetected(String report, String macAddress) {
         String account = env.getProperty("spring.mail.username");
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(this.getLoggedInUser().getEmail());
+
+        Device dev = this.deviceRepository.getBymacaddress(macAddress);
+        Long userID = dev.getUserid();
+
+        user emailRec = this.userRepository.findById(userID);
+
+
+
+        mailMessage.setTo(emailRec.getEmail());
         mailMessage.setSubject("Motion Detected");
         mailMessage.setFrom(account);
         mailMessage.setText("Hi, your BigBro camera has detected " + report + ".");

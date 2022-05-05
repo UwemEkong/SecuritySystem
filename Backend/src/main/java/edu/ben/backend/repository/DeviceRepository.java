@@ -10,4 +10,6 @@ import java.util.List;
 public interface DeviceRepository  extends JpaRepository<Device, Long> {
     List<Device> findAllByUserid(Long userid);
     Device findByDefaultdevice(boolean isDefault);
+    Device findByMacaddress(String macAddress);
+    Device getBymacaddress(String macaddress);
 }
