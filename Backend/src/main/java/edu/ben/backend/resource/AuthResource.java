@@ -48,7 +48,8 @@ class AuthResource {
 
     @GetMapping("/forgot-password/{username}/{resetToken}")
     public userDTO getToken(@PathVariable String username, @PathVariable String resetToken) {
-
+        System.out.println("Token is: " + resetToken);
+        System.out.println("User is: " + username);
         return this.authenticationService.passWordReset(username, resetToken);
     }
 
@@ -58,10 +59,10 @@ class AuthResource {
         return this.authenticationService.sendEmail(email);
     }
 
-    @GetMapping("/report/{report}")
-    public String reportWhatHasBeenDetected(@PathVariable String report){
+    @GetMapping("/report/{report}/{macAddress}")
+    public String reportWhatHasBeenDetected(@PathVariable String report, @PathVariable String macAddress){
         System.out.println("sending email reporting motion detected");
-        this.authenticationService.emailWhatHasBeenDetected(report);
+        this.authenticationService.emailWhatHasBeenDetected(report, macAddress);
         return "success";
     }
 }

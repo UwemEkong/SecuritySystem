@@ -1,17 +1,18 @@
 div{
-  padding-left:30px;
+  padding-left:5%;
 }
 
 .submit-btn {
-  width:100px;
-  height:45px;
+  width:auto;
+  height:auto;
   background-color: #1877F2;
   color:white;
   font-family: "Helvetica", sans-serif;
   font-size:15px;
   font-weight:bold;
   border:none;
-  border-radius:8px;
+  border-radius:1%;
+
 }
 
 .typewriter h1 {
@@ -38,8 +39,8 @@ div{
 }
 
 select {
-  height:50px;
-  width: 25%;
+  height:auto;
+  width: 40%;
   text-align: center;
   font-family: "Helvetica", sans-serif;
   font-size:20px;
@@ -63,11 +64,11 @@ select {
   font-size:24px;
 }
 
-.motion-preference {
-  font-size: 1em;
-  text-align:center;
-  margin-top:20px;
-}
+//.motion-preference {
+//  font-size: 1em;
+//  text-align:center;
+//  margin-top:2px;
+//}
 
 .switch {
   position: relative;
@@ -176,8 +177,11 @@ ul li:hover {
 .close:hover {background: #bbb;}
 
 button {
-  margin: 10px;
+  margin: 3%;
 
   font-size: 15px;
 }
 
+p {
+  margin: .5%;
+}

@@ -1,34 +1,17 @@
-<br>
-<br>
+
 <br>
 
 <div class="typewriter" >
   <h1>My Preferences<img class="gear" src="https://cdn-icons-png.flaticon.com/512/446/446085.png"></h1>
 </div>
-<br><br><br>
-
-<div class="motion-preference">
-  <h3 class="clear-header">Toggle Motion Capture: </h3>
-
-  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == false" class="switch" (click)="toggleMotion(true)">
-    <input type="checkbox">
-    <span class="slider1 round"></span>
-  </label>
-
-  <label *ngIf="this.preferencesServices.currentUserPrefences.motion == true" class="switch" (click)="toggleMotion(false)">
-    <input type="checkbox">
-    <span class="slider2 round"></span>
-  </label>
-</div>
-<br><br>
-
+<br>
 <div class="clear-preference">
+  <h6>Switch Color Mode</h6>
   <button class="btn btn-outline-primary" (click)="toggleDarkMode()">Dark / Light</button>
 </div>
-<br><br><br>
 
 <div class="clear-preference">
-  <p>Clear My Media Every: </p>
+  <p>Clear My Records Every: </p>
   <select [(ngModel)]="removePeriod">
     <option value="1">1 Minute</option>
     <option value="5">5 Minutes</option>
@@ -41,11 +24,9 @@
     <option value="1440">24 Hours</option>
     <option value="2880">48 Hours</option>
     <option value="0">Never</option>
-  </select><br><br>
+  </select>
   <button class="btn btn-outline-primary" (click)="editPreferencesRemove()">Submit</button>
-</div><br><br>
-
-<br><br>
+</div>
 <div class="clear-preference">
   <p> What font size would you like?</p>
   <p> Font-Size (Pixels): </p>
@@ -91,11 +72,9 @@
     <option value="48">48</option>
     <option value="49">49</option>
     <option value="50">50</option>
-  </select><br><br>
+  </select>
   <button class="btn btn-outline-primary"  (click)="editPreferencesFontSize()">Submit</button>
-</div><br><br>
-
-<br><br>
+</div>
 <div class="clear-preference">
   <p> What image size would you like?</p>
   <p> Image-Size (Pixels): </p>
@@ -110,11 +89,10 @@
     <option value="400">400</option>
     <option value="450">450</option>
     <option value="500">500</option>
-  </select><br><br>
+  </select>
   <button class="btn btn-outline-primary"  (click)="editPreferencesImageSize()">Submit</button>
-</div><br><br>
+</div>
 
-<br><br>
 <div class="clear-preference">
   <p> What video size would you like?</p>
   <p> Video-Size (Pixels): </p>
@@ -129,26 +107,7 @@
     <option value="400">400</option>
     <option value="450">450</option>
     <option value="500">500</option>
-  </select><br><br>
+  </select>
   <button class="btn btn-outline-primary"  (click)="editPreferencesVideoSize()">Submit</button>
 </div>
 
-
-<br><br>
-
-<div class="motion-preference">
-  <h3 class="clear-header">Things to Notify Me About: </h3>
-
-  <input id="addLabel" size=100 class="form-control" aria-describedby="motionHelp" placeholder="Person, car, dog, etc..."><button class="btn btn-outline-primary" (click)="addLabel()" class="submit-btn">Add</button>
-<br><br>
-  <ul *ngFor="let l of listOfLabels; let i = index">
-    
-    <li id="label{{i}}">{{l.text}}<span class="close" 
-      (click)="deleteLabel(l.text,i)">&times;</span></li>
-  
-  </ul>
-  
-</div>
-
-
-<br><br>

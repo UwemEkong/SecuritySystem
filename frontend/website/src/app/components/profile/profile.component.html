@@ -1,24 +1,22 @@
 <div class="row">
   <div class="column" id="left">
-    <div class= "row profile">
-      <div class="col profile">
-        <p><b>Name: </b> {{this.authServ.loggedInUser.firstname + ' ' +  this.authServ.loggedInUser.lastname}}</p>
-        <p><b>Username: </b>{{this.authServ.loggedInUser.username}}</p>
-        <p><b>Email: </b>{{this.authServ.loggedInUser.email}}</p>
-        <button class="btn btn-outline-primary" routerLink="/password-reset">Reset Password</button>
+    <div class="card border-primary mb-3">
+      <h5 class="card-header">Your Account</h5>
+      <div class="card-body">
+        <h5 class="card-title">{{this.authServ.loggedInUser.firstname}} {{this.authServ.loggedInUser.lastname}}</h5>
+        <p class="card-text">Username: {{this.authServ.loggedInUser.username}}</p>
+        <p class="card-text">email: {{this.authServ.loggedInUser.email}}</p>
+        <p class="card-text"> Default device: {{this.deviceService.defaultDevice.name}}</p>
+        <p class="card-text"> Default device ID: {{this.deviceService.defaultDevice.macaddress}}</p>
+        <button type="button" class="btn btn-primary" [routerLink]="['/password-reset']">Change Password</button>
       </div>
-
+    </div>
     </div>
 
-  </div>
   <div class="column" id="center">
-    <br><br>
-    <app-camera></app-camera>
-
-  </div>
-  <div class="column" id="right">
     <app-preferences></app-preferences>
   </div>
 </div>
+
 
 
