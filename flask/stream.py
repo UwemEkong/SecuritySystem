@@ -377,16 +377,6 @@ def thermalizeFrame(frame):
     # Our operations on the frame come here
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
-    #initialize the colormap (jet)
-    # colormap = mpl.cm.jet
-
-    # print(colormap)
-    # #add a normalization
-    # cNorm = mpl.colors.Normalize(vmin=0, vmax=255)
-    # #init the mapping
-    # scalarMap = mtpltcm.ScalarMappable(norm=cNorm, cmap=colormap)
-    
-    # colors = scalarMap.to_rgba(frame)
     blur = cv2.GaussianBlur(gray,(15,15),0)
     colormapped_image = cv2.applyColorMap(blur, cv2.COLORMAP_JET)
 
