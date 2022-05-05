@@ -179,6 +179,7 @@ export class RecordsComponent implements OnInit {
         }
       });
     }
+    this.listOfMediax.reverse()
   }
 
   updateFavorite(mx: Mediax) {
@@ -248,6 +249,17 @@ export class RecordsComponent implements OnInit {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
 
+  }
+
+  openvideomodal(videomodal: any, mxdto: Mediax) {
+    this.currentmx = mxdto;
+    this.titlePlaceholder = this.currentmx.title!
+    this.categoryPlaceholder = this.currentmx.category!
+      this.modalService.open(videomodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
   }
 
   openShareModal(sharemodal: any,mxdto: Mediax) {

@@ -168,6 +168,11 @@
                         (click)="open(imagemodal,mxdto)">
                   Show
                 </button>
+                <button *ngIf="mxdto.isvideo" class="btn btn-outline-primary"
+  
+                (click)="openvideomodal(videomodal,mxdto)">
+          Show
+        </button>
               </td>
   
               <td>
@@ -212,6 +217,22 @@
         </div>
         <div class="modal-body">
           <img width="100%;" [src]="currentmx.url"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Done</button>
+        </div>
+      </ng-template>
+
+      <ng-template #videomodal let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">{{currentmx.filename}}</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <video class="modal-video" controls>
+            <source [src]="currentmx.url" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Done</button>

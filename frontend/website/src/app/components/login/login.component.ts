@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   passwordPlaceholder = "Password"
   @Output() registerEmitter = new EventEmitter<any>();
   showRegister() {
-    this.registerEmitter.emit({showRegisterForm: true, showLoginForm:false})
+    this.router.navigateByUrl("/register")
   }
 
   clearUsername() {
