@@ -31,18 +31,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     getAuthedUser();
     super.initState();
-
-    // _videoPlayerController = VlcPlayerController.network(
-    //   'https://media.w3.org/2010/05/sintel/trailer.mp4',
-    //   autoPlay: false,
-    //   options: VlcPlayerOptions(),
-    // );
-    //_controller = VideoPlayerController.network(
-    // https://10.100.211.233/
-    // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    //);
-
-    //_initializeVideoPlayerFuture = _controller.initialize();
   }
 
   getAuthedUser() async {
