@@ -218,7 +218,7 @@ export class RecordsComponent implements OnInit {
 
   deleteMediax(mediaxDelete: Mediax) {
     this.mediaxServ.deleteMediax(mediaxDelete);
-    this.router.navigateByUrl('/home');
+    this.router.navigate(['/records'], {replaceUrl: true});
   }
 
   rename(mx: Mediax) {
