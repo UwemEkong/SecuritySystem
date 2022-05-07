@@ -1,5 +1,6 @@
 package edu.ben.backend.service;
 
+import edu.ben.backend.GeneratePresignedURL;
 import edu.ben.backend.exceptions.*;
 import edu.ben.backend.model.Device;
 import edu.ben.backend.model.dto.userDTO;
@@ -15,6 +16,7 @@ import org.springframework.mail.SimpleMailMessage;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -155,7 +157,7 @@ public class AuthService {
 
     }
 
-    public void emailWhatHasBeenDetected(String report, String macAddress) {
+    public void emailWhatHasBeenDetected(String report, String macAddress,String nameKey) {
         String os = System.getProperty("os.name");
         if (os.toLowerCase().contains("windows")) {
             macAddress = macAddress.replace(":", "-");
@@ -168,15 +170,27 @@ public class AuthService {
 
         user emailRec = this.userRepository.findById(userID);
 
+        String mediaURL = getAWSUrl(nameKey);
+        
+        String to = emailRec.getEmail();
+        String subject = "Motion Detected";
+        String body = "Hi, your BigBro camera has detected " + report;
+        String from = account;
+        String file = mediaURL;
+        emailSenderService.sendMotionEmail(to, subject, from, body, file);
+        System.out.println("Sent email");
+    }
 
-
-        mailMessage.setTo(emailRec.getEmail());
-        mailMessage.setSubject("Motion Detected");
-        mailMessage.setFrom(account);
-        mailMessage.setText("Hi, your BigBro camera has detected " + report + ".");
-
-        // Send the email
-        emailSenderService.sendEmail(mailMessage);
+    public String getAWSUrl(String namekey) {
+        String path = "";
+        try {
+            path = GeneratePresignedURL.genPresignedURL("mainmediabucket", namekey);
+            System.out.println("path");
+            System.out.println(path);
+        } catch (Exception e) {
+            System.out.println("shooooooooot, couldn't generate presigned url");
+        }
+        return path;
     }
 
 
