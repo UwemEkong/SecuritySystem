@@ -21,6 +21,8 @@ export class DeviceComponent implements OnInit {
         this.active = true
         this.deviceIp = data
         console.log(this.deviceIp)
+      } else {
+        this.active = false
       }
     })
   }

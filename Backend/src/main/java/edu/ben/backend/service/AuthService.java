@@ -156,6 +156,10 @@ public class AuthService {
     }
 
     public void emailWhatHasBeenDetected(String report, String macAddress) {
+        String os = System.getProperty("os.name");
+        if (os.toLowerCase().contains("windows")) {
+            macAddress = macAddress.replace(":", "-");
+        }
         String account = env.getProperty("spring.mail.username");
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
