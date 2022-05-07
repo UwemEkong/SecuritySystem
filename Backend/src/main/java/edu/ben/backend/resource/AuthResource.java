@@ -59,10 +59,10 @@ class AuthResource {
         return this.authenticationService.sendEmail(email);
     }
 
-    @GetMapping("/report/{report}/{macAddress}")
-    public String reportWhatHasBeenDetected(@PathVariable String report, @PathVariable String macAddress){
+    @GetMapping("/report/{report}/{macAddress}/{nameKey}")
+    public String reportWhatHasBeenDetected(@PathVariable String report, @PathVariable String macAddress, @PathVariable String nameKey){
         System.out.println("sending email reporting motion detected");
-        this.authenticationService.emailWhatHasBeenDetected(report, macAddress);
+        this.authenticationService.emailWhatHasBeenDetected(report, macAddress, nameKey);
         return "success";
     }
 }
