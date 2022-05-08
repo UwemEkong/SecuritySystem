@@ -185,11 +185,13 @@ export class RecordsComponent implements OnInit {
       } else {
         this.listOfMediax = listOfMediaxTemp2;
       }
+      this.listOfMediax.reverse()
     });
-
-    this.listOfMediax.reverse()
   }
 
+  downloadVideo(url:string) {
+    window.location.href = url;
+  }
   updateFavorite(mx: Mediax) {
     mx.isfavorite = !mx.isfavorite;
     this.mediaxServ.editMediax(mx);
@@ -202,27 +204,32 @@ export class RecordsComponent implements OnInit {
     mx.shared = !mx.shared;
     mx.title = mediaData.value.title;
     mx.category = this.selectedCategory
-    this.mediaxServ.editShared(mx, this.activatedRouter.snapshot.paramMap.get('deviceId')!);
-    this.getAllMedia();
-    this.startFilter();
+    this.mediaxServ.toggleSharedMedia(mx).subscribe((data) => {
+      this.getAllMediaChronological();
+    })
     this.titlePlaceholder = "Enter Title...";
     this.categoryPlaceholder = "Choose a Category";
   }
 
   unshareMedia(mx: Mediax) {
     mx.shared = !mx.shared;
-    this.mediaxServ.unshareMedia(mx).subscribe((data: Mediax) => {
-      this.getAllMedia();
-      this.startFilter();
+    this.mediaxServ.toggleSharedMedia(mx).subscribe((data) => {
+      this.getAllMediaChronological();
     })
   }
 
+  // get media in reserve chronological order
   getAllMedia() {
     this.mediaxServ.getUserMediax(this.activatedRouter.snapshot.paramMap.get('deviceId')!).subscribe((data: Mediax[]) => {
       this.listOfMediax = data;
       this.listOfMediax.reverse()
       console.log(this.listOfMediax)
     });
+  }
+
+  // get media in chronological order
+  getAllMediaChronological() {
+      this.startFilter()
   }
 
   deleteMediax(mediaxDelete: Mediax) {

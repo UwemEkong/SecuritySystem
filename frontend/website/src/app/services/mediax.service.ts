@@ -13,7 +13,7 @@ import { LocationService } from './location.service';
 export class MediaxService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
-
+  currentMediaInfo = <Mediax>{};
   createMediax(mediax: Mediax) {
     this.httpClient.post<Mediax>('api/mediax/createMediax', mediax).subscribe(() => {
       this.router.navigateByUrl('/records');
@@ -69,9 +69,10 @@ export class MediaxService {
   }
 
 
-  unshareMedia(mediax: Mediax): Observable<Mediax> {
+  toggleSharedMedia(mediax: Mediax): Observable<Mediax> {
     return this.httpClient.post<Mediax>('api/mediax/editShared', mediax)
   }
+  
 
   allSharedMediax: Mediax[] = [];
   getAllSharedMediax() {

@@ -22,6 +22,7 @@ export class CameraComponent implements OnInit {
   videoRef:any;
   videoAddress = ""
   currentDeviceId = ""
+  currentDeviceLocation = ""
   deviceIp = ""
   ngOnInit(): void {
   if (!this.router.snapshot.paramMap.get('id')!) {
@@ -29,6 +30,7 @@ export class CameraComponent implements OnInit {
       this.deviceService.defaultDevice = data
       this.deviceService.currentDevice = data
       this.currentDeviceId = this.deviceService.defaultDevice.id?.toString()!;
+      this.currentDeviceLocation = this.deviceService.defaultDevice.location!;
       console.log("current device id", this.currentDeviceId)
 
       this.deviceService.getAllUserDevicesObservable().subscribe((userDevices)=>{
@@ -60,6 +62,9 @@ export class CameraComponent implements OnInit {
           this.videoAddress = "http://" + jetsonIP + ":8000"
           this.deviceIp = jetsonIP
           this.deviceService.setJetsonMotionCapture(jetsonIP, this.currentDeviceId)
+          this.deviceService.getDeviceById(parseInt(this.currentDeviceId)).subscribe((data)=>{
+              this.currentDeviceLocation = data.location
+          })
         })
 
   }
@@ -79,7 +84,7 @@ export class CameraComponent implements OnInit {
   record() {
     this.http.get(`http://${this.deviceIp}:8000/flsk/record`).subscribe((data: any) =>  {
       let namekey = data["namekey"];
-      let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location:this.locationService.formattedLocation , timestamp:(new Date().toLocaleString()), isfavorite: false, shared:false,title:"",category:"",views:0, deviceid:parseInt(this.currentDeviceId) }
+      let mx:Mediax = {filename: namekey, islocal: false, isvideo: true, pathorkey: namekey, userid: this.authService.loggedInUser.id as number, location:this.currentDeviceLocation , timestamp:(new Date().toLocaleString()), isfavorite: false, shared:false,title:"",category:"",views:0, deviceid:parseInt(this.currentDeviceId) }
       this.mediaxServ.createMediax(mx);
   });
   }

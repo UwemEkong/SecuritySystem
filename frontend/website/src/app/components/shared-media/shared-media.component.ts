@@ -1,5 +1,7 @@
 import { Component, OnInit, Input  } from '@angular/core';
 import { Router } from '@angular/router';
+import { Mediax } from 'src/app/interfaces/Mediax';
+import { MediaxService } from 'src/app/services/mediax.service';
 @Component({
   selector: 'app-shared-media',
   templateUrl: './shared-media.component.html',
@@ -7,39 +9,33 @@ import { Router } from '@angular/router';
 })
 export class SharedMediaComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private mediaService:MediaxService) { }
 
   ngOnInit(): void {
     this.chooseCategoryImage();
-    console.log(this.mediaURL)
+    console.log(this.media!.url)
   }
 
   chooseCategoryImage() {
-    if (this.category == "Crime") {
+    if (this.media!.category == "Crime") {
       this.category_image = this.crime_img
-    } else if (this.category == "Safety") {
+    } else if (this.media!.category == "Safety") {
       this.category_image = this.safety_img
-    } else if (this.category == "Animal") {
+    } else if (this.media!.category == "Animal") {
       this.category_image = this.animal_img
-    }else if (this.category == "Environmental") {
+    }else if (this.media!.category == "Environmental") {
       this.category_image = this.environmental_img
-    }else if (this.category == "Community") {
+    }else if (this.media!.category == "Community") {
       this.category_image = this.community_img
     }
   }
 
   openMediaInfo() {
-    this.router.navigateByUrl((`/media-info/${this.id}`))
+    this.mediaService.currentMediaInfo = this.media!
+    this.router.navigateByUrl((`/media-info/${this.media!.id}`))
   }
 
-  @Input() title: string | undefined
-  @Input() timestamp: string | undefined
-  @Input() category: string | undefined
-  @Input() views: number | undefined
-  @Input() location: string | undefined
-  @Input() path: string | undefined
-  @Input() id: number | undefined
-  @Input() mediaURL: string| undefined
+  @Input() media: Mediax | undefined
 
   category_image = ""
 
