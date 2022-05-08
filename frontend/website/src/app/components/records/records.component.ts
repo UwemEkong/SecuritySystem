@@ -38,7 +38,7 @@ export class RecordsComponent implements OnInit {
               private _sanitizer: DomSanitizer,
               private calendar: NgbCalendar,
               public formatter: NgbDateParserFormatter,
-              private activatedRouter:ActivatedRoute) {
+              private activatedRouter: ActivatedRoute) {
   }
 
   listOfMediax: Mediax[] = [];
@@ -50,6 +50,7 @@ export class RecordsComponent implements OnInit {
   videos = true;
   images = true;
   deviceId = ""
+  
   ngOnInit(): void {
     this.getAllMedia();
     this.resetFilter();
@@ -107,87 +108,94 @@ export class RecordsComponent implements OnInit {
     let fromDate: Date = new Date(Number(this.fromDate?.year), Number(this.fromDate?.month) - 1, this.fromDate?.day);
     let toDate: Date = new Date(Number(this.toDate?.year), Number(this.toDate?.month) - 1, this.toDate?.day);
 
-    // search within 2 different dates
-    if (this.fromDate != null) {
-      if (this.toDate == null) {
-        toDate = fromDate;
+    this.mediaxServ.getUserMediax(this.activatedRouter.snapshot.paramMap.get('deviceId')!).subscribe((data: Mediax[]) => {
+
+      // search with no data paramaters set (default settings like when you first visit the page)
+      if (this.fromDate == null && this.toDate == null) {
+        fromDate = new Date(1000, 5, 5);
+        toDate = new Date(3000, 5, 5);
       }
 
-      this.mediaxServ.getUserMediax(this.activatedRouter.snapshot.paramMap.get('deviceId')!).subscribe((data: Mediax[]) => {
-        let listOfMediaxTemp1 = data;
-        console.log(listOfMediaxTemp1)
-        let listOfMediaxTemp2: Mediax[] = [];
-        let listOfMediaxFavoritesTemp3: Mediax[] = [];
+      // search within 2 different dates
+      if (this.fromDate != null) {
+        if (this.toDate == null) {
+          toDate = fromDate;
+        }
+      }
 
+      let listOfMediaxTemp1 = data;
+      console.log(listOfMediaxTemp1)
+      let listOfMediaxTemp2: Mediax[] = [];
+      let listOfMediaxFavoritesTemp3: Mediax[] = [];
 
-        for (let i = 0; i < listOfMediaxTemp1.length; i++) {
+      for (let i = 0; i < listOfMediaxTemp1.length; i++) {
 
-          // get Media time for comparison
-          let firstSlash = listOfMediaxTemp1[i].timestamp.indexOf("/");
-          let secondSlash = listOfMediaxTemp1[i].timestamp.indexOf("/", firstSlash + 1);
-          let comma = listOfMediaxTemp1[i].timestamp.indexOf(",");
-          let firstColon = listOfMediaxTemp1[i].timestamp.indexOf(":");
-          let secondColon = listOfMediaxTemp1[i].timestamp.indexOf(":", firstColon + 1);
-          let mediaDay = parseInt(listOfMediaxTemp1[i].timestamp.substring(firstSlash + 1, secondSlash));
-          let mediaMonth = parseInt(listOfMediaxTemp1[i].timestamp.substring(0, firstSlash));
-          let mediaYear = parseInt(listOfMediaxTemp1[i].timestamp.substring(secondSlash + 1, secondSlash + 5));
-          let mediaHour = parseInt(listOfMediaxTemp1[i].timestamp.substring(comma + 2, firstColon));
-          let mediaMinute = parseInt(listOfMediaxTemp1[i].timestamp.substring(firstColon + 1, secondColon));
-          let mediaSecond = parseInt(listOfMediaxTemp1[i].timestamp.substring(secondColon + 1, secondColon + 3));
-          if (listOfMediaxTemp1[i].timestamp.slice(-2) === "PM" && mediaHour < 12) {
-            mediaHour = mediaHour + 12
+        // get Media time for comparison
+        let firstSlash = listOfMediaxTemp1[i].timestamp.indexOf("/");
+        let secondSlash = listOfMediaxTemp1[i].timestamp.indexOf("/", firstSlash + 1);
+        let comma = listOfMediaxTemp1[i].timestamp.indexOf(",");
+        let firstColon = listOfMediaxTemp1[i].timestamp.indexOf(":");
+        let secondColon = listOfMediaxTemp1[i].timestamp.indexOf(":", firstColon + 1);
+        let mediaDay = parseInt(listOfMediaxTemp1[i].timestamp.substring(firstSlash + 1, secondSlash));
+        let mediaMonth = parseInt(listOfMediaxTemp1[i].timestamp.substring(0, firstSlash));
+        let mediaYear = parseInt(listOfMediaxTemp1[i].timestamp.substring(secondSlash + 1, secondSlash + 5));
+        let mediaHour = parseInt(listOfMediaxTemp1[i].timestamp.substring(comma + 2, firstColon));
+        let mediaMinute = parseInt(listOfMediaxTemp1[i].timestamp.substring(firstColon + 1, secondColon));
+        let mediaSecond = parseInt(listOfMediaxTemp1[i].timestamp.substring(secondColon + 1, secondColon + 3));
+        if (listOfMediaxTemp1[i].timestamp.slice(-2) === "PM" && mediaHour < 12) {
+          mediaHour = mediaHour + 12
+        }
+        if (listOfMediaxTemp1[i].timestamp.slice(-2) === "AM") {
+          if (mediaHour == 12) {
+            mediaHour = 0;
           }
-          if (listOfMediaxTemp1[i].timestamp.slice(-2) === "AM") {
-            if (mediaHour == 12) {
-              mediaHour = 0;
-            }
-          }
-          // @ts-ignore
-          let mediaDate: Date = new Date(Number(mediaYear), Number(mediaMonth) - 1, mediaDay);
+        }
+        // @ts-ignore
+        let mediaDate: Date = new Date(Number(mediaYear), Number(mediaMonth) - 1, mediaDay);
 
-          // compare dates/times for filtering
-          if (mediaDate.getTime() >= fromDate.getTime() && mediaDate.getTime() <= toDate.getTime()) {
-            if ((this.fromTime.hour * 60 + this.fromTime.minute) <= (mediaHour * 60 + mediaMinute) && (this.toTime.hour * 60 + this.toTime.minute) >= (mediaHour * 60 + mediaMinute)) {
-              listOfMediaxTemp2.push(listOfMediaxTemp1[i])
+        // compare dates/times for filtering
+        if (mediaDate.getTime() >= fromDate.getTime() && mediaDate.getTime() <= toDate.getTime()) {
+          if ((this.fromTime.hour * 60 + this.fromTime.minute) <= (mediaHour * 60 + mediaMinute) && (this.toTime.hour * 60 + this.toTime.minute) >= (mediaHour * 60 + mediaMinute)) {
+            listOfMediaxTemp2.push(listOfMediaxTemp1[i])
 
-              if (!this.videos) {
-                if (listOfMediaxTemp1[i].isvideo) {
-                  listOfMediaxTemp2.pop()
-                }
+            if (!this.videos) {
+              if (listOfMediaxTemp1[i].isvideo) {
+                listOfMediaxTemp2.pop()
               }
-              if (!this.images) {
-                if (!listOfMediaxTemp1[i].isvideo) {
-                  listOfMediaxTemp2.pop()
-                }
+            }
+            if (!this.images) {
+              if (!listOfMediaxTemp1[i].isvideo) {
+                listOfMediaxTemp2.pop()
               }
             }
           }
         }
+      }
 
-        for (let i = 0; i < listOfMediaxTemp2.length; i++) {
-          if (this.favorites) {
-            if (listOfMediaxTemp2[i].isfavorite) {
-              listOfMediaxFavoritesTemp3.push(listOfMediaxTemp2[i])
-            }
-          }
-        }
-
+      for (let i = 0; i < listOfMediaxTemp2.length; i++) {
         if (this.favorites) {
-          this.listOfMediax = listOfMediaxFavoritesTemp3;
-        } else {
-          this.listOfMediax = listOfMediaxTemp2;
+          if (listOfMediaxTemp2[i].isfavorite) {
+            listOfMediaxFavoritesTemp3.push(listOfMediaxTemp2[i])
+          }
         }
-      });
-    }
-    this.listOfMediax.reverse()
+      }
+
+      if (this.favorites) {
+        this.listOfMediax = listOfMediaxFavoritesTemp3;
+      } else {
+        this.listOfMediax = listOfMediaxTemp2;
+      }
+    });
+
+    // this.listOfMediax.reverse()
   }
 
   updateFavorite(mx: Mediax) {
     mx.isfavorite = !mx.isfavorite;
     this.mediaxServ.editMediax(mx);
-    alert("Favorite Setting Changed Successfully!!");
+    // alert("Favorite Setting Changed Successfully!!");
 
-    this.startFilter()
+    // this.startFilter()
   }
 
   updateShared(mx: Mediax, mediaData: any) {
@@ -203,7 +211,7 @@ export class RecordsComponent implements OnInit {
 
   unshareMedia(mx: Mediax) {
     mx.shared = !mx.shared;
-    this.mediaxServ.unshareMedia(mx).subscribe((data: Mediax) =>{
+    this.mediaxServ.unshareMedia(mx).subscribe((data: Mediax) => {
       this.getAllMedia();
       this.startFilter();
     })
@@ -243,11 +251,11 @@ export class RecordsComponent implements OnInit {
     this.currentmx = mxdto;
     this.titlePlaceholder = this.currentmx.title!
     this.categoryPlaceholder = this.currentmx.category!
-      this.modalService.open(imagemodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
+    this.modalService.open(imagemodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
 
   }
 
@@ -255,28 +263,29 @@ export class RecordsComponent implements OnInit {
     this.currentmx = mxdto;
     this.titlePlaceholder = this.currentmx.title!
     this.categoryPlaceholder = this.currentmx.category!
-      this.modalService.open(videomodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
+    this.modalService.open(videomodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
-  openShareModal(sharemodal: any,mxdto: Mediax) {
+  openShareModal(sharemodal: any, mxdto: Mediax) {
     this.currentmx = mxdto;
     // this.titlePlaceholder = this.currentmx.title!
     // this.categoryPlaceholder = this.currentmx.category!
-      this.modalService.open(sharemodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
+    this.modalService.open(sharemodal, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
+
   titlePlaceholder = "Enter Title...";
   categoryPlaceholder = "Choose a Category";
   selectedCategory = ""
 
-  setCategory(category:string) {
+  setCategory(category: string) {
     this.categoryPlaceholder = category
     this.selectedCategory = category
   }
