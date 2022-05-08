@@ -1,22 +1,22 @@
 <div class="card custom-card">
   <video class="card-video" controls>
-    <source [src]="mediaURL" type="video/mp4">
+    <source [src]="media!.url" type="video/mp4">
   Your browser does not support the video tag.
   </video>
     <div class="card-body">
       <div class="row">
         <div class="col">
-            <p class="card-text">{{timestamp | date }}</p>
+            <p class="card-text">{{media!.timestamp | date }}</p>
         </div>
         <div class="col">
-            <p class="card-text">{{location! | location}}</p>
+            <p class="card-text">{{media!.location! | location}}</p>
         </div>
         <div class="col">
-            <p class="card-text">{{views}} views</p>
+            <p class="card-text">{{media!.views}} views</p>
         </div>
       </div>
-      <h5 class="card-title cstm-card-title">{{title}}</h5>
-      <div class="cstm-card-category">Category: <b class="category-bubble">{{category}}</b></div>
+      <h5 class="card-title cstm-card-title">{{media!.title}}</h5>
+      <div class="cstm-card-category">Category: <b class="category-bubble">{{media!.category}}</b></div>
       <a (click)="openMediaInfo()" class="btn btn-primary">More Info</a>
     </div>
   </div>

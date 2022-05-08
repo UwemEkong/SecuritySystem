@@ -179,11 +179,12 @@
                 <button class="btn btn-outline-primary" (click)="rename(mxdto)">Rename</button>
               </td>
   
-  
-              <td>
-                <a class="btn btn-outline-primary" href="{{mxdto.url}}" target="_blank" rel="noopener noreferrer"
-                   download="{{mxdto.url}}">Download</a>
-              </td>
+              <!-- Does not work with .ogg file type -->
+              <!-- <td>
+                <a class="btn btn-outline-primary" [href]="mxdto.url" [download]="mxdto.url">
+                  Download
+                </a>
+              </td> -->
   
               <td>
                 <button class="btn btn-outline-danger" (click)="deleteMediax(mxdto)">Delete</button>
@@ -247,9 +248,11 @@
         <div class="modal-body">
           <form #mediaData="ngForm" (ngSubmit)="updateShared(currentmx, mediaData)" novalidate>
 
+            <div class="form-group container-fluid">
+            <label class="label-cstm" for="title">Media Title</label>
             <input (click)="clearTitle()" class="form-control login-input" name="title" value="title" id="title"
                    ngModel="{{titlePlaceholder}}"><br>
-
+            </div>
 
             <div class="dropdown dropdown-cont">
               <button class="btn btn-secondary dropdown-toggle dropdown-cstm-toggle" type="button"
@@ -265,8 +268,8 @@
               </div>
             </div>
 
-            <div class="container-fluid submit-cont">
-              <button class="btn btn-primary share-btn">Share Media</button>
+            <div class="submit-cont">
+              <button class="btn btn-primary share-btn" (click)="modal.close('Save click')">Share</button>
             </div>
           </form>
         </div>

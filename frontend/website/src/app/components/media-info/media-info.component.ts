@@ -11,7 +11,7 @@ import { MediaxService } from 'src/app/services/mediax.service';
 })
 export class MediaInfoComponent implements OnInit {
 
-  constructor(private router:ActivatedRoute, private mediaxService: MediaxService, private locationService:LocationService) { }
+  constructor(private router:ActivatedRoute, public mediaxService: MediaxService, private locationService:LocationService) { }
 
   ngOnInit(): void {
     this.queryParamId = this.router.snapshot.paramMap.get('id')!;
@@ -83,5 +83,13 @@ export class MediaInfoComponent implements OnInit {
         })
       })
     })
+  }
+  
+  hasViewed = false
+  updateViews($event:any) {
+    if (!this.hasViewed) {
+      this.downloadMedia()
+      this.hasViewed = !this.hasViewed
+    }
   }
 }
