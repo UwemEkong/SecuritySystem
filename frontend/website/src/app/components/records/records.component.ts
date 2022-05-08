@@ -187,7 +187,7 @@ export class RecordsComponent implements OnInit {
       }
     });
 
-    // this.listOfMediax.reverse()
+    this.listOfMediax.reverse()
   }
 
   updateFavorite(mx: Mediax) {
@@ -220,13 +220,14 @@ export class RecordsComponent implements OnInit {
   getAllMedia() {
     this.mediaxServ.getUserMediax(this.activatedRouter.snapshot.paramMap.get('deviceId')!).subscribe((data: Mediax[]) => {
       this.listOfMediax = data;
+      this.listOfMediax.reverse()
       console.log(this.listOfMediax)
     });
   }
 
   deleteMediax(mediaxDelete: Mediax) {
     this.mediaxServ.deleteMediax(mediaxDelete);
-    this.router.navigate(['/records'], {replaceUrl: true});
+    this.getAllMedia()
   }
 
   rename(mx: Mediax) {
