@@ -15,7 +15,7 @@ export class PreferencesService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   removePeriod = 0;
-  fontSizeSetting = 14;
+  fontSizeSetting = 15;
   imageSizeSetting = 300;
   videoSizeSetting = 300;
   darkModeSetting = false;
@@ -35,7 +35,7 @@ export class PreferencesService {
 
   deleteLabel(text:string) {
     this.httpClient.post<string>('api/preferences/deleteLabel',text).subscribe();
-    
+
   }
 
   editPreferencesRemove(preferences:Preferences) {
