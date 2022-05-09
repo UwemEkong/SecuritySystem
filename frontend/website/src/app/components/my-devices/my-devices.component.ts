@@ -17,8 +17,8 @@ export class MyDevicesComponent implements OnInit {
     this.deviceService.getAllUserDevices()
   }
   
-  macAddPlaceholder = "Enter Mac Address"
-  namePlaceholder = "Enter device name"
+  macAddPlaceholder = "Enter Device ID"
+  namePlaceholder = "Enter Device Name"
 
   clearMacAddPlaceholder() {
     this.macAddPlaceholder = ""

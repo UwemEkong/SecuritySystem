@@ -14,9 +14,11 @@
     <div class="modal-body">
       <form #deviceData="ngForm" (ngSubmit)="createDevice(deviceData)" novalidate>
 
+        <label for="macaddress">Device ID</label>
         <input (click)="clearMacAddPlaceholder()" class="form-control login-input" name="macaddress" value="macaddress" id="macaddress"
                ngModel="{{macAddPlaceholder}}"><br>
 
+        <label for="name">Device Name</label>
         <input (click)="clearNamePlaceholder()" class="form-control login-input" name="name" value="name" id="name"
                ngModel="{{namePlaceholder}}"><br>
 
