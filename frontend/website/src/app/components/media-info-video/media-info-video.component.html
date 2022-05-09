@@ -1,7 +1,10 @@
 <div class="row info-cont">
     <div class="col-7 card-col">
         <div class="card custom-card">
-              <img [src]="mediaxService.currentMediaInfo!.url">
+          <video (play)="updateViews($event)" id="video-player" controls>
+                <source [src]="mediaxService.currentMediaInfo!.url" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
             <div class="card-body">
               <div class="row">
                 <div class="col">

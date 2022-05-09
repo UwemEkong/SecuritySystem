@@ -17,6 +17,7 @@ import {PathGuard} from "./components/guards/path.guard";
 import { NeighborsComponent } from './components/neighbors/neighbors.component';
 import { MediaInfoComponent } from './components/media-info/media-info.component';
 import { MyDevicesComponent } from './components/my-devices/my-devices.component';
+import { MediaInfoVideoComponent } from './components/media-info-video/media-info-video.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: 'neighbors', component: NeighborsComponent, canActivate: [PathGuard]},
   {path: 'devices', component: MyDevicesComponent, canActivate: [PathGuard]},
   {path: 'media-info/:id', component: MediaInfoComponent, canActivate: [PathGuard]},
+  {path: 'media-info-video/:id', component: MediaInfoVideoComponent, canActivate: [PathGuard]},
   {path: '**', component: HomeComponent},
 
 

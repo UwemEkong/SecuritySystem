@@ -35,6 +35,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MyDevicesComponent } from './components/my-devices/my-devices.component';
 import { DeviceComponent } from './components/device/device.component';
 import { RecordComponent } from './components/record/record.component';
+import { MediaInfoVideoComponent } from './components/media-info-video/media-info-video.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { RecordComponent } from './components/record/record.component';
     UserCommentComponent,
     MyDevicesComponent,
     DeviceComponent,
-    RecordComponent
+    RecordComponent,
+    MediaInfoVideoComponent
   ],
   imports: [
     FormsModule,
