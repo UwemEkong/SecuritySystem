@@ -93,9 +93,8 @@ export class PreferencesComponent implements OnInit {
     let preferences:Preferences = {userid: this.authService.loggedInUser.id, dark: this.preferencesServices.darkModeSetting}
     this.preferencesServices.editPreferencesDark(preferences);
 
-    alert("Dark Mode Setting Changed Successfully!!");
-
-    // this.router.navigateByUrl('/home');
+    //alert("Dark Mode Setting Changed Successfully!!");
+    //this.router.navigateByUrl('/profile');
   }
 
   getAllLabels() {
