@@ -50,7 +50,7 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <form #deviceData="ngForm" (ngSubmit)="updateDevice(deviceData)" novalidate>
+        <form #deviceData="ngForm" (ngSubmit)="updateDevice(deviceData, modal)" novalidate>
             <label class="form-label" for="name">Device Name</label>
             <input class="form-control login-input" name="name" value="name" id="name" ngModel="{{name}}"><br>
             <label class="form-label" for="macaddress">Device ID</label>
@@ -86,7 +86,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="deleteDevice(deletionModal)">Confirm</button>
+        <button type="button" class="btn btn-outline-dark" (click)="deleteDevice(modal)">Confirm</button>
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
     </div>
 </ng-template>

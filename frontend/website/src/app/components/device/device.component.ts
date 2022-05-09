@@ -72,7 +72,7 @@ export class DeviceComponent implements OnInit {
     });
   }
 
-  updateDevice(deviceData: any) {
+  updateDevice(deviceData: any, modal:any) {
     console.log(this.deviceID)
     this.deviceService.editDevice({
       id: this.deviceID,
@@ -87,6 +87,7 @@ export class DeviceComponent implements OnInit {
       this.deviceService.getAllUserDevices()
       this.deviceService.initializeDefaultDevice()
       this.deviceService.setJetsonMotionCapture(this.deviceIp, this.deviceID?.toString() as string)
+      modal.close('Save click')
     })
   }
 
