@@ -1,8 +1,9 @@
 <div class="card custom-card">
-  <video class="card-video" controls>
+  <video *ngIf="media!.isvideo" class="card-video" controls>
     <source [src]="media!.url" type="video/mp4">
   Your browser does not support the video tag.
   </video>
+  <img *ngIf="!media!.isvideo" [src]="media!.url">
     <div class="card-body">
       <div class="row">
         <div class="col">

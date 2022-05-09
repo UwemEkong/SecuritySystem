@@ -5,12 +5,11 @@ import { LocationService } from 'src/app/services/location.service';
 import { MediaxService } from 'src/app/services/mediax.service';
 
 @Component({
-  selector: 'app-media-info',
-  templateUrl: './media-info.component.html',
-  styleUrls: ['./media-info.component.scss']
+  selector: 'app-media-info-video',
+  templateUrl: './media-info-video.component.html',
+  styleUrls: ['./media-info-video.component.scss']
 })
-export class MediaInfoComponent implements OnInit {
-
+export class MediaInfoVideoComponent implements OnInit {
   constructor(private router:ActivatedRoute, public mediaxService: MediaxService, private locationService:LocationService) { }
 
   ngOnInit(): void {
@@ -35,7 +34,6 @@ export class MediaInfoComponent implements OnInit {
         });
       })
       this.chooseCategoryImage()
-      this.downloadMedia()
     })
     console.log(this.mediaxService.currentMediaInfo!.url)
   }

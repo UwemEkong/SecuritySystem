@@ -32,7 +32,11 @@ export class SharedMediaComponent implements OnInit {
 
   openMediaInfo() {
     this.mediaService.currentMediaInfo = this.media!
-    this.router.navigateByUrl((`/media-info/${this.media!.id}`))
+    if (!this.media?.isvideo) {
+      this.router.navigateByUrl((`/media-info/${this.media!.id}`))
+    } else {
+      this.router.navigateByUrl((`/media-info-video/${this.media!.id}`))
+    }
   }
 
   @Input() media: Mediax | undefined
